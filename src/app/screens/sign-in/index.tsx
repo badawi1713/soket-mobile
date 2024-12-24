@@ -56,7 +56,6 @@ const Screen = () => {
 				navigation,
 				(error) => {
 					const errorData = error.response?.data as ErrorResponse;
-					console.log('error', errorData?.message);
 					setError('username', {
 						message: errorData?.message || 'Sorry, something went wrong. Try again later.',
 					});

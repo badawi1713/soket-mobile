@@ -76,7 +76,6 @@ const TextInput: FC<TextInputProps> = ({
             : isFocused
             ? 'border-primary-main'
             : 'border-neutral-dark',
-          'bg-light-mode dark:bg-dark-mode' // Adjust for light/dark mode
         )}
         style={{
           height: moderateScale(48), // Consistent height regardless of icon
@@ -111,8 +110,8 @@ const TextInput: FC<TextInputProps> = ({
             'flex-1 font-oxanium',
             error
               ? 'text-error-main'
-              : 'text-gray-900 dark:text-gray-200', // Adjust for dark mode
-            isFocused && 'text-black dark:text-white'
+              : 'text-gray-900 ', // Adjust for dark mode
+            isFocused && 'text-black '
           )}
           style={{
             fontSize: moderateScale(16), // Dynamic font size

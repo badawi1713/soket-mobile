@@ -36,17 +36,17 @@ const RootLayout = () => {
 				if (navigationRef.isReady()) {
 					setTimeout(() => {
 						reset('home');
-					}, 500);
+					}, 1000);
 				}
 			} catch (error) {
-				console.error('Token validation failed:', error);
+				console.log('Token validation failed:', error);
 				setUser(null);
 				// biome-ignore lint/performance/noDelete: <explanation>
 				delete axios.defaults.headers.common.Authorization;
 				if (navigationRef.isReady()) {
 					setTimeout(() => {
 						reset('login');
-					}, 500);
+					}, 1000);
 				}
 			}
 		} else {
@@ -55,7 +55,7 @@ const RootLayout = () => {
 			if (navigationRef.isReady()) {
 				setTimeout(() => {
 					reset('login');
-				}, 500);
+				}, 1000);
 			}
 		}
 
