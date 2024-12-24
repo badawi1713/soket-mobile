@@ -78,9 +78,9 @@ const Screen = () => {
 				{/* Username Field */}
 				<View className="px-4 justify-end flex-1">
 					<View className="mb-5">
-						<Typography variant="header6">
+						<Typography variant="header5">
 							Welcome to
-							<Typography variant="header6" className="text-primary-main">
+							<Typography variant="header5" className="text-primary-main">
 								{' '}
 								SOKET
 							</Typography>
