@@ -1,17 +1,17 @@
 module.exports = {
-  presets: ["module:@react-native/babel-preset", "nativewind/babel"],
+  presets: ['module:@react-native/babel-preset', 'nativewind/babel'],
   plugins: [
     [
-      "module-resolver",
+      'module-resolver',
       {
-        root: ["./"],
+        root: ['./'],
         alias: {
-          "@": "./src", // Ensure this matches your `src` directory
+          '@': './src', // Ensure this matches your `src` directory
         },
       },
     ],
     [
-      "react-native-reanimated/plugin",
+      'react-native-reanimated/plugin',
       {
         relativeSourceLocation: true,
       },

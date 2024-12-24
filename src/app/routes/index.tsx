@@ -1,12 +1,27 @@
-import { View, Text, SafeAreaView } from "react-native";
-import React from "react";
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { AuthProvider } from '@/context/AuthContext';
+import LoginScreen from '@/app/screens/sign-in';
+import HomeScreen from '@/app/screens/home';
 
-const Root = () => {
+const Stack = createStackNavigator();
+
+const AppNavigation = () => (
+	<Stack.Navigator initialRouteName="Sign-In">
+		<Stack.Screen name="Sign-In" component={LoginScreen} options={{ headerShown: false }} />
+		<Stack.Screen name="Home" component={HomeScreen} />
+	</Stack.Navigator>
+);
+
+const RootLayout = () => {
 	return (
-		<SafeAreaView className="bg-red-400 flex-1 justify-center items-center text-center">
-			<Text>Root</Text>
-		</SafeAreaView>
+		<NavigationContainer>
+			<AuthProvider>
+				<AppNavigation />
+			</AuthProvider>
+		</NavigationContainer>
 	);
 };
 
-export default Root;
+export default RootLayout;

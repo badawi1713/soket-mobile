@@ -8,5 +8,5 @@ export const SETTINGS = {
 	registerEndpoint: '/jwt/register',
 	storageTokenKeyName: 'accessToken',
 	onTokenExpiration: 'refreshToken', // logout | refreshToken
-	logoutEndpoint: '/service/identity/user/logout'
+	logoutEndpoint: '/service/identity/user/logout',
 };
