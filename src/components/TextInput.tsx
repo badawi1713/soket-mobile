@@ -1,0 +1,176 @@
+import { COLORS } from "@//constants/colors";
+import { Ionicons } from "@expo/vector-icons";
+import { clsx } from "clsx";
+import type React from "react";
+import { type FC, useState } from "react"
+import {
+  TextInput as RNTextInput,
+  type TextInputProps as RNTextInputProps,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { moderateScale, scale } from "react-native-size-matters";
+import Typography from "./Typography";
+
+interface TextInputProps extends RNTextInputProps {
+  label?: string; // Optional label
+  error?: string; // Error message
+  helperText?: string; // Helper text below input
+  icon?: keyof typeof Ionicons.glyphMap; // Optional icon name (from Ionicons)
+  onIconPress?: () => void; // Optional handler for icon press
+  iconPosition?: "left" | "right"; // Icon position (left or right)
+  inputRef?: React.Ref<RNTextInput>; // Reference for TextInput
+}
+
+const TextInput: FC<TextInputProps> = ({
+  label,
+  error,
+  helperText,
+  icon,
+  onIconPress,
+  iconPosition = "left", // Default to "left"
+  inputRef,
+  style,
+  onBlur, // Prop for onBlur handling
+  onFocus, // Prop for onFocus handling
+  ...props
+}) => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = (event: any) => {
+    setIsFocused(true);
+    onFocus?.(event); // Call parent onFocus if provided
+  };
+
+  const handleBlur = (event: any) => {
+    setIsFocused(false);
+    onBlur?.(event); // Call parent onBlur if provided
+  };
+
+  return (
+    <View className="mb-4">
+      {/* Label */}
+      {label && (
+        <Typography
+          className={clsx(
+            "mb-1 font-oxanium-medium",
+            error
+              ? "text-error-main"
+              : isFocused
+              ? "text-primary-main"
+              : "text-gray-700"
+          )}
+          variant="label"
+        >
+          {label}
+        </Typography>
+      )}
+
+      {/* Input Container */}
+      <View
+        className={clsx(
+          "flex-row items-center rounded-md border",
+          error
+            ? "border-error-main"
+            : isFocused
+            ? "border-primary-main"
+            : "border-neutral-dark",
+          "bg-light-mode dark:bg-dark-mode" // Adjust for light/dark mode
+        )}
+        style={{
+          height: moderateScale(48), // Consistent height regardless of icon
+          paddingHorizontal: scale(10), // Horizontal scaling for padding
+        }}
+      >
+        {/* Icon on the Left */}
+        {icon && iconPosition === "left" && (
+          <TouchableOpacity
+            onPress={onIconPress}
+            activeOpacity={0.8}
+            className="mr-2"
+          >
+            <Ionicons
+              name={icon}
+              size={moderateScale(20)} // Dynamic icon size
+              color={
+                error
+                  ? COLORS.error.main
+                  : isFocused
+                  ? COLORS.primary.main
+                  : COLORS.neutral.main
+              } // Dynamic color
+            />
+          </TouchableOpacity>
+        )}
+
+        {/* Input Field */}
+        <RNTextInput
+          ref={inputRef} // Ref forwarding
+          className={clsx(
+            "flex-1 font-oxanium",
+            error
+              ? "text-error-main"
+              : "text-gray-900 dark:text-gray-200", // Adjust for dark mode
+            isFocused && "text-black dark:text-white"
+          )}
+          style={{
+            fontSize: moderateScale(16), // Dynamic font size
+          }}
+          placeholderTextColor={
+            error
+              ? COLORS.error.main
+              : COLORS.black[100] // Placeholder color
+          }
+          onFocus={handleFocus} // Handle focus
+          onBlur={handleBlur} // Handle blur
+          {...props}
+        />
+
+        {/* Icon on the Right */}
+        {icon && iconPosition === "right" && (
+          <TouchableOpacity
+            onPress={onIconPress}
+            activeOpacity={0.8}
+            className="ml-2"
+          >
+            <Ionicons
+              name={icon}
+              size={moderateScale(20)} // Dynamic icon size
+              color={
+                error
+                  ? COLORS.error.main
+                  : isFocused
+                  ? COLORS.primary.main
+                  : COLORS.neutral.main
+              } // Dynamic color
+            />
+          </TouchableOpacity>
+        )}
+      </View>
+
+      {/* Error Text */}
+      {error && (
+        <Typography
+          className="mt-1 font-oxanium"
+          variant="caption"
+          color={COLORS.error.main}
+        >
+          {error}
+        </Typography>
+      )}
+
+      {/* Helper Text */}
+      {!error && helperText && (
+        <Typography
+          className="mt-1 font-oxanium"
+          variant="caption"
+          color={COLORS.neutral.dark}
+        >
+          {helperText}
+        </Typography>
+      )}
+    </View>
+  );
+};
+
+export default TextInput;
