@@ -1,18 +1,19 @@
-import { Ionicons } from "@expo/vector-icons";
-import { clsx } from "clsx";
-import React, { FC } from "react";
-import { StyleProp, TouchableOpacity, ViewStyle } from "react-native";
-import { moderateScale, scale, verticalScale } from "react-native-size-matters";
-import Typography from "./Typography";
+import Ionicons from '@react-native-vector-icons/ionicons';
+import { clsx } from 'clsx';
+import type React from 'react';
+import type { FC } from 'react';
+import { type StyleProp, TouchableOpacity, type ViewStyle } from 'react-native';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import Typography from './Typography';
 
 interface ChipProps {
   text: string; // Chip label
   onPress?: () => void; // Action when the chip is pressed
   onClose?: () => void; // Action when close icon is pressed
-  size?: "small" | "medium" | "large"; // Size of the chip
-  variant?: "contained" | "outlined"; // Style of the chip
-  color?: "primary" | "secondary" | "success" | "error" | "info" | "warning"; // Color variant
-  icon?: keyof typeof Ionicons.glyphMap; // Optional leading icon
+  size?: 'small' | 'medium' | 'large'; // Size of the chip
+  variant?: 'contained' | 'outlined'; // Style of the chip
+  color?: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'; // Color variant
+  icon?: React.ComponentProps<typeof Ionicons>['name']; // Optional leading icon
   style?: StyleProp<ViewStyle>; // Additional custom styles
 }
 
@@ -20,37 +21,37 @@ const Chip: FC<ChipProps> = ({
   text,
   onPress,
   onClose,
-  size = "medium",
-  variant = "contained",
-  color = "primary",
+  size = 'medium',
+  variant = 'contained',
+  color = 'primary',
   icon,
   style,
 }) => {
   // Tailwind-inspired color classes based on the provided color palette
   const colorClasses = {
     primary: {
-      base: "bg-primary-main text-white",
-      outlined: "border-primary-main text-primary-main",
+      base: 'bg-primary-main text-white',
+      outlined: 'border-primary-main text-primary-main',
     },
     secondary: {
-      base: "bg-secondary-main text-white",
-      outlined: "border-secondary-main text-secondary-main",
+      base: 'bg-secondary-main text-white',
+      outlined: 'border-secondary-main text-secondary-main',
     },
     success: {
-      base: "bg-success-main text-white",
-      outlined: "border-success-main text-success-main",
+      base: 'bg-success-main text-white',
+      outlined: 'border-success-main text-success-main',
     },
     error: {
-      base: "bg-error-main text-white",
-      outlined: "border-error-main text-error-main",
+      base: 'bg-error-main text-white',
+      outlined: 'border-error-main text-error-main',
     },
     info: {
-      base: "bg-info-main text-white",
-      outlined: "border-info-main text-info-main",
+      base: 'bg-info-main text-white',
+      outlined: 'border-info-main text-info-main',
     },
     warning: {
-      base: "bg-warning-main text-white",
-      outlined: "border-warning-main text-warning-main",
+      base: 'bg-warning-main text-white',
+      outlined: 'border-warning-main text-warning-main',
     },
   };
 
@@ -84,8 +85,8 @@ const Chip: FC<ChipProps> = ({
       onPress={onPress}
       activeOpacity={0.8}
       className={clsx(
-        "flex-row items-center rounded-full",
-        variant === "contained"
+        'flex-row items-center rounded-full',
+        variant === 'contained'
           ? `${colorClasses[color].base}`
           : `border ${colorClasses[color].outlined}`
       )}
@@ -103,9 +104,9 @@ const Chip: FC<ChipProps> = ({
           name={icon}
           size={iconSize}
           color={
-            variant === "contained"
-              ? "white"
-              : colorClasses[color].outlined.split(" ")[1]
+            variant === 'contained'
+              ? 'white'
+              : colorClasses[color].outlined.split(' ')[1]
           }
           style={{ marginRight: scale(8) }}
         />
@@ -114,8 +115,8 @@ const Chip: FC<ChipProps> = ({
       {/* Chip Text */}
       <Typography
         className={clsx(
-          "font-medium",
-          variant === "contained" ? "text-white" : colorClasses[color].outlined
+          'font-medium',
+          variant === 'contained' ? 'text-white' : colorClasses[color].outlined
         )}
         style={{
           fontSize,
@@ -135,9 +136,9 @@ const Chip: FC<ChipProps> = ({
             name="close"
             size={iconSize}
             color={
-              variant === "contained"
-                ? "white"
-                : colorClasses[color].outlined.split(" ")[1]
+              variant === 'contained'
+                ? 'white'
+                : colorClasses[color].outlined.split(' ')[1]
             }
           />
         </TouchableOpacity>

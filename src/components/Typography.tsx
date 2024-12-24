@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
-import React, { FC, ReactNode } from "react";
-import { Text, TextProps } from "react-native";
+import React, { type FC, type ReactNode } from "react";
+import { Text, type TextProps } from "react-native";
 
 interface TypographyProps extends TextProps {
   variant?:

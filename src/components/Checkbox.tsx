@@ -1,21 +1,21 @@
-import { Ionicons } from "@expo/vector-icons";
-import { clsx } from "clsx";
-import React, { FC } from "react";
+/* eslint-disable react-native/no-inline-styles */
+import Ionicons from '@react-native-vector-icons/ionicons';
+import { clsx } from 'clsx';
+import React, { type FC } from 'react';
 import {
-  StyleProp,
-  Text,
-  TextStyle,
+  type StyleProp,
+  type TextStyle,
   TouchableOpacity,
   View,
-  ViewStyle,
-} from "react-native";
-import { moderateScale, scale, verticalScale } from "react-native-size-matters";
-import Typography from "./Typography";
+  type ViewStyle,
+} from 'react-native';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import Typography from './Typography';
 
 interface CheckboxProps {
   handleCheck: (checked: boolean) => void; // Callback when checked
   disabled?: boolean; // Disable the checkbox
-  size?: "small" | "medium" | "large"; // Size of the checkbox
+  size?: 'small' | 'medium' | 'large'; // Size of the checkbox
   error?: boolean; // Error state
   label?: string; // Label for the checkbox
   helperText?: string; // Additional helper text
@@ -28,7 +28,7 @@ interface CheckboxProps {
 const Checkbox: FC<CheckboxProps> = ({
   handleCheck,
   disabled = false,
-  size = "medium",
+  size = 'medium',
   error = false,
   label,
   helperText,
@@ -39,9 +39,9 @@ const Checkbox: FC<CheckboxProps> = ({
 }) => {
   // Define Tailwind-based dynamic colors
   const colorClasses = {
-    primary: "bg-primary-main text-white border-primary-main",
-    error: "bg-error-main text-white border-error-main",
-    gray: "bg-gray-400 text-gray-800 border-gray-400",
+    primary: 'bg-primary-main text-white border-primary-main',
+    error: 'bg-error-main text-white border-error-main',
+    gray: 'bg-gray-400 text-gray-800 border-gray-400',
   };
 
   // Size-specific styles
@@ -83,7 +83,7 @@ const Checkbox: FC<CheckboxProps> = ({
         activeOpacity={0.8}
         disabled={disabled}
         className={clsx(
-          "flex-row items-center justify-center rounded",
+          'flex-row items-center justify-center rounded',
           value
             ? colorClasses.primary
             : error
@@ -101,7 +101,7 @@ const Checkbox: FC<CheckboxProps> = ({
           <Ionicons
             name="checkmark"
             size={iconSize}
-            color={value ? "white" : "gray"}
+            color={value ? 'white' : 'gray'}
           />
         )}
       </TouchableOpacity>
@@ -113,8 +113,8 @@ const Checkbox: FC<CheckboxProps> = ({
           <Typography
             style={[{ fontSize: labelFontSize }, labelStyle]}
             className={clsx(
-              "font-medium",
-              error ? "text-error-main" : "text-gray-800"
+              'font-medium',
+              error ? 'text-error-main' : 'text-gray-800'
             )}
             variant="label"
           >
@@ -130,7 +130,7 @@ const Checkbox: FC<CheckboxProps> = ({
               { fontSize: helperFontSize, marginTop: verticalScale(2) },
               helperTextStyle,
             ]}
-            className={clsx(error ? "text-error-main" : "text-gray-500")}
+            className={clsx(error ? 'text-error-main' : 'text-gray-500')}
           >
             {helperText}
           </Typography>

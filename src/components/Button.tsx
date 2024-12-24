@@ -1,18 +1,19 @@
-import { Ionicons } from "@expo/vector-icons";
-import { clsx } from "clsx";
-import React, { FC, useState } from "react";
-import { TouchableOpacity, ViewStyle } from "react-native";
-import { moderateScale, scale, verticalScale } from "react-native-size-matters";
-import Typography from "./Typography";
+import Ionicons from '@react-native-vector-icons/ionicons';
+import { clsx } from 'clsx';
+import type React from 'react';
+import { type FC, useState } from 'react';
+import { TouchableOpacity, type ViewStyle } from 'react-native';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import Typography from './Typography';
 
 interface ButtonProps {
   title: string; // Button label
   onPress: () => void; // Handler for button press
-  size?: "small" | "medium" | "large"; // Button size
-  variant?: "outlined" | "contained" | "base"; // Button variant
-  color?: "primary" | "secondary" | "success" | "error" | "info" | "warning"; // Button color
-  icon?: keyof typeof Ionicons.glyphMap; // Optional icon name
-  iconPosition?: "left" | "right"; // Icon position
+  size?: 'small' | 'medium' | 'large'; // Button size
+  variant?: 'outlined' | 'contained' | 'base'; // Button variant
+  color?: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'; // Button color
+  icon?: React.ComponentProps<typeof Ionicons>['name']; // Optional leading icon
+  iconPosition?: 'left' | 'right'; // Icon position
   disabled?: boolean; // Whether the button is disabled
   style?: ViewStyle; // Additional custom styles
   onFocus?: () => void; // Handler for button focus
@@ -23,11 +24,11 @@ interface ButtonProps {
 const Button: FC<ButtonProps> = ({
   title,
   onPress,
-  size = "medium",
-  variant = "base",
-  color = "primary",
+  size = 'medium',
+  variant = 'base',
+  color = 'primary',
   icon,
-  iconPosition = "left",
+  iconPosition = 'left',
   disabled = false,
   style,
   onFocus,
@@ -49,34 +50,34 @@ const Button: FC<ButtonProps> = ({
   // Tailwind-inspired color classes based on the provided color palette
   const colorClasses = {
     primary: {
-      base: "bg-primary-main text-white",
-      outlined: "border-primary-main text-primary-main",
-      disabled: "bg-primary-light text-gray-500",
+      base: 'bg-primary-main text-white',
+      outlined: 'border-primary-main text-primary-main',
+      disabled: 'bg-primary-light text-gray-500',
     },
     secondary: {
-      base: "bg-secondary-main text-white",
-      outlined: "border-secondary-main text-secondary-main",
-      disabled: "bg-secondary-light text-gray-500",
+      base: 'bg-secondary-main text-white',
+      outlined: 'border-secondary-main text-secondary-main',
+      disabled: 'bg-secondary-light text-gray-500',
     },
     success: {
-      base: "bg-success-main text-white",
-      outlined: "border-success-main text-success-main",
-      disabled: "bg-success-light text-gray-500",
+      base: 'bg-success-main text-white',
+      outlined: 'border-success-main text-success-main',
+      disabled: 'bg-success-light text-gray-500',
     },
     error: {
-      base: "bg-error-main text-white",
-      outlined: "border-error-main text-error-main",
-      disabled: "bg-error-light text-gray-500",
+      base: 'bg-error-main text-white',
+      outlined: 'border-error-main text-error-main',
+      disabled: 'bg-error-light text-gray-500',
     },
     info: {
-      base: "bg-info-main text-white",
-      outlined: "border-info-main text-info-main",
-      disabled: "bg-info-light text-gray-500",
+      base: 'bg-info-main text-white',
+      outlined: 'border-info-main text-info-main',
+      disabled: 'bg-info-light text-gray-500',
     },
     warning: {
-      base: "bg-warning-main text-white",
-      outlined: "border-warning-main text-warning-main",
-      disabled: "bg-warning-light text-gray-500",
+      base: 'bg-warning-main text-white',
+      outlined: 'border-warning-main text-warning-main',
+      disabled: 'bg-warning-light text-gray-500',
     },
   };
 
@@ -112,17 +113,18 @@ const Button: FC<ButtonProps> = ({
       onBlur={handleBlur}
       disabled={disabled}
       className={clsx(
-        "flex-row items-center justify-center rounded-md",
+        'flex-row items-center justify-center rounded-md',
         disabled
           ? colorClasses[color].disabled
           : isFocused
-          ? "ring-2 ring-primary-light" // Focused state
-          : variant === "outlined"
+          ? 'ring-2 ring-primary-light' // Focused state
+          : variant === 'outlined'
           ? `border-2 ${colorClasses[color].outlined}`
-          : variant === "contained"
+          : variant === 'contained'
           ? `${colorClasses[color].base}`
-          : "bg-transparent",
-        disabled && "opacity-50", className
+          : 'bg-transparent',
+        disabled && 'opacity-50',
+        className
       )}
       style={{
         paddingVertical,
@@ -131,16 +133,16 @@ const Button: FC<ButtonProps> = ({
       }}
     >
       {/* Icon on the Left */}
-      {icon && iconPosition === "left" && (
+      {icon && iconPosition === 'left' && (
         <Ionicons
           name={icon}
           size={iconSize} // Icon size based on scaling
           color={
             disabled
-              ? colorClasses[color].disabled.split(" ")[1]
-              : variant === "contained"
-              ? "white"
-              : colorClasses[color].outlined.split(" ")[1]
+              ? colorClasses[color].disabled.split(' ')[1]
+              : variant === 'contained'
+              ? 'white'
+              : colorClasses[color].outlined.split(' ')[1]
           }
           style={{ marginRight: scale(8) }} // Horizontal scaling
         />
@@ -149,12 +151,12 @@ const Button: FC<ButtonProps> = ({
       {/* Button Text */}
       <Typography
         className={clsx(
-          "font-oxanium-medium",
+          'font-oxanium-medium',
           disabled
-            ? colorClasses[color].disabled.split(" ")[1]
-            : variant === "outlined" || variant === "base"
-            ? colorClasses[color].outlined.split(" ")[1]
-            : "text-white"
+            ? colorClasses[color].disabled.split(' ')[1]
+            : variant === 'outlined' || variant === 'base'
+            ? colorClasses[color].outlined.split(' ')[1]
+            : 'text-white'
         )}
         style={{
           fontSize, // Font size scaling
@@ -164,16 +166,16 @@ const Button: FC<ButtonProps> = ({
       </Typography>
 
       {/* Icon on the Right */}
-      {icon && iconPosition === "right" && (
+      {icon && iconPosition === 'right' && (
         <Ionicons
           name={icon}
           size={iconSize} // Icon size based on scaling
           color={
             disabled
-              ? colorClasses[color].disabled.split(" ")[1]
-              : variant === "contained"
-              ? "white"
-              : colorClasses[color].outlined.split(" ")[1]
+              ? colorClasses[color].disabled.split(' ')[1]
+              : variant === 'contained'
+              ? 'white'
+              : colorClasses[color].outlined.split(' ')[1]
           }
           style={{ marginLeft: scale(8) }} // Horizontal scaling
         />
