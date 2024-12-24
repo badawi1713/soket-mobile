@@ -1,15 +1,13 @@
 import Root from '@/app/routes';
-import React from 'react';
-import './global.css';
-import './gesture-handler';
 import axios from 'axios';
+import React from 'react';
+import './gesture-handler';
+import './global.css';
 
 const App = () => {
+  axios.defaults.baseURL = process.env.API_SOKET_ENDPOINT;
 
-	axios.defaults.baseURL = process.env.REACT_APP_SERVICE_ENDPOINT;
-
-
-	return <Root />;
+  return <Root />;
 };
 
 export default App;

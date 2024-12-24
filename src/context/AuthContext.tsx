@@ -1,9 +1,9 @@
-import type React from 'react';
-import { createContext, type ReactNode, useEffect, useState } from 'react';
-import axios, { type AxiosError } from 'axios';
-import SplashScreen from '@/components/SplashScreen';
-import { SETTINGS } from '@/constants/settings'; // Adjust the path as needed
+import { SETTINGS } from '@/constants/settings';
 import { storage } from '@/utils/mmkv';
+import { ParamListBase } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import axios, { AxiosError } from 'axios';
+import React, { createContext, ReactNode, useState } from 'react';
 
 export interface ErrorResponse {
   message: string;
@@ -19,14 +19,14 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  loading: boolean;
   setUser: (user: User | null) => void;
-  setLoading: (loading: boolean) => void;
   login: (
     params: LoginParams,
+    navigation: AuthNavigationProp,
     errorCallback?: (error: AxiosError) => void
   ) => Promise<void>;
-  logout: (navigation: any) => Promise<void>;
+  logout: (navigation: AuthNavigationProp) => Promise<void>;
+  handleUnauthorized: ( navigation: AuthNavigationProp) => void;
 }
 
 interface AuthProviderProps {
@@ -40,75 +40,36 @@ interface LoginParams {
   force?: boolean;
 }
 
+// Define a type for navigation
+type AuthNavigationProp = StackNavigationProp<ParamListBase>;
+
 const defaultProvider: AuthContextType = {
   user: null,
-  loading: true,
   setUser: () => null,
-  setLoading: () => {},
   login: async () => {},
   logout: async () => {},
+  handleUnauthorized: async () => {},
 };
 
 const AuthContext = createContext<AuthContextType>(defaultProvider);
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(defaultProvider.user);
-  const [loading, setLoading] = useState<boolean>(defaultProvider.loading);
 
-  const handleUnauthorized = (navigation: any) => {
+  const handleUnauthorized = (navigation: AuthNavigationProp) => {
     setUser(null);
     storage.delete('userData');
     storage.delete(SETTINGS?.storageTokenKeyName);
     delete axios.defaults.headers.common.Authorization;
 
-    navigation.navigate('Sign-In');
+    return navigation.replace('login');
   };
 
-  axios.interceptors.response.use(
-    (response) => response,
-    (error: AxiosError) => {
-      if (error.response?.status === 401 && error.config) {
-        // Navigation must be handled in the screens
-      }
-      return Promise.reject(error);
-    }
-  );
 
-  useEffect(() => {
-    setLoading(true);
-    const initAuth = async () => {
-      const storedToken = await storage.getString(
-        SETTINGS?.storageTokenKeyName
-      );
-      if (storedToken) {
-        await axios
-          .get(SETTINGS?.meEndpoint, {
-            headers: {
-              Authorization: `Bearer ${storedToken}`,
-            },
-          })
-          .then((response) => {
-            setUser(response.data?.object);
-            axios.defaults.headers.common.Authorization = `Bearer ${storedToken}`;
-          })
-          .catch((error: AxiosError) => {
-            storage.delete('userData');
-            storage.delete('refreshToken');
-            storage.delete('accessToken');
-            setUser(null);
-            delete axios.defaults.headers.common.Authorization;
-          })
-          .finally(() => setTimeout(() => setLoading(false), 1000));
-      } else {
-        setTimeout(() => setLoading(false), 1000);
-      }
-    };
-    initAuth();
-  }, []);
 
   const handleLogin = async (
     params: LoginParams,
-    navigation: any,
+    navigation: AuthNavigationProp,
     errorCallback?: (error: AxiosError) => void
   ) => {
     try {
@@ -126,7 +87,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       setUser(response.data.user);
       axios.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
-      navigation.navigate('Home');
+      navigation.replace('home');
     } catch (err) {
       if (axios.isAxiosError(err) && errorCallback) {
         errorCallback(err);
@@ -136,7 +97,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const handleLogout = async (navigation: any) => {
+  const handleLogout = async (navigation: AuthNavigationProp) => {
     try {
       await axios.post(SETTINGS.logoutEndpoint, {
         via: 'WEB',
@@ -148,29 +109,25 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       storage.delete(SETTINGS?.storageTokenKeyName);
       delete axios.defaults.headers.common.Authorization;
 
-      navigation.navigate('Sign-In');
-      alert('You have been logged out!');
+      navigation.replace('login');
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        alert(`Error: ${err.response?.data?.message || 'An unknown error occurred.'}`);
+        console.error(`Error: ${err.response?.data?.message || 'An unknown error occurred.'}`);
       } else {
-        alert('Error: Something went wrong.');
+        console.error('Error: Something went wrong.');
       }
     }
   };
 
   const values: AuthContextType = {
     user,
-    loading,
     setUser,
-    setLoading,
     login: handleLogin,
     logout: handleLogout,
+	handleUnauthorized,
   };
 
-  if (loading) {
-    return <SplashScreen />;
-  }
+
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };

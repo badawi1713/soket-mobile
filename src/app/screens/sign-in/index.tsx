@@ -1,3 +1,4 @@
+import type { AuthNavigationProp } from '@/app/routes';
 import Logo from '@/assets/images/logo-pln-np-white.svg';
 import Button from '@/components/Button';
 import TextInput from '@/components/TextInput'; // Import custom TextInput
@@ -6,6 +7,7 @@ import images from '@/constants/images';
 import type { ErrorResponse } from '@/context/AuthContext';
 import { useAuth } from '@/hooks/useAuth';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigation } from '@react-navigation/native';
 import clsx from 'clsx';
 import React, { useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -32,6 +34,8 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 const Screen = () => {
 	const auth = useAuth();
+	const navigation = useNavigation<AuthNavigationProp>();
+
 	const [showPassword, setShowPassword] = useState(false); // Toggle password visibility
 
 	const usernameRef = useRef<RNTextInput>(null);
@@ -47,16 +51,20 @@ const Screen = () => {
 	});
 	const onSubmit = async (data: LoginFormData) => {
 		try {
-			await auth.login({ id: data.username, password: data.password, rememberMe: true, force: true }, (error) => {
-				const errorData = error.response?.data as ErrorResponse;
-				console.log('error', errorData?.message);
-				setError('username', {
-					message: errorData?.message || 'Sorry, something went wrong. Try again later.',
-				});
+			await auth.login(
+				{ id: data.username, password: data.password, rememberMe: true, force: true },
+				navigation,
+				(error) => {
+					const errorData = error.response?.data as ErrorResponse;
+					console.log('error', errorData?.message);
+					setError('username', {
+						message: errorData?.message || 'Sorry, something went wrong. Try again later.',
+					});
 
-				// Prevent navigation or state updates here
-				return false;
-			});
+					// Prevent navigation or state updates here
+					return false;
+				},
+			);
 		} catch (error) {
 			console.error('Error during login:', error);
 			// Optionally show a toast or alert to the user
@@ -67,7 +75,7 @@ const Screen = () => {
 		<KeyboardAvoidingView className="flex-1" behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
 			<ScrollView className="flex-1 bg-white relative">
 				<Image
-					style={{ height: verticalScale(320) }}
+					style={{ height: verticalScale(290) }}
 					source={images.imgLogin}
 					className="w-full"
 					resizeMode="stretch"
