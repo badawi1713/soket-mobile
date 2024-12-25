@@ -1,8 +1,8 @@
-import ComingSoon from '@/components/ComingSoon';
+import Content from '@/app/views/reliability';
 import React from 'react';
 
 const Screen = () => {
-	return <ComingSoon />;
+	return <Content />;
 };
 
 export default Screen;
