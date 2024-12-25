@@ -1,107 +1,113 @@
 import Ionicons from '@react-native-vector-icons/ionicons';
-import { clsx } from 'clsx';
-import type React from 'react';
+import React from 'react';
 import type { FC } from 'react';
-import { type StyleProp, TouchableOpacity, type ViewStyle } from 'react-native';
+import { TouchableOpacity, ViewStyle, StyleProp } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
+import { COLORS } from '@/constants/colors';
 
 interface IconButtonProps {
-	icon: React.ComponentProps<typeof Ionicons>['name']; // Optional leading icon
-	onPress: () => void; // Action on button press
-	variant?: 'error' | 'info' | 'warning' | 'default' | 'success'; // Color variant
-	size?: 'small' | 'medium' | 'large'; // Size of the button
-	style?: StyleProp<ViewStyle>; // Additional custom styles
-	buttonStyle?: 'contained' | 'outlined' | 'normal'; // Button style
-	disabled?: boolean; // Disabled state
+  icon: React.ComponentProps<typeof Ionicons>['name']; // Icon name
+  onPress: () => void; // Action on button press
+  variant?: 'error' | 'info' | 'warning' | 'default' | 'success'; // Color variant
+  size?: 'small' | 'medium' | 'large'; // Button size
+  style?: StyleProp<ViewStyle>; // Custom styles
+  buttonStyle?: 'contained' | 'outlined' | 'normal'; // Button style
+  iconColor?: string; // Custom icon color (overrides variant color)
+  disabled?: boolean; // Disabled state
 }
 
 const IconButton: FC<IconButtonProps> = ({
-	icon,
-	onPress,
-	variant = 'default',
-	size = 'medium',
-	buttonStyle = 'normal',
-	style,
-	disabled = false,
+  icon,
+  onPress,
+  variant = 'default',
+  size = 'medium',
+  buttonStyle = 'normal',
+  style,
+  iconColor,
+  disabled = false,
 }) => {
-	// Tailwind-inspired variant-specific styles
-	const variantStyles = {
-		default: {
-			text: 'text-gray-700',
-			border: 'border-gray-400',
-			bg: 'bg-gray-100',
-		},
-		error: {
-			text: 'text-red-500',
-			border: 'border-red-500',
-			bg: 'bg-red-100',
-		},
-		info: {
-			text: 'text-blue-500',
-			border: 'border-blue-500',
-			bg: 'bg-blue-100',
-		},
-		warning: {
-			text: 'text-orange-500',
-			border: 'border-orange-500',
-			bg: 'bg-orange-100',
-		},
-		success: {
-			text: 'text-green-500',
-			border: 'border-green-500',
-			bg: 'bg-green-100',
-		},
-	};
+  // Variant-specific colors
+  const variantStyles = {
+    default: {
+      text: COLORS.neutral.main,
+      border: COLORS.border.light,
+      bg: COLORS.background.main,
+    },
+    error: {
+      text: COLORS.error.main,
+      border: COLORS.error.main,
+      bg: COLORS.error.light,
+    },
+    info: {
+      text: COLORS.info.main,
+      border: COLORS.info.main,
+      bg: COLORS.info.light,
+    },
+    warning: {
+      text: COLORS.warning.main,
+      border: COLORS.warning.main,
+      bg: COLORS.warning.light,
+    },
+    success: {
+      text: COLORS.success.main,
+      border: COLORS.success.main,
+      bg: COLORS.success.light,
+    },
+  };
 
-	// Size-specific styles
-	const sizeStyles = {
-		small: {
-			size: moderateScale(32), // 32x32
-			iconSize: moderateScale(16),
-		},
-		medium: {
-			size: moderateScale(48), // 48x48
-			iconSize: moderateScale(24),
-		},
-		large: {
-			size: moderateScale(64), // 64x64
-			iconSize: moderateScale(32),
-		},
-	};
+  // Size-specific styles
+  const sizeStyles = {
+    small: {
+      size: moderateScale(32), // Button: 32x32
+      iconSize: moderateScale(16), // Icon size: 16
+    },
+    medium: {
+      size: moderateScale(48), // Button: 48x48
+      iconSize: moderateScale(24), // Icon size: 24
+    },
+    large: {
+      size: moderateScale(64), // Button: 64x64
+      iconSize: moderateScale(32), // Icon size: 32
+    },
+  };
 
-	const { size: buttonSize, iconSize } = sizeStyles[size];
+  const { size: buttonSize, iconSize } = sizeStyles[size];
 
-	// Button style configuration
-	const buttonStyleClasses = clsx(
-		'flex items-center justify-center rounded-full',
-		buttonStyle === 'contained'
-			? `${variantStyles[variant].border} ${variantStyles[variant].bg}` // Contained style
-			: buttonStyle === 'outlined'
-				? `${variantStyles[variant].border} bg-transparent` // Outlined style
-				: 'bg-transparent border-0', // Normal style
-		disabled && 'opacity-50', // Disabled state
-	);
+  // Button style configuration
+  const buttonStyleConfig = [
+    {
+      width: buttonSize,
+      height: buttonSize,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: buttonSize / 2,
+      borderWidth: buttonStyle !== 'normal' ? 1 : 0,
+      backgroundColor:
+        buttonStyle === 'contained'
+          ? variantStyles[variant].bg
+          : 'transparent',
+      borderColor:
+        buttonStyle === 'outlined' || buttonStyle === 'contained'
+          ? variantStyles[variant].border
+          : 'transparent',
+      opacity: disabled ? 0.5 : 1,
+    },
+    style, // Custom style
+  ] as StyleProp<ViewStyle>; // Explicitly cast the array as StyleProp<ViewStyle>
 
-	return (
-		<TouchableOpacity
-			onPress={onPress}
-			disabled={disabled}
-			className={buttonStyleClasses}
-			style={[
-				{
-					width: buttonSize,
-					height: buttonSize,
-				},
-				style,
-			]}
-		>
-			<Ionicons
-				name={icon}
-				size={iconSize}
-				className={clsx(variantStyles[variant].text)}
-			/>
-		</TouchableOpacity>
-	);
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      disabled={disabled}
+      style={buttonStyleConfig} // Style passed as a StyleProp
+    >
+      <Ionicons
+        name={icon}
+        size={iconSize}
+        color={iconColor || variantStyles[variant].text} // Custom icon color or variant color
+      />
+    </TouchableOpacity>
+  );
 };
 
 export default IconButton;

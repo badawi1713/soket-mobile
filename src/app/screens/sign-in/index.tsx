@@ -102,6 +102,8 @@ const Screen = () => {
 							control={control}
 							render={({ field: { onChange, value, onBlur } }) => (
 								<TextInput
+									autoCapitalize="none"
+									autoCorrect={false}
 									label="Username"
 									placeholder="Enter your username"
 									value={value}
@@ -121,6 +123,8 @@ const Screen = () => {
 							control={control}
 							render={({ field: { onChange, value, onBlur } }) => (
 								<TextInput
+									autoCapitalize="none"
+									autoCorrect={false}
 									label="Password"
 									placeholder="Enter your password"
 									value={value}

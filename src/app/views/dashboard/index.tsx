@@ -1,12 +1,84 @@
+import Logo from '@/assets/images/logo-pln-np.svg';
+import AppBar from '@/components/AppBar';
+import BlinkView from '@/components/BlinkView';
+import Card from '@/components/Card';
+import IconButton from '@/components/IconButton';
+import { COLORS } from '@/constants/colors';
+import images from '@/constants/images';
+import Ionicons from '@react-native-vector-icons/ionicons';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
+import { scale } from 'react-native-size-matters';
 
-const Screen = () => {
-  return (
-    <View>
-      <Text>Screen</Text>
-    </View>
-  );
+const Content = () => {
+	return (
+		<View className="bg-background-paper flex-1">
+			<AppBar
+				leftComponent={<Logo width={scale(120)} />}
+				rightComponent={
+					<IconButton
+						icon="settings-outline"
+						onPress={() => console.log('Search Pressed')}
+						variant="default"
+						size="medium"
+						iconColor={COLORS.light.icon}
+					/>
+				}
+			/>
+			<ScrollView contentContainerStyle={{ flexGrow: 1 }} contentContainerClassName="p-4 gap-4">
+				<View className="flex-row justify-between gap-x-4">
+					<Card
+						title="12.0 GW"
+						variant="primary"
+						subtitle="Total Capacity"
+						style={{ flex: 1, borderWidth: 1, borderColor: COLORS.border.light, alignItems: 'center' }}
+						icon="flash"
+					/>
+					<Card
+						title="22.40 GW"
+						variant="error"
+						subtitle="Total Gross Load"
+						style={{ flex: 1, borderWidth: 1, borderColor: COLORS.border.light, alignItems: 'center' }}
+						icon="trending-up"
+					/>
+				</View>
+				<View className="flex-row gap-0 gap-y-4 flex-wrap justify-between">
+					{[
+						1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+						30,
+					].map((item) => (
+						<TouchableOpacity
+							activeOpacity={0.3}
+							key={item}
+							onPress={() => console.log('Pressed')}
+							style={{ width: '48%' }}
+						>
+							<View className="h-32 rounded-md bg-slate-200 relative">
+								<Image source={images.imgPlantExample} style={{width: '100%', height: '100%'}} className='rounded-md' resizeMode="stretch" />
+								<View className="absolute top-2 left-2">
+									{item % 3 !== 0 ? (
+										<Ionicons
+											name="ellipse"
+											color={item % 3 !== 0 ? COLORS.success.main : COLORS.error.main}
+											size={24}
+										/>
+									) : (
+										<BlinkView>
+											<Ionicons
+												name="ellipse"
+												color={item % 3 !== 0 ? COLORS.success.main : COLORS.error.main}
+												size={24}
+											/>
+										</BlinkView>
+									)}
+								</View>
+							</View>
+						</TouchableOpacity>
+					))}
+				</View>
+			</ScrollView>
+		</View>
+	);
 };
 
-export default Screen;
+export default Content;
