@@ -87,7 +87,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       setUser(response.data.user);
       axios.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
-      navigation.replace('home');
+      navigation.replace('main-app');
     } catch (err) {
       if (axios.isAxiosError(err) && errorCallback) {
         errorCallback(err);

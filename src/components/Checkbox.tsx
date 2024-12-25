@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { clsx } from 'clsx';
 import React, { type FC } from 'react';

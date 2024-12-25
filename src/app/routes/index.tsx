@@ -10,10 +10,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { type StackNavigationProp, createStackNavigator } from '@react-navigation/stack';
 import axios from 'axios';
 import React, { useCallback, useEffect } from 'react';
+import MainApp from './main-app';
 
 export type RootParamList = {
 	login: undefined;
 	home: undefined;
+	'main-app': undefined;
 };
 
 export type AuthNavigationProp = StackNavigationProp<RootParamList>;
@@ -35,7 +37,7 @@ const RootLayout = () => {
 				axios.defaults.headers.common.Authorization = `Bearer ${storedToken}`;
 				if (navigationRef.isReady()) {
 					setTimeout(() => {
-						reset('home');
+						reset('main-app');
 					}, 1000);
 				}
 			} catch (error) {
@@ -58,8 +60,6 @@ const RootLayout = () => {
 				}, 1000);
 			}
 		}
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// Trigger authentication logic only when NavigationContainer is ready
@@ -79,6 +79,7 @@ const RootLayout = () => {
 					<Stack.Screen name="splash-screen" component={SplashScreen} options={{ headerShown: false }} />
 					<Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false }} />
 					<Stack.Screen name="home" component={HomeScreen} options={{ headerShown: false }} />
+					<Stack.Screen name="main-app" component={MainApp} options={{ headerShown: false }} />
 				</Stack.Navigator>
 			</AuthProvider>
 		</NavigationContainer>
