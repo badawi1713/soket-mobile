@@ -1,12 +1,8 @@
+import ComingSoon from '@/components/ComingSoon';
 import React from 'react';
-import { Text, View } from 'react-native';
 
 const Screen = () => {
-	return (
-		<View>
-			<Text>Screen</Text>
-		</View>
-	);
+	return <ComingSoon />;
 };
 
 export default Screen;

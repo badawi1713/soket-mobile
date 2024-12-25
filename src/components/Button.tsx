@@ -56,7 +56,7 @@ const Button: FC<ButtonProps> = ({
     },
     secondary: {
       base: 'bg-secondary-main text-white',
-      outlined: 'border-secondary-main text-secondary-main',
+      outlined: 'border-secondary-light text-secondary-dark',
       disabled: 'bg-secondary-light text-gray-500',
     },
     success: {
@@ -84,19 +84,19 @@ const Button: FC<ButtonProps> = ({
   // Size-specific styles with scaling
   const sizeStyles = {
     small: {
-      paddingVertical: verticalScale(8),
+      paddingVertical: verticalScale(4),
       paddingHorizontal: scale(10),
       fontSize: moderateScale(14),
       iconSize: moderateScale(18),
     },
     medium: {
-      paddingVertical: verticalScale(10),
+      paddingVertical: verticalScale(8),
       paddingHorizontal: scale(12),
       fontSize: moderateScale(16),
       iconSize: moderateScale(20),
     },
     large: {
-      paddingVertical: verticalScale(14),
+      paddingVertical: verticalScale(12),
       paddingHorizontal: scale(16),
       fontSize: moderateScale(18),
       iconSize: moderateScale(24),
@@ -119,7 +119,7 @@ const Button: FC<ButtonProps> = ({
           : isFocused
           ? 'ring-2 ring-primary-light' // Focused state
           : variant === 'outlined'
-          ? `border-2 ${colorClasses[color].outlined}`
+          ? `border ${colorClasses[color].outlined}`
           : variant === 'contained'
           ? `${colorClasses[color].base}`
           : 'bg-transparent',

@@ -1,9 +1,10 @@
-import { SETTINGS } from '@/constants/settings';
-import { storage } from '@/utils/mmkv';
-import { ParamListBase } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import axios, { AxiosError } from 'axios';
-import React, { createContext, ReactNode, useState } from 'react';
+import {SETTINGS} from '@/constants/settings';
+import {storage} from '@/utils/mmkv';
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import axios, {AxiosError} from 'axios';
+import React, {createContext, ReactNode, useState} from 'react';
+import {toast} from 'sonner-native';
 
 export interface ErrorResponse {
   message: string;
@@ -23,10 +24,10 @@ interface AuthContextType {
   login: (
     params: LoginParams,
     navigation: AuthNavigationProp,
-    errorCallback?: (error: AxiosError) => void
+    errorCallback?: (error: AxiosError) => void,
   ) => Promise<void>;
   logout: (navigation: AuthNavigationProp) => Promise<void>;
-  handleUnauthorized: ( navigation: AuthNavigationProp) => void;
+  handleUnauthorized: (navigation: AuthNavigationProp) => void;
 }
 
 interface AuthProviderProps {
@@ -53,7 +54,7 @@ const defaultProvider: AuthContextType = {
 
 const AuthContext = createContext<AuthContextType>(defaultProvider);
 
-const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   const [user, setUser] = useState<User | null>(defaultProvider.user);
 
   const handleUnauthorized = (navigation: AuthNavigationProp) => {
@@ -65,12 +66,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return navigation.replace('login');
   };
 
-
-
   const handleLogin = async (
     params: LoginParams,
     navigation: AuthNavigationProp,
-    errorCallback?: (error: AxiosError) => void
+    errorCallback?: (error: AxiosError) => void,
   ) => {
     try {
       const response = await axios.post(SETTINGS?.loginEndpoint, {
@@ -92,7 +91,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (axios.isAxiosError(err) && errorCallback) {
         errorCallback(err);
       } else {
-        console.error('Unexpected error:', err);
+        toast.error(`Unexpected error: ${err}`);
       }
     }
   };
@@ -110,11 +109,14 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       delete axios.defaults.headers.common.Authorization;
 
       navigation.replace('login');
+      toast.success('You have been logged out');
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        console.error(`Error: ${err.response?.data?.message || 'An unknown error occurred.'}`);
+        toast.error(
+          `${err.response?.data?.message || 'An unknown error occurred.'}`,
+        );
       } else {
-        console.error('Error: Something went wrong.');
+        toast.error('Error: Something went wrong.');
       }
     }
   };
@@ -124,12 +126,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUser,
     login: handleLogin,
     logout: handleLogout,
-	handleUnauthorized,
+    handleUnauthorized,
   };
-
-
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 
-export { AuthContext, AuthProvider };
+export {AuthContext, AuthProvider};

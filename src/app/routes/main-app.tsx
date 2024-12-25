@@ -24,7 +24,7 @@ const Tab = createBottomTabNavigator<MainAppParamList>();
 
 const MainApp: React.FC = () => {
 	return (
-		<SafeAreaView className='flex-1 bg-background-paper'>
+		<SafeAreaView className="flex-1 bg-background-paper">
 			<Tab.Navigator tabBar={(props) => <BottomTabBar {...props} />} screenOptions={{ headerShown: false }}>
 				<Tab.Screen name="dashboard" component={Dashboard} />
 				<Tab.Screen name="reliability" component={Reliability} />

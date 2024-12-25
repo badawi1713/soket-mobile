@@ -29,9 +29,9 @@ export const COLORS = {
 		dark: '#0041B3', // Darker shade of primary color
 	},
 	secondary: {
-		light: '#FF80AB', // Lighter shade of secondary color
-		main: '#F50057', // Main secondary color
-		dark: '#AB003C', // Darker shade of secondary color
+		light: '#E0E0E0', // A very light grey, almost white
+		main: '#B0B0B0', // A neutral grey for the main color
+		dark: '#808080', // A darker shade of grey
 	},
 	accent: {
 		light: '#D1FFE9', // Lighter shade of accent color

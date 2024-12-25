@@ -3,5 +3,5 @@ import imgPlantExample from '@/assets/images/img-plant-example.jpg';
 
 export default {
 	imgLogin,
-	imgPlantExample
+	imgPlantExample,
 };

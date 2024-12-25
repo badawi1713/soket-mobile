@@ -2,34 +2,42 @@ import Logo from '@/assets/images/logo-pln-np.svg';
 import AppBar from '@/components/AppBar';
 import BlinkView from '@/components/BlinkView';
 import Card from '@/components/Card';
-import IconButton from '@/components/IconButton';
-import SettingsButton from '@/components/SettingsButton';
+import MenuItems from '@/components/MenuItems';
 import { COLORS } from '@/constants/colors';
 import images from '@/constants/images';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import React from 'react';
 import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { scale } from 'react-native-size-matters';
-import { toast } from 'sonner-native';
 
 const Content = () => {
 	return (
 		<View className="bg-background-paper flex-1">
-			<AppBar leftComponent={<Logo width={scale(120)} />} rightComponent={<SettingsButton pageName="dashboard" />} />
+			<AppBar leftComponent={<Logo width={scale(120)} />} rightComponent={<MenuItems />} />
 			<ScrollView contentContainerStyle={{ flexGrow: 1 }} contentContainerClassName="p-4 gap-4">
 				<View className="flex-row justify-between gap-x-4">
 					<Card
 						title="12.0 GW"
 						variant="primary"
 						subtitle="Total Capacity"
-						style={{ flex: 1, borderWidth: 1, borderColor: COLORS.border.light, alignItems: 'center' }}
+						style={{
+							flex: 1,
+							borderWidth: 1,
+							borderColor: COLORS.border.light,
+							alignItems: 'center',
+						}}
 						icon="flash"
 					/>
 					<Card
 						title="22.40 GW"
 						variant="error"
 						subtitle="Total Gross Load"
-						style={{ flex: 1, borderWidth: 1, borderColor: COLORS.border.light, alignItems: 'center' }}
+						style={{
+							flex: 1,
+							borderWidth: 1,
+							borderColor: COLORS.border.light,
+							alignItems: 'center',
+						}}
 						icon="trending-up"
 					/>
 				</View>
