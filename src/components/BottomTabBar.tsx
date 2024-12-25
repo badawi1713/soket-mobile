@@ -107,9 +107,8 @@ const BottomTabBar: FC<BottomTabBarProps> = ({ state, descriptors, navigation })
               color={isFocused ? COLORS.primary.main : COLORS.secondary.main}
             />
             <Typography
-              variant="caption"
               className={clsx(
-                `capitalize text-center font-oxanium-medium`,
+                `capitalize text-center font-oxanium-medium text-xs`,
                 isFocused ? 'text-primary-main' : 'text-secondary-main'
               )}
             >
