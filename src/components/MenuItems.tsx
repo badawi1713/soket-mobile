@@ -46,7 +46,7 @@ const MenuItems = () => {
       <ConfirmationDialog
         visible={isDialogVisible}
         title="Confirm Action"
-        content="Are you sure you want to log out?"
+        content="Confirm to logout your account?"
         onClose={() => setIsDialogVisible(false)}
         onCancel={() => setIsDialogVisible(false)}
         onConfirm={() => {

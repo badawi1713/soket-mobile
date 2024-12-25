@@ -30,7 +30,7 @@ export const COLORS = {
 	},
 	secondary: {
 		light: '#E0E0E0', // A very light grey, almost white
-		main: '#B0B0B0', // A neutral grey for the main color
+		main: '#595959', // A neutral grey for the main color
 		dark: '#808080', // A darker shade of grey
 	},
 	accent: {
