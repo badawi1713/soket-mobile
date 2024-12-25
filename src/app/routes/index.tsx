@@ -93,7 +93,7 @@ const RootLayout = () => {
 						</Stack.Navigator>
 					</AuthProvider>
 				</NavigationContainer>
-				<Toaster />
+				<Toaster theme="light" />
 			</GestureHandlerRootView>
 		</SafeAreaProvider>
 	);

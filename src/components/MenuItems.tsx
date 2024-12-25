@@ -38,7 +38,7 @@ const MenuItems = () => {
       <Menu
         items={menuItems}
         triggerIcon="ellipsis-horizontal"
-        triggerColor={COLORS.dark.icon}
+        triggerColor={COLORS.secondary.main}
         triggerSize={30}
         isAnotherPopupShow={isDialogVisible}
       />

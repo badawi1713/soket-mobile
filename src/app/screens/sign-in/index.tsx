@@ -79,7 +79,7 @@ const Screen = () => {
 					className="w-full"
 					resizeMode="stretch"
 				/>
-				<View className={clsx('absolute right-8', Platform.OS === 'ios' ? 'top-8' : 'top-0')}>
+				<View className={clsx('absolute right-4', Platform.OS === 'ios' ? 'top-8' : 'top-0')}>
 					<Logo width={100} height={80} />
 				</View>
 				{/* Username Field */}
