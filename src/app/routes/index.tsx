@@ -10,6 +10,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { type StackNavigationProp, createStackNavigator } from '@react-navigation/stack';
 import axios from 'axios';
 import React, { useCallback, useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Toaster } from 'sonner-native';
 import MainApp from './main-app';
 
 export type RootParamList = {
@@ -68,21 +71,26 @@ const RootLayout = () => {
 	}, [initAuth]);
 
 	return (
-		<NavigationContainer
-			ref={navigationRef}
-			onReady={() => {
-				initAuth();
-			}}
-		>
-			<AuthProvider>
-				<Stack.Navigator initialRouteName="splash-screen">
-					<Stack.Screen name="splash-screen" component={SplashScreen} options={{ headerShown: false }} />
-					<Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false }} />
-					<Stack.Screen name="home" component={HomeScreen} options={{ headerShown: false }} />
-					<Stack.Screen name="main-app" component={MainApp} options={{ headerShown: false }} />
-				</Stack.Navigator>
-			</AuthProvider>
-		</NavigationContainer>
+		<SafeAreaProvider>
+			<GestureHandlerRootView>
+				<NavigationContainer
+					ref={navigationRef}
+					onReady={() => {
+						initAuth();
+					}}
+				>
+					<AuthProvider>
+						<Stack.Navigator initialRouteName="splash-screen">
+							<Stack.Screen name="splash-screen" component={SplashScreen} options={{ headerShown: false }} />
+							<Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false }} />
+							<Stack.Screen name="home" component={HomeScreen} options={{ headerShown: false }} />
+							<Stack.Screen name="main-app" component={MainApp} options={{ headerShown: false }} />
+						</Stack.Navigator>
+					</AuthProvider>
+				</NavigationContainer>
+				<Toaster />
+			</GestureHandlerRootView>
+		</SafeAreaProvider>
 	);
 };
 

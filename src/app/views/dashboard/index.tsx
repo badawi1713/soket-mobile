@@ -3,28 +3,19 @@ import AppBar from '@/components/AppBar';
 import BlinkView from '@/components/BlinkView';
 import Card from '@/components/Card';
 import IconButton from '@/components/IconButton';
+import SettingsButton from '@/components/SettingsButton';
 import { COLORS } from '@/constants/colors';
 import images from '@/constants/images';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import React from 'react';
 import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { scale } from 'react-native-size-matters';
+import { toast } from 'sonner-native';
 
 const Content = () => {
 	return (
 		<View className="bg-background-paper flex-1">
-			<AppBar
-				leftComponent={<Logo width={scale(120)} />}
-				rightComponent={
-					<IconButton
-						icon="settings-outline"
-						onPress={() => console.log('Search Pressed')}
-						variant="default"
-						size="medium"
-						iconColor={COLORS.light.icon}
-					/>
-				}
-			/>
+			<AppBar leftComponent={<Logo width={scale(120)} />} rightComponent={<SettingsButton pageName="dashboard" />} />
 			<ScrollView contentContainerStyle={{ flexGrow: 1 }} contentContainerClassName="p-4 gap-4">
 				<View className="flex-row justify-between gap-x-4">
 					<Card
@@ -54,7 +45,12 @@ const Content = () => {
 							style={{ width: '48%' }}
 						>
 							<View className="h-32 rounded-md bg-slate-200 relative">
-								<Image source={images.imgPlantExample} style={{width: '100%', height: '100%'}} className='rounded-md' resizeMode="stretch" />
+								<Image
+									source={images.imgPlantExample}
+									style={{ width: '100%', height: '100%' }}
+									className="rounded-md"
+									resizeMode="stretch"
+								/>
 								<View className="absolute top-2 left-2">
 									{item % 3 !== 0 ? (
 										<Ionicons
