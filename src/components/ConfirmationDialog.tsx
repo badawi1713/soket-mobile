@@ -1,9 +1,8 @@
-import React, {type FC, memo} from 'react';
-import {Modal, type ModalProps, StyleSheet, Text, View} from 'react-native';
-import {scale} from 'react-native-size-matters';
+import { COLORS } from '@/constants/colors';
+import React, { type FC, memo } from 'react';
+import { Modal, type ModalProps, StyleSheet, View } from 'react-native';
 import Button from './Button';
 import Typography from './Typography';
-import { COLORS } from '@/constants/colors';
 
 interface ConfirmationDialogProps extends ModalProps {
   onClose: () => void;
@@ -27,8 +26,12 @@ const ConfirmationDialog: FC<ConfirmationDialogProps> = props => {
         onRequestClose={props.onRequestClose}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Typography className='mb-4' variant="header6">{props.title || 'Title'}</Typography>
-            <Typography variant="body1" className='text-secondary-main'>{props.content || ''}</Typography>
+            <Typography className="mb-4" variant="body1">
+              {props.title || 'Title'}
+            </Typography>
+            <Typography variant="label" className="text-secondary-main">
+              {props.content || ''}
+            </Typography>
             <View style={styles.modalActions}>
               <Button
                 disabled={props?.loading}

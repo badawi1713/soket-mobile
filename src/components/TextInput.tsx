@@ -38,7 +38,9 @@ const TextInput: FC<TextInputProps> = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
-  const handleFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+  const handleFocus = (
+    event: NativeSyntheticEvent<TextInputFocusEventData>,
+  ) => {
     setIsFocused(true);
     onFocus?.(event); // Call parent onFocus if provided
   };
@@ -59,10 +61,9 @@ const TextInput: FC<TextInputProps> = ({
               ? 'text-error-main'
               : isFocused
               ? 'text-primary-main'
-              : 'text-gray-700'
+              : 'text-gray-700',
           )}
-          variant="label"
-        >
+          variant="label">
           {label}
         </Typography>
       )}
@@ -80,15 +81,13 @@ const TextInput: FC<TextInputProps> = ({
         style={{
           height: moderateScale(48), // Consistent height regardless of icon
           paddingHorizontal: scale(10), // Horizontal scaling for padding
-        }}
-      >
+        }}>
         {/* Icon on the Left */}
         {icon && iconPosition === 'left' && (
           <TouchableOpacity
             onPress={onIconPress}
             activeOpacity={0.8}
-            className="mr-2"
-          >
+            className="mr-2">
             <Ionicons
               name={icon}
               size={moderateScale(20)} // Dynamic icon size
@@ -97,7 +96,7 @@ const TextInput: FC<TextInputProps> = ({
                   ? COLORS.error.main
                   : isFocused
                   ? COLORS.primary.main
-                  : COLORS.neutral.main
+                  : COLORS.secondary.main
               } // Dynamic color
             />
           </TouchableOpacity>
@@ -108,18 +107,14 @@ const TextInput: FC<TextInputProps> = ({
           ref={inputRef} // Ref forwarding
           className={clsx(
             'flex-1 font-oxanium',
-            error
-              ? 'text-error-main'
-              : 'text-gray-900 ', // Adjust for dark mode
-            isFocused && 'text-black '
+            error ? 'text-error-main' : 'text-gray-900 ', // Adjust for dark mode
+            isFocused && 'text-black ',
           )}
           style={{
             fontSize: moderateScale(16), // Dynamic font size
           }}
           placeholderTextColor={
-            error
-              ? COLORS.error.main
-              : COLORS.black[100] // Placeholder color
+            error ? COLORS.error.main : COLORS.black[100] // Placeholder color
           }
           onFocus={handleFocus} // Handle focus
           onBlur={handleBlur} // Handle blur
@@ -131,8 +126,7 @@ const TextInput: FC<TextInputProps> = ({
           <TouchableOpacity
             onPress={onIconPress}
             activeOpacity={0.8}
-            className="ml-2"
-          >
+            className="ml-2">
             <Ionicons
               name={icon}
               size={moderateScale(20)} // Dynamic icon size
@@ -141,7 +135,7 @@ const TextInput: FC<TextInputProps> = ({
                   ? COLORS.error.main
                   : isFocused
                   ? COLORS.primary.main
-                  : COLORS.neutral.main
+                  : COLORS.secondary.main
               } // Dynamic color
             />
           </TouchableOpacity>
@@ -153,8 +147,7 @@ const TextInput: FC<TextInputProps> = ({
         <Typography
           className="mt-1 font-oxanium"
           variant="caption"
-          color={COLORS.error.main}
-        >
+          color={COLORS.error.main}>
           {error}
         </Typography>
       )}
@@ -164,8 +157,7 @@ const TextInput: FC<TextInputProps> = ({
         <Typography
           className="mt-1 font-oxanium"
           variant="caption"
-          color={COLORS.neutral.dark}
-        >
+          color={COLORS.neutral.dark}>
           {helperText}
         </Typography>
       )}

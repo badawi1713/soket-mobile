@@ -1,18 +1,19 @@
-import type {AuthNavigationProp} from '@/app/routes';
-import {COLORS} from '@/constants/colors';
-import {useAuth} from '@/hooks/useAuth';
-import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {SafeAreaView} from 'react-native';
-import ConfirmationDialog from './ConfirmationDialog';
-import Menu, {MenuItem} from './Menu';
+import type { AuthNavigationProp } from '@/app/routes';
+import { COLORS } from '@/constants/colors';
 import { SETTINGS } from '@/constants/settings';
+import { useAuth } from '@/hooks/useAuth';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { SafeAreaView } from 'react-native';
+import ConfirmationDialog from './ConfirmationDialog';
+import Menu, { MenuItem } from './Menu';
 
 const MenuItems = () => {
-  const [isDialogVisible, setIsDialogVisible] = useState(false);
-
   const {logout} = useAuth();
   const navigation = useNavigation<AuthNavigationProp>();
+
+  const [isDialogVisible, setIsDialogVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const menuItems: MenuItem[] = [
     {
@@ -47,13 +48,17 @@ const MenuItems = () => {
         visible={isDialogVisible}
         title="Confirm Action"
         content="Confirm to logout your account?"
+        loadingText="Loading"
+        loading={loading}
         onClose={() => setIsDialogVisible(false)}
         onCancel={() => setIsDialogVisible(false)}
-        onConfirm={() => {
-          setIsDialogVisible(false);
-          logout(navigation);
+        onConfirm={async () => {
+          setLoading(true);
+          const response = await logout(navigation);
+          if (response) {
+            setIsDialogVisible(false);
+          }
         }}
-        loading={false} // Change this to `true` to simulate loading
       />
     </SafeAreaView>
   );

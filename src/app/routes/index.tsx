@@ -27,12 +27,22 @@ const Stack = createStackNavigator();
 const RootLayout = () => {
 	const { setUser } = useAuth();
 
+	axios.interceptors.response.use(
+		(response) => response,
+		(error) =>
+			new Promise(() => {
+				if (error.response?.status === 401 && error.config && !error.config.__isRetryRequest) {
+					handleInvalidSession({ showToast: false });
+				}
+				throw error;
+			}),
+	);
+
 	const initAuth = useCallback(async () => {
 		const storedToken = await storage.getString(SETTINGS?.storageTokenKeyName);
 
 		if (storedToken) {
 			try {
-				// Validate the token
 				const response = await axios.get(SETTINGS?.meEndpoint, {
 					headers: { Authorization: `Bearer ${storedToken}` },
 				});
@@ -40,28 +50,24 @@ const RootLayout = () => {
 				setUser(response.data?.object);
 				axios.defaults.headers.common.Authorization = `Bearer ${storedToken}`;
 
-				// Navigate to the main app after a short delay
 				if (navigationRef.isReady()) {
 					setTimeout(() => {
-						reset('main-app'); // Go to MainApp
+						reset('main-app');
 					}, 500);
 				}
 			} catch (error) {
-				// Handle invalid token
-				handleInvalidSession();
+				handleInvalidSession({ showToast: true });
 			}
 		} else {
-			// No token found, navigate to LoginScreen
 			if (navigationRef.isReady()) {
 				setTimeout(() => {
-					reset('login'); // Navigate to Login
+					reset('login');
 				}, 500);
 			}
 		}
 	}, [setUser]);
 
-	// Handle invalid session by clearing data and navigating to LoginScreen
-	const handleInvalidSession = () => {
+	const handleInvalidSession = ({ showToast }: { showToast?: boolean }) => {
 		setUser(null);
 		storage.delete('userData');
 		storage.delete(SETTINGS?.storageTokenKeyName);
@@ -73,7 +79,9 @@ const RootLayout = () => {
 				reset('login'); // Navigate to Login
 			}, 500);
 		}
-		toast.error('Sorry, but your session is invalid');
+		if (showToast) {
+			toast.error('Sorry, but your session is invalid');
+		}
 	};
 
 	return (

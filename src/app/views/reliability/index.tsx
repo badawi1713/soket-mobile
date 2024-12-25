@@ -8,7 +8,7 @@ import { scale } from 'react-native-size-matters';
 
 const Screen = () => {
 	return (
-			<View className="bg-background-paper flex-1">
+		<View className="bg-background-paper flex-1">
 			<AppBar leftComponent={<Logo width={scale(120)} />} rightComponent={<MenuItems />} />
 			<ScrollView contentContainerStyle={{ flexGrow: 1 }} contentContainerClassName="px-4">
 				<ChartView />

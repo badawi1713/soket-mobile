@@ -1,10 +1,10 @@
-import {SETTINGS} from '@/constants/settings';
-import {storage} from '@/utils/mmkv';
-import {ParamListBase} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
-import axios, {AxiosError} from 'axios';
-import React, {createContext, ReactNode, useState} from 'react';
-import {toast} from 'sonner-native';
+import { SETTINGS } from '@/constants/settings';
+import { storage } from '@/utils/mmkv';
+import { ParamListBase } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import axios, { AxiosError } from 'axios';
+import React, { createContext, ReactNode, useState } from 'react';
+import { toast } from 'sonner-native';
 
 export interface ErrorResponse {
   message: string;
@@ -26,7 +26,7 @@ interface AuthContextType {
     navigation: AuthNavigationProp,
     errorCallback?: (error: AxiosError) => void,
   ) => Promise<void>;
-  logout: (navigation: AuthNavigationProp) => Promise<void>;
+  logout: (navigation: AuthNavigationProp) => Promise<boolean>;
   handleUnauthorized: (navigation: AuthNavigationProp) => void;
 }
 
@@ -48,7 +48,9 @@ const defaultProvider: AuthContextType = {
   user: null,
   setUser: () => null,
   login: async () => {},
-  logout: async () => {},
+  logout: async () => {
+    return false;
+  },
   handleUnauthorized: async () => {},
 };
 
@@ -110,6 +112,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 
       navigation.replace('login');
       toast.success('You have been logged out');
+      return true;
     } catch (err) {
       if (axios.isAxiosError(err)) {
         toast.error(
@@ -118,6 +121,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
       } else {
         toast.error('Error: Something went wrong.');
       }
+      return false;
     }
   };
 
@@ -132,4 +136,5 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 
-export {AuthContext, AuthProvider};
+export { AuthContext, AuthProvider };
+
