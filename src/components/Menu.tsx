@@ -1,12 +1,11 @@
 import Typography from '@/components/Typography'; // Custom Typography component
-import {COLORS} from '@/constants/colors'; // Color constants
+import { COLORS } from '@/constants/colors'; // Color constants
 import Ionicons from '@react-native-vector-icons/ionicons';
-import {clsx} from 'clsx'; // For conditional classes
-import React, {FC, Fragment, useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import { clsx } from 'clsx'; // For conditional classes
+import React, { FC, Fragment, useState } from 'react';
+import { TouchableOpacity, View } from 'react-native';
 import Popover from 'react-native-popover-view';
 import Divider from './Divider';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 // Define a menu item type
 export interface MenuItem {
@@ -31,7 +30,6 @@ const Menu: FC<MenuProps> = ({
   triggerSize = 24, // Default trigger icon size
   isAnotherPopupShow = false,
 }) => {
-  const insets = useSafeAreaInsets();
 
   const [showPopup, setShowPopup] = useState(false); // Visibility of the menu
 
@@ -41,7 +39,6 @@ const Menu: FC<MenuProps> = ({
     </TouchableOpacity>
   ) : (
     <Popover
-      displayAreaInsets={insets}
       from={
         <TouchableOpacity onPress={() => setShowPopup(!showPopup)}>
           <Ionicons

@@ -27,8 +27,8 @@ const Card: FC<CardProps> = ({
   const variantColors = {
     default: {
       background: COLORS.background.paper,
-      title: COLORS.neutral.dark,
-      subtitle: COLORS.neutral.main,
+      title: COLORS.light.icon,
+      subtitle: COLORS.light.icon,
     },
     primary: {
       background: COLORS.background.paper,
@@ -95,9 +95,10 @@ const Card: FC<CardProps> = ({
       {/* Subtitle Section */}
       {subtitle && (
         <Typography
-          variant="body2"
-          weight="regular"
+          variant="caption"
+          weight="semibold"
           color={colors.subtitle}
+          className='text-center'
         >
           {subtitle}
         </Typography>

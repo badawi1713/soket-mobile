@@ -20,7 +20,7 @@ const dummyChartData: ChartData[] = [
   { label: 'Jun', value: '750000' },
 ];
 
-const dummyChartConfig = {
+const chartConfig = {
   type: 'column2d',
   width: '100%', // Atur lebar grafik
   height: '600', // Atur tinggi grafik
@@ -75,7 +75,7 @@ const FusionChartComponent: React.FC = () => {
       creditLabel: false
     })
 
-            var chart = new FusionCharts(${JSON.stringify(dummyChartConfig)});
+            var chart = new FusionCharts(${JSON.stringify(chartConfig)});
             chart.render("chart-container");
           });
         </script>
