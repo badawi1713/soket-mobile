@@ -85,6 +85,6 @@ export const COLORS = {
 	disabled: '#C5C5C5',
 	background: {
 		paper: '#FFF',
-		main: '#C7C7C7',
+		main: '#EEE',
 	},
 };

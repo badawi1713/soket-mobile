@@ -51,7 +51,7 @@ const TextInput: FC<TextInputProps> = ({
   };
 
   return (
-    <View className="mb-4">
+    <View>
       {/* Label */}
       {label && (
         <Typography

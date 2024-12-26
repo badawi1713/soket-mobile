@@ -31,7 +31,7 @@ const RootLayout = () => {
 		(response) => response,
 		(error) =>
 			new Promise(() => {
-				if (error.response?.status === 401 && error.config && !error.config.__isRetryRequest) {
+				if (error.response?.status === 401 && error.config && !error.config.__isRetryRequest && !error?.response?.data?.path?.includes('/identity/auth')) {
 					handleInvalidSession({ showToast: false });
 				}
 				throw error;

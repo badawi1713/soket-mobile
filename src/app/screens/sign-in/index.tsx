@@ -161,6 +161,7 @@ const Screen = () => {
 const styles = StyleSheet.create({
 	formContainer: {
 		height: verticalScale(240),
+		gap: 16
 	},
 });
 
