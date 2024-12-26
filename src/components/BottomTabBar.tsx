@@ -15,22 +15,26 @@ const BottomTabBar: FC<BottomTabBarProps> = ({ state, descriptors, navigation })
     if (tabLayouts[state.index]) {
       Animated.timing(activeTabAnimation, {
         toValue: tabLayouts[state.index].x,
-        duration: 200,
-        useNativeDriver: false,
+        duration: 150, 
+        useNativeDriver: true,
       }).start();
     }
   }, [state.index, tabLayouts]);
 
   const handleTabLayout = (index: number) => (event: any) => {
     const { x, width } = event.nativeEvent.layout;
-    setTabLayouts((prev) => ({
-      ...prev,
-      [index]: { x, width },
-    }));
+    setTabLayouts((prev) => {
+      if (prev[index]?.x === x && prev[index]?.width === width) return prev; // Avoid unnecessary updates
+      return {
+        ...prev,
+        [index]: { x, width },
+      };
+    });
   };
 
   return (
     <View style={styles.tabBarContainer}>
+      {/* Animated Active Tab Border */}
       {tabLayouts[state.index] && (
         <Animated.View
           style={[
@@ -45,12 +49,11 @@ const BottomTabBar: FC<BottomTabBarProps> = ({ state, descriptors, navigation })
 
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
-        const label =
-          `${options.tabBarLabel !== undefined
-            ? options.tabBarLabel
-            : options.title !== undefined
-            ? 'options.title'
-            : route.name}`.replace(/-/g, ' ').replace('boiler', '');
+        const label = `${options.tabBarLabel !== undefined
+          ? options.tabBarLabel
+          : options.title !== undefined
+          ? options.title
+          : route.name}`.replace(/-/g, ' ').replace('boiler', '');
 
         const isFocused = state.index === index;
 
