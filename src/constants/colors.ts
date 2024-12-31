@@ -81,6 +81,9 @@ export const COLORS = {
 		mediumTransparent: 'rgba(0, 0, 0, 0.6)',
 		lightTransparent: 'rgba(0, 0, 0, 0.8)',
 		fullTransparent: 'rgba(0, 0, 0, 1)',
+		red: '#FF0000',
+		green: '#00FF00',
+		yellow: '#FFF000',
 	},
 	disabled: '#C5C5C5',
 	background: {

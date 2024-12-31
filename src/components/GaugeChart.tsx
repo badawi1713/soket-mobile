@@ -17,9 +17,9 @@ const GaugeChart: React.FC<Props> = ({title = '' }) => {
         dataSource: {
           chart: {
             caption: title || '',
-            captionFontSize: "14", 
-            captionPadding: "0",
-            chartTopMargin: "40",
+            captionFontSize: "16", 
+            captionPadding: "10",
+            chartTopMargin: "20",
             lowerLimit: "0",
             upperLimit: "5",
             theme: "fusion",
@@ -29,12 +29,14 @@ const GaugeChart: React.FC<Props> = ({title = '' }) => {
             gaugeFillRatio: "25,50,25",
             showvalue: "1",
             numbersuffix: "%",
+            valueFont: "Oxanium",
+            valueFontSize: "18", 
           },
           colorRange: {
             color: [
-              { minValue: "0", maxValue: "49", code: "#FF0000" },
-              { minValue: "50", maxValue: "75", code: "#FFFF00" },
-              { minValue: "76", maxValue: "100", code: "#00FF00" },
+              { minValue: "0", maxValue: "49", code: COLORS.common.red },
+              { minValue: "50", maxValue: "75", code: COLORS.common.yellow},
+              { minValue: "76", maxValue: "100", code: COLORS.common.green },
             ],
           },
           dials: {
