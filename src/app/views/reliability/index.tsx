@@ -1,20 +1,16 @@
 import Logo from '@/assets/images/logo-pln-np.svg';
 import AppBar from '@/components/AppBar';
-import GaugeChart from '@/components/GaugeChart';
-import MenuItems from '@/components/MenuItems';
-import Typography from '@/components/Typography';
-import React from 'react';
-import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
-import { scale } from 'react-native-size-matters';
-import { format } from 'date-fns';
-import Ionicons from '@react-native-vector-icons/ionicons';
-import { COLORS } from '../../../constants/colors';
-import TextInput from '@/components/TextInput';
 import Card from '@/components/Card';
+import GaugeChart from '@/components/GaugeChart';
+import Typography from '@/components/Typography';
+import Ionicons from '@react-native-vector-icons/ionicons';
+import { format } from 'date-fns';
+import React from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { scale } from 'react-native-size-matters';
+import { COLORS } from '../../../constants/colors';
 
 const Screen = () => {
-	const { width } = Dimensions.get('window');
-
 	return (
 		<View className="bg-background-main flex-1">
 			<AppBar

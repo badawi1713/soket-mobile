@@ -5,7 +5,7 @@ import { StyleProp, View, ViewStyle } from 'react-native';
 import Typography from './Typography';
 
 interface CardProps {
-  title: string; // Card title
+  title?: string; // Card title
   subtitle?: string; // Optional subtitle
   icon?: React.ComponentProps<typeof Ionicons>['name']; // Optional leading icon
   variant?: 'default' | 'primary' | 'success' | 'info' | 'warning' | 'error'; // Card variant for colors
@@ -78,7 +78,7 @@ const Card: FC<CardProps> = ({
       ]}
     >
       {/* Header Section */}
-      <View className="flex-row items-center mb-4">
+     {title && <View className="flex-row items-center mb-4">
         {icon && (
           <Ionicons
             name={icon}
@@ -90,7 +90,7 @@ const Card: FC<CardProps> = ({
         <Typography variant="header5" weight="bold" color={colors.title}>
           {title}
         </Typography>
-      </View>
+      </View>}
 
       {/* Subtitle Section */}
       {subtitle && (

@@ -15,7 +15,8 @@ interface TypographyProps extends TextProps {
     | 'header5'
     | 'header6'
     | 'subtitle'
-    | 'title'; // Font variant
+    | 'title' // Font variant
+    | 'smallText';
   weight?:
     | 'regular'
     | 'bold'
@@ -51,6 +52,7 @@ const Typography: FC<TypographyProps> = ({
     header1: 'text-6xl',
     subtitle: 'text-lg',
     title: 'text-2xl',
+    smallText: 'text-xs'
   };
 
   // Map weights to font classes
