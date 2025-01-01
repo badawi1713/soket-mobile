@@ -2,13 +2,12 @@ import Logo from '@/assets/images/logo-pln-np.svg';
 import AppBar from '@/components/AppBar';
 import Card from '@/components/Card';
 import Typography from '@/components/Typography';
-import Ionicons from '@react-native-vector-icons/ionicons';
+import { default as Icon, default as Ionicons } from '@react-native-vector-icons/ionicons';
 import { format } from 'date-fns';
 import React from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { scale } from 'react-native-size-matters';
 import { COLORS } from '../../../constants/colors';
-import Icon from '@react-native-vector-icons/ionicons';
 
 const MEASURED_KPI = [
 	{
@@ -181,9 +180,11 @@ const Screen = () => {
 						))}
 					</View>
 				</View>
-				<TouchableOpacity className='flex-row justify-between items-center bg-white p-4 rounded-lg'>
-					<Typography variant='body2' weight='medium'>Performance and Efficiency</Typography>
-					<Icon size={18} name='arrow-up-right-box-outline' />
+				<TouchableOpacity className="flex-row justify-between items-center bg-white p-4 rounded-lg">
+					<Typography variant="body2" weight="medium">
+						Performance and Efficiency
+					</Typography>
+					<Icon size={18} name="arrow-up-right-box-outline" />
 				</TouchableOpacity>
 			</ScrollView>
 		</View>
@@ -191,12 +192,3 @@ const Screen = () => {
 };
 
 export default Screen;
-
-const styles = StyleSheet.create({
-	chartContainer: {
-		flex: 1,
-		height: 240,
-		overflow: 'hidden',
-		borderRadius: 8,
-	},
-});
