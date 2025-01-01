@@ -50,10 +50,10 @@ const EfficiencyChart: React.FC = () => {
 
             const schema = [
               { name: "Time", type: "date", format: "%Y-%m-%d %H:%M" },
-              { name: "Boiler Efficiency", type: "number" },
-              { name: "Sootblow Running", type: "number" },
-              { name: "Combustion Running", type: "number" },
-              { name: "Efficiency Baseline", type: "number" }
+              { name: "Boiler Eff", type: "number" },
+              { name: "SOPT Run", type: "number" },
+              { name: "COPT Run", type: "number" },
+              { name: "Eff Baseline", type: "number" }
             ];
 
             const fusionTable = new FusionCharts.DataStore().createDataTable(data, schema);
@@ -70,27 +70,27 @@ const EfficiencyChart: React.FC = () => {
                     text: "Combined Performance Chart"
                   },
                   subcaption: {
-                    text: "Boiler Efficiency, Sootblow, and Combustion Running"
+                    text: "Boiler Efficiency, Sootblow, and Combustion Run"
                   },
                   showLegend: true,
                   theme: "fusion",
                         baseFont: "Oxanium", // Change font family
                    legendItemFont: "Oxanium",
             legendItemFontSize: "12",
-            drawCustomLegend: "0",
+            drawCustomLegend: "1",
             legendPosition: "bottom", // Place legend at the bottom
     legendItemFontSize: "10", // Set legend font size
     legendItemFontBold: "1", // Make legend text bold
     legendIconScale: "1", // Increase size of legend icons
-    legendPadding: "10", // Add padding around the legend
+    legendPadding: "1", // Add padding around the legend
             chartLeftMargin: "0",
             chartTopMargin: "0",
             chartRightMargin: "0",
             chartBottomMargin: "0",
-            legendNumRows: 4,
-        legendNumColumns: 1,
+            legendNumRows: 2,
+        legendNumColumns: 2,
             multiCanvas: false,
-            paletteColors: '#00ff37, #ffa000, #2196F3, #ff0000',
+            paletteColors: '#00A152, #ffa000, #2196F3, #ff0000',
                 },
                  extensions: {
             customRangeSelector: {
@@ -116,11 +116,11 @@ legend: {
       title: "Running",
       plot: [
         {
-          value: "Sootblow Running",
+          value: "SOPT Run",
           type: "step-line"
         },
         {
-          value: "Combustion Running",
+          value: "COPT Run",
           type: "step-line"
         }
       ],
@@ -137,11 +137,11 @@ legend: {
       title: "Efficiency",
       plot: [
         {
-          value: "Boiler Efficiency",
+          value: "Boiler Eff",
           type: "line"
         },
         {
-          value: "Efficiency Baseline",
+          value: "Eff Baseline",
           type: "line"
         }
       ],
@@ -166,7 +166,7 @@ legend: {
 		<WebView
 			originWhitelist={['*']}
 			source={{ html: chartHTML }}
-			style={{ flex: 1, minHeight: 400 }}
+			style={{ flex: 1, minHeight: 420 }}
 			scalesPageToFit={true}
 			javaScriptEnabled={true}
 		/>
