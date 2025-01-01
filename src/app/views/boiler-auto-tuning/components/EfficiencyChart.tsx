@@ -113,7 +113,7 @@ legend: {
   },
               yaxis: [
     {
-      title: "Running",
+      title: "",
       plot: [
         {
           value: "SOPT Run",
@@ -124,17 +124,16 @@ legend: {
           type: "step-line"
         }
       ],
-      orientation: "left", // Left Y-axis
+      orientation: "right", // Left Y-axis
       min: 0,
       max: 1.1,
       format: {
-      orientation: "right", // Right Y-axis
         defaultFormat: 0,
         round: 1
       }
     },
     {
-      title: "Efficiency",
+      title: "",
       plot: [
         {
           value: "Boiler Eff",
@@ -145,6 +144,7 @@ legend: {
           type: "line"
         }
       ],
+      orientation: "left", // Left Y-axis
       format: {
         suffix: "%",
         defaultFormat: 0,
