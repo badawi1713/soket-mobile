@@ -1,8 +1,7 @@
 import { COLORS } from '@/constants/colors';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { clsx } from 'clsx';
-import type React from 'react';
-import { type FC, useState } from 'react';
+import React, { type FC, useState } from 'react';
 import {
   type NativeSyntheticEvent,
   TextInput as RNTextInput,
@@ -22,6 +21,7 @@ interface TextInputProps extends RNTextInputProps {
   onIconPress?: () => void; // Optional handler for icon press
   iconPosition?: 'left' | 'right'; // Icon position (left or right)
   inputRef?: React.Ref<RNTextInput>; // Reference for TextInput
+  size?: 'small' | 'medium' | 'large'; // Size of the input
 }
 
 const TextInput: FC<TextInputProps> = ({
@@ -34,6 +34,7 @@ const TextInput: FC<TextInputProps> = ({
   inputRef,
   onBlur, // Prop for onBlur handling
   onFocus, // Prop for onFocus handling
+  size = 'medium', // Default size
   ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -50,6 +51,25 @@ const TextInput: FC<TextInputProps> = ({
     onBlur?.(event); // Call parent onBlur if provided
   };
 
+  // Dynamic styles based on size
+  const inputHeight = {
+    small: moderateScale(36),
+    medium: moderateScale(48),
+    large: moderateScale(60),
+  };
+
+  const fontSize = {
+    small: moderateScale(14),
+    medium: moderateScale(16),
+    large: moderateScale(18),
+  };
+
+  const paddingHorizontal = {
+    small: scale(8),
+    medium: scale(10),
+    large: scale(12),
+  };
+
   return (
     <View>
       {/* Label */}
@@ -63,7 +83,8 @@ const TextInput: FC<TextInputProps> = ({
               ? 'text-primary-main'
               : 'text-gray-700',
           )}
-          variant="label">
+          variant="label"
+        >
           {label}
         </Typography>
       )}
@@ -79,18 +100,20 @@ const TextInput: FC<TextInputProps> = ({
             : 'border-neutral-dark',
         )}
         style={{
-          height: moderateScale(48), // Consistent height regardless of icon
-          paddingHorizontal: scale(10), // Horizontal scaling for padding
-        }}>
+          height: inputHeight[size], // Dynamic height
+          paddingHorizontal: paddingHorizontal[size], // Dynamic padding
+        }}
+      >
         {/* Icon on the Left */}
         {icon && iconPosition === 'left' && (
           <TouchableOpacity
             onPress={onIconPress}
             activeOpacity={0.8}
-            className="mr-2">
+            className="mr-2"
+          >
             <Ionicons
               name={icon}
-              size={moderateScale(20)} // Dynamic icon size
+              size={moderateScale(18)} // Dynamic icon size
               color={
                 error
                   ? COLORS.error.main
@@ -111,7 +134,7 @@ const TextInput: FC<TextInputProps> = ({
             isFocused && 'text-black ',
           )}
           style={{
-            fontSize: moderateScale(16), // Dynamic font size
+            fontSize: fontSize[size], // Dynamic font size
           }}
           placeholderTextColor={
             error ? COLORS.error.main : COLORS.black[100] // Placeholder color
@@ -126,10 +149,11 @@ const TextInput: FC<TextInputProps> = ({
           <TouchableOpacity
             onPress={onIconPress}
             activeOpacity={0.8}
-            className="ml-2">
+            className="ml-2"
+          >
             <Ionicons
               name={icon}
-              size={moderateScale(20)} // Dynamic icon size
+              size={moderateScale(18)} // Dynamic icon size
               color={
                 error
                   ? COLORS.error.main
@@ -147,7 +171,8 @@ const TextInput: FC<TextInputProps> = ({
         <Typography
           className="mt-1 font-oxanium"
           variant="caption"
-          color={COLORS.error.main}>
+          color={COLORS.error.main}
+        >
           {error}
         </Typography>
       )}
@@ -157,7 +182,8 @@ const TextInput: FC<TextInputProps> = ({
         <Typography
           className="mt-1 font-oxanium"
           variant="caption"
-          color={COLORS.neutral.dark}>
+          color={COLORS.neutral.dark}
+        >
           {helperText}
         </Typography>
       )}

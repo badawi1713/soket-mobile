@@ -3,7 +3,7 @@ import AppBar from '@/components/AppBar';
 import Typography from '@/components/Typography';
 import images from '@/constants/images';
 import React from 'react';
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { scale } from 'react-native-size-matters';
 
 const Screen = () => {
@@ -27,89 +27,9 @@ const Screen = () => {
 						PKU
 					</Typography>
 				</TouchableOpacity>
-				<TouchableOpacity className="flex-row items-center gap-4 py-3 border-b border-b-border-light">
-					<Image className="w-12 h-12" resizeMode="contain" source={images.imgApp1} />
-					<Typography variant="body1" weight="semibold">
-						PKU
-					</Typography>
-				</TouchableOpacity>				<TouchableOpacity className="flex-row items-center gap-4 py-3 border-b border-b-border-light">
-					<Image className="w-12 h-12" resizeMode="contain" source={images.imgApp1} />
-					<Typography variant="body1" weight="semibold">
-						PKU
-					</Typography>
-				</TouchableOpacity>				<TouchableOpacity className="flex-row items-center gap-4 py-3 border-b border-b-border-light">
-					<Image className="w-12 h-12" resizeMode="contain" source={images.imgApp1} />
-					<Typography variant="body1" weight="semibold">
-						PKU
-					</Typography>
-				</TouchableOpacity>				<TouchableOpacity className="flex-row items-center gap-4 py-3 border-b border-b-border-light">
-					<Image className="w-12 h-12" resizeMode="contain" source={images.imgApp1} />
-					<Typography variant="body1" weight="semibold">
-						PKU
-					</Typography>
-				</TouchableOpacity>				<TouchableOpacity className="flex-row items-center gap-4 py-3 border-b border-b-border-light">
-					<Image className="w-12 h-12" resizeMode="contain" source={images.imgApp1} />
-					<Typography variant="body1" weight="semibold">
-						PKU
-					</Typography>
-				</TouchableOpacity>				<TouchableOpacity className="flex-row items-center gap-4 py-3 border-b border-b-border-light">
-					<Image className="w-12 h-12" resizeMode="contain" source={images.imgApp1} />
-					<Typography variant="body1" weight="semibold">
-						PKU
-					</Typography>
-				</TouchableOpacity>				<TouchableOpacity className="flex-row items-center gap-4 py-3 border-b border-b-border-light">
-					<Image className="w-12 h-12" resizeMode="contain" source={images.imgApp1} />
-					<Typography variant="body1" weight="semibold">
-						PKU
-					</Typography>
-				</TouchableOpacity>				<TouchableOpacity className="flex-row items-center gap-4 py-3 border-b border-b-border-light">
-					<Image className="w-12 h-12" resizeMode="contain" source={images.imgApp1} />
-					<Typography variant="body1" weight="semibold">
-						PKU
-					</Typography>
-				</TouchableOpacity>				<TouchableOpacity className="flex-row items-center gap-4 py-3 border-b border-b-border-light">
-					<Image className="w-12 h-12" resizeMode="contain" source={images.imgApp1} />
-					<Typography variant="body1" weight="semibold">
-						PKU
-					</Typography>
-				</TouchableOpacity>				<TouchableOpacity className="flex-row items-center gap-4 py-3 border-b border-b-border-light">
-					<Image className="w-12 h-12" resizeMode="contain" source={images.imgApp1} />
-					<Typography variant="body1" weight="semibold">
-						PKU
-					</Typography>
-				</TouchableOpacity>				<TouchableOpacity className="flex-row items-center gap-4 py-3 border-b border-b-border-light">
-					<Image className="w-12 h-12" resizeMode="contain" source={images.imgApp1} />
-					<Typography variant="body1" weight="semibold">
-						PKU
-					</Typography>
-				</TouchableOpacity>				<TouchableOpacity className="flex-row items-center gap-4 py-3 border-b border-b-border-light">
-					<Image className="w-12 h-12" resizeMode="contain" source={images.imgApp1} />
-					<Typography variant="body1" weight="semibold">
-						PKU
-					</Typography>
-				</TouchableOpacity>				<TouchableOpacity className="flex-row items-center gap-4 py-3 border-b border-b-border-light">
-					<Image className="w-12 h-12" resizeMode="contain" source={images.imgApp1} />
-					<Typography variant="body1" weight="semibold">
-						PKU
-					</Typography>
-				</TouchableOpacity>				<TouchableOpacity className="flex-row items-center gap-4 py-3 border-b border-b-border-light">
-					<Image className="w-12 h-12" resizeMode="contain" source={images.imgApp1} />
-					<Typography variant="body1" weight="semibold">
-						PKU
-					</Typography>
-				</TouchableOpacity>
 			</ScrollView>
 		</View>
 	);
 };
 
 export default Screen;
-
-const styles = StyleSheet.create({
-	chartContainer: {
-		flex: 1,
-		height: 240,
-		overflow: 'hidden',
-		borderRadius: 8,
-	},
-});

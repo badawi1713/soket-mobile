@@ -1,5 +1,6 @@
 import Logo from '@/assets/images/logo-pln-np.svg';
 import AppBar from '@/components/AppBar';
+import Autocomplete from '@/components/Autocomplete';
 import Card from '@/components/Card';
 import GaugeChart from '@/components/GaugeChart';
 import Typography from '@/components/Typography';
@@ -8,7 +9,7 @@ import { format } from 'date-fns';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { scale } from 'react-native-size-matters';
-import { COLORS } from '../../../constants/colors';
+import { COLORS } from '@/constants/colors';
 
 const Screen = () => {
 	return (
@@ -22,7 +23,9 @@ const Screen = () => {
 				}
 			/>
 			<View className="bg-background-paper h-auto px-4 pb-4">
-				<View className="h-12 bg-gray-200 rounded-lg" />
+				<View className="h-12">
+					<Autocomplete />
+				</View>
 			</View>
 			<ScrollView contentContainerStyle={{ flexGrow: 1, gap: 16, paddingHorizontal: 16, paddingBottom: 16 }}>
 				<View className="flex-row items-center mx-auto gap-2 mt-4">

@@ -3,9 +3,12 @@ import AppBar from '@/components/AppBar';
 import BlinkView from '@/components/BlinkView';
 import Card from '@/components/Card';
 import MenuItems from '@/components/MenuItems';
+import TextInput from '@/components/TextInput';
+import Typography from '@/components/Typography';
 import { COLORS } from '@/constants/colors';
 import images from '@/constants/images';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { format } from 'date-fns';
 import React from 'react';
 import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { scale } from 'react-native-size-matters';
@@ -40,6 +43,21 @@ const Content = () => {
 						}}
 						icon="trending-up"
 					/>
+				</View>
+				<View>
+					<TextInput size="small" placeholder="Search unit..." icon="search-outline" iconPosition="right" />
+				</View>
+				<View className="flex-row items-center mx-auto gap-2">
+					<View
+						style={{
+							transform: [{ rotate: '90deg' }],
+						}}
+					>
+						<Ionicons name="refresh-outline" color={COLORS.light.icon} size={18} />
+					</View>
+					<Typography variant="caption" className="text-center text-neutral-600">
+						Last Updated: {format(new Date(), 'MMM dd, yyyy  HH:mm')}
+					</Typography>
 				</View>
 				<View className="flex-row gap-0 gap-y-4 flex-wrap justify-between">
 					{[
