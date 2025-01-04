@@ -1,3 +1,4 @@
+import type { AuthNavigationProp } from '@/app/routes';
 import BlinkView from '@/components/BlinkView';
 import Card from '@/components/Card';
 import LastUpdatedInfo from '@/components/LastUpdatedInfo';
@@ -6,11 +7,14 @@ import Typography from '@/components/Typography';
 import { COLORS } from '@/constants/colors';
 import images from '@/constants/images';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
 import React from 'react';
 import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 
 const Content = () => {
+	const navigation = useNavigation<AuthNavigationProp>();
+
 	return (
 		<View className="bg-background-paper flex-1">
 			<ScrollView contentContainerStyle={{ flexGrow: 1 }} contentContainerClassName="px-4 pb-4 gap-4">
@@ -52,7 +56,12 @@ const Content = () => {
 						<TouchableOpacity
 							activeOpacity={0.3}
 							key={item}
-							onPress={() => console.log('Pressed')}
+							onPress={() =>
+								navigation.navigate('unit-details', {
+									id: `${item}`,
+									title: 'Tanjung Awar-Awar 1',
+								})
+							}
 							style={{ width: '48%' }}
 						>
 							<View className="h-32 rounded-md bg-slate-200 relative">
@@ -80,7 +89,7 @@ const Content = () => {
 									)}
 								</View>
 								<View className="absolute w-full bottom-0 rounded-b-md">
-									<View className="bg-black opacity-55 z-10 absolute w-full h-full" />
+									<View className="bg-black opacity-55 z-10 rounded-b-md absolute w-full h-full" />
 									<View className="px-2 py-1 z-20">
 										<Typography className="text-white text-center font-oxanium-medium" variant="caption">
 											Tanjung Awar-Awar 1

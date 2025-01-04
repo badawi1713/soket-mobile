@@ -95,7 +95,7 @@ const HEAT_BALANCE_KPI = [
 	},
 ];
 
-const Screen = () => {
+const Content = () => {
 	return (
 		<View className="bg-background-main flex-1">
 			<View className="bg-background-paper h-auto px-4 pb-4">
@@ -174,4 +174,4 @@ const Screen = () => {
 	);
 };
 
-export default Screen;
+export default Content;

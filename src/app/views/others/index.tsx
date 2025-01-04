@@ -3,7 +3,7 @@ import images from '@/constants/images';
 import React from 'react';
 import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 
-const Screen = () => {
+const Content = () => {
 	return (
 		<View className="bg-background-paper flex-1">
 			<Typography variant="body1" weight="semibold" className='px-4'>
@@ -53,4 +53,4 @@ const Screen = () => {
 	);
 };
 
-export default Screen;
+export default Content;

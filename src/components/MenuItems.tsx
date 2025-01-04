@@ -22,7 +22,7 @@ const MenuItems = () => {
       onPress: () => false,
     },
     {
-      label: 'Logout',
+      label: 'Sign Out',
       icon: 'log-out-outline',
       onPress: () => setIsDialogVisible(true),
     },
@@ -46,8 +46,8 @@ const MenuItems = () => {
 
       <ConfirmationDialog
         visible={isDialogVisible}
-        title="Confirm Action"
-        content="Confirm to logout your account?"
+        title="Sign Out"
+        content="Confirm to sign out your account?"
         loadingText="Loading"
         loading={loading}
         onClose={() => setIsDialogVisible(false)}

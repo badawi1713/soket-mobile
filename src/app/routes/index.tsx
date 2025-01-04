@@ -1,29 +1,38 @@
 import LoginScreen from '@/app/screens/sign-in';
+import UnitDetailsScreen from '@/app/screens/unit-details';
 import SplashScreen from '@/components/SplashScreen';
+import Typography from '@/components/Typography';
 import { SETTINGS } from '@/constants/settings';
 import { AuthProvider } from '@/context/AuthContext';
 import { useAuth } from '@/hooks/useAuth';
 import { storage } from '@/utils/mmkv';
 import { navigationRef, reset } from '@/utils/navigate';
+import Ionicons from '@react-native-vector-icons/ionicons';
 import { NavigationContainer } from '@react-navigation/native';
 import { type StackNavigationProp, createStackNavigator } from '@react-navigation/stack';
 import axios from 'axios';
 import React, { useCallback } from 'react';
+import { TouchableOpacity } from 'react-native';
+import { AutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Toaster, toast } from 'sonner-native';
 import MainApp from './main-app';
-import { AutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown';
 
 export type RootParamList = {
+	'splash-screen': undefined;
 	login: undefined;
 	home: undefined;
 	'main-app': undefined;
+	'unit-details': {
+		title: string;
+		id: string;
+	};
 };
 
 export type AuthNavigationProp = StackNavigationProp<RootParamList>;
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootParamList>();
 
 const RootLayout = () => {
 	const { setUser } = useAuth();
@@ -105,6 +114,19 @@ const RootLayout = () => {
 								<Stack.Screen name="splash-screen" component={SplashScreen} options={{ headerShown: false }} />
 								<Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false }} />
 								<Stack.Screen name="main-app" component={MainApp} options={{ headerShown: false }} />
+								<Stack.Screen
+									name="unit-details"
+									component={UnitDetailsScreen}
+									options={({ route, navigation }) => ({
+										headerShadowVisible: false,
+										headerTitle: () => <Typography weight="semibold">{route?.params?.title || ''}</Typography>,
+										headerLeft: () => (
+											<TouchableOpacity onPress={() => navigation.goBack()}>
+												<Ionicons name="chevron-back" size={24} />
+											</TouchableOpacity>
+										),
+									})}
+								/>
 							</Stack.Navigator>
 						</AuthProvider>
 					</NavigationContainer>
