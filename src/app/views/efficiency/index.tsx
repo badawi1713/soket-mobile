@@ -1,5 +1,3 @@
-import Logo from '@/assets/images/logo-pln-np.svg';
-import AppBar from '@/components/AppBar';
 import Autocomplete from '@/components/Autocomplete';
 import Card from '@/components/Card';
 import Typography from '@/components/Typography';
@@ -99,14 +97,6 @@ const HEAT_BALANCE_KPI = [
 const Screen = () => {
 	return (
 		<View className="bg-background-main flex-1">
-			<AppBar
-				leftComponent={<Logo width={scale(120)} />}
-				rightComponent={
-					<Typography weight="bold" variant="body2">
-						Efficiency Optimization
-					</Typography>
-				}
-			/>
 			<View className="bg-background-paper h-auto px-4 pb-4">
 				<View className="h-12">
 					<Autocomplete />

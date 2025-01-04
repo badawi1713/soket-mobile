@@ -74,15 +74,14 @@ const EfficiencyChart: React.FC = () => {
                   },
                   showLegend: true,
                   theme: "fusion",
-                        baseFont: "Oxanium", // Change font family
+                        baseFont: "Oxanium", 
                    legendItemFont: "Oxanium",
-            legendItemFontSize: "12",
             drawCustomLegend: "1",
-            legendPosition: "bottom", // Place legend at the bottom
-    legendItemFontSize: "10", // Set legend font size
-    legendItemFontBold: "1", // Make legend text bold
-    legendIconScale: "1", // Increase size of legend icons
-    legendPadding: "1", // Add padding around the legend
+            legendPosition: "bottom", 
+    legendItemFontSize: "10",
+    legendItemFontBold: "1",
+    legendIconScale: "1",
+    legendPadding: "1",
             chartLeftMargin: "0",
             chartTopMargin: "0",
             chartRightMargin: "0",
@@ -99,12 +98,15 @@ const EfficiencyChart: React.FC = () => {
           },
           style: {
     text: {
-      fontFamily: "Oxanium", // Apply font to all text
+      fontFamily: "Oxanium",
     },
 legend: {
-      fontFamily: "Oxanium",
-    position: "bottom",
-    scrollable: false, // Ensures legend is not scrollable
+  position: "bottom",
+  scrollable: false,
+  itemStyle: {
+    fontFamily: "Oxanium",
+      fontSize: "10px"
+    } 
   },
 
     tooltip: {
@@ -151,7 +153,7 @@ legend: {
         round: 1
       }
 }],
-                data: fusionTable
+                data: fusionTable,
               }
             });
 

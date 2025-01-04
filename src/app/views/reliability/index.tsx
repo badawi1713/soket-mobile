@@ -1,27 +1,16 @@
-import Logo from '@/assets/images/logo-pln-np.svg';
-import AppBar from '@/components/AppBar';
 import Autocomplete from '@/components/Autocomplete';
 import Card from '@/components/Card';
 import GaugeChart from '@/components/GaugeChart';
 import Typography from '@/components/Typography';
+import { COLORS } from '@/constants/colors';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { format } from 'date-fns';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { scale } from 'react-native-size-matters';
-import { COLORS } from '@/constants/colors';
 
 const Screen = () => {
 	return (
 		<View className="bg-background-main flex-1">
-			<AppBar
-				leftComponent={<Logo width={scale(120)} />}
-				rightComponent={
-					<Typography weight="bold" variant="body2">
-						Reliability Optimization
-					</Typography>
-				}
-			/>
 			<View className="bg-background-paper h-auto px-4 pb-4">
 				<View className="h-12">
 					<Autocomplete />

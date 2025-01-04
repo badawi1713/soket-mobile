@@ -1,8 +1,5 @@
-import Logo from '@/assets/images/logo-pln-np.svg';
-import AppBar from '@/components/AppBar';
 import BlinkView from '@/components/BlinkView';
 import Card from '@/components/Card';
-import MenuItems from '@/components/MenuItems';
 import TextInput from '@/components/TextInput';
 import Typography from '@/components/Typography';
 import { COLORS } from '@/constants/colors';
@@ -11,12 +8,10 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 import { format } from 'date-fns';
 import React from 'react';
 import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
-import { scale } from 'react-native-size-matters';
 
 const Content = () => {
 	return (
 		<View className="bg-background-paper flex-1">
-			<AppBar leftComponent={<Logo width={scale(120)} />} rightComponent={<MenuItems />} />
 			<ScrollView contentContainerStyle={{ flexGrow: 1 }} contentContainerClassName="p-4 gap-4">
 				<View className="flex-row justify-between gap-x-4">
 					<Card

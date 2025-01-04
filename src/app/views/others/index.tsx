@@ -1,22 +1,11 @@
-import Logo from '@/assets/images/logo-pln-np.svg';
-import AppBar from '@/components/AppBar';
 import Typography from '@/components/Typography';
 import images from '@/constants/images';
 import React from 'react';
 import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
-import { scale } from 'react-native-size-matters';
 
 const Screen = () => {
 	return (
 		<View className="bg-background-main flex-1">
-			<AppBar
-				leftComponent={<Logo width={scale(120)} />}
-				rightComponent={
-					<Typography weight="bold" variant="body2">
-						Feature Apps
-					</Typography>
-				}
-			/>
 			<ScrollView
 				className="bg-background-paper"
 				contentContainerStyle={{ flexGrow: 1, gap: 16, paddingHorizontal: 16, paddingVertical: 16 }}

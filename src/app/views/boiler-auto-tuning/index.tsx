@@ -1,5 +1,3 @@
-import Logo from '@/assets/images/logo-pln-np.svg';
-import AppBar from '@/components/AppBar';
 import Autocomplete from '@/components/Autocomplete';
 import Card from '@/components/Card';
 import Typography from '@/components/Typography';
@@ -67,14 +65,6 @@ const COMBUSTION_STATUS = [
 const Screen = () => {
 	return (
 		<View className="bg-background-main flex-1">
-			<AppBar
-				leftComponent={<Logo width={scale(120)} />}
-				rightComponent={
-					<Typography weight="bold" variant="body2">
-						Boiler Auto Tuning
-					</Typography>
-				}
-			/>
 			<View className="bg-background-paper h-auto px-4 pb-4">
 				<View className="h-12">
 					<Autocomplete />
@@ -158,10 +148,10 @@ const Screen = () => {
 									width: scale(70),
 								}}
 							>
-								<Typography className="text-center text-white" variant="body2" weight="medium">
+								<Typography className="text-center text-white" variant="smallText" weight="medium">
 									{item?.title}
 								</Typography>
-								<Typography className="text-center text-white" variant="body2" weight="bold">
+								<Typography className="text-center text-white" variant="caption" weight="bold">
 									{item?.value || 0}
 								</Typography>
 							</Card>
@@ -190,10 +180,10 @@ const Screen = () => {
 									width: scale(70),
 								}}
 							>
-								<Typography className="text-center text-white" variant="body2" weight="medium">
+								<Typography className="text-center text-white" variant="smallText" weight="medium">
 									{item?.title}
 								</Typography>
-								<Typography className="text-center text-white" variant="body2" weight="bold">
+								<Typography className="text-center text-white" variant="caption" weight="bold">
 									{item?.value || 0}
 								</Typography>
 							</Card>
