@@ -1,9 +1,9 @@
 import Autocomplete from '@/components/Autocomplete';
 import Card from '@/components/Card';
 import GaugeChart from '@/components/GaugeChart';
+import LastUpdatedInfo from '@/components/LastUpdatedInfo';
 import Typography from '@/components/Typography';
 import { COLORS } from '@/constants/colors';
-import Ionicons from '@react-native-vector-icons/ionicons';
 import { format } from 'date-fns';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -17,18 +17,7 @@ const Screen = () => {
 				</View>
 			</View>
 			<ScrollView contentContainerStyle={{ flexGrow: 1, gap: 16, paddingHorizontal: 16, paddingBottom: 16 }}>
-				<View className="flex-row items-center mx-auto gap-2 mt-4">
-					<View
-						style={{
-							transform: [{ rotate: '90deg' }],
-						}}
-					>
-						<Ionicons name="refresh-outline" color={COLORS.light.icon} size={18} />
-					</View>
-					<Typography variant="caption" className="text-center text-neutral-600">
-						Last Updated: {format(new Date(), 'MMM dd, yyyy  HH:mm')}
-					</Typography>
-				</View>
+				<LastUpdatedInfo value={format(new Date(), 'MMM dd, yyyy  HH:mm')} />
 				<View className="flex-col gap-4 rounded-lg">
 					<View style={[styles.chartContainer]}>
 						<GaugeChart title="Asset Health Indicator" />

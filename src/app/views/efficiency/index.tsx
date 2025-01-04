@@ -1,5 +1,6 @@
 import Autocomplete from '@/components/Autocomplete';
 import Card from '@/components/Card';
+import LastUpdatedInfo from '@/components/LastUpdatedInfo';
 import Typography from '@/components/Typography';
 import { default as Icon, default as Ionicons } from '@react-native-vector-icons/ionicons';
 import { format } from 'date-fns';
@@ -103,18 +104,7 @@ const Screen = () => {
 				</View>
 			</View>
 			<ScrollView contentContainerStyle={{ flexGrow: 1, gap: 16, paddingHorizontal: 16, paddingBottom: 16 }}>
-				<View className="flex-row items-center mx-auto gap-2 mt-4">
-					<View
-						style={{
-							transform: [{ rotate: '90deg' }],
-						}}
-					>
-						<Ionicons name="refresh-outline" color={COLORS.light.icon} size={18} />
-					</View>
-					<Typography variant="caption" className="text-center text-neutral-600">
-						Last Updated: {format(new Date(), 'MMM dd, yyyy  HH:mm')}
-					</Typography>
-				</View>
+				<LastUpdatedInfo value={format(new Date(), 'MMM dd, yyyy  HH:mm')} />
 				<View className="flex-col gap-4 bg-background-paper p-4 rounded-lg">
 					<Typography weight="semibold">Measured KPI</Typography>
 					<View className="flex-row justify-between gap-y-4 flex-wrap w-full">
