@@ -19,7 +19,9 @@ const Autocomplete: React.FC = memo(() => {
     <>
       <View
         style={[
-          { flex: 1, flexDirection: 'row', alignItems: 'center' },
+          { flex: 1, flexDirection: 'row', alignItems: 'center', 
+
+           },
           Platform.select({ ios: { zIndex: 1 } }),
         ]}
       >
@@ -37,11 +39,10 @@ const Autocomplete: React.FC = memo(() => {
           onSelectItem={item => {
             item && setSelectedItem(item.id)
           }}
-
-          debounce={600}
+          emptyResultText="No data found"
           suggestionsListMaxHeight={Dimensions.get('window').height * 0.4}
           loading={loading}
-          useFilter={false}
+          useFilter={true}
           textInputProps={{
             placeholder: 'Select a unit',
             autoCorrect: false,
@@ -49,7 +50,8 @@ const Autocomplete: React.FC = memo(() => {
             style: {
               borderRadius: 8,
               paddingLeft: 16,
-              fontFamily: FONTS.oxanium
+              fontFamily: FONTS.oxanium,
+
             },
           }}
           inputContainerStyle={{
@@ -57,8 +59,11 @@ const Autocomplete: React.FC = memo(() => {
             backgroundColor: COLORS.neutral.main
           }}
           suggestionsListContainerStyle={{
+            backgroundColor: COLORS.background.paper
+
           }}
-          containerStyle={{ flexGrow: 1, flexShrink: 1 }}
+          containerStyle={{ flexGrow: 1, flexShrink: 1, 
+           }}
           renderItem={(item) => (
             <Typography className='p-4'>{item?.title}</Typography>
           )}
