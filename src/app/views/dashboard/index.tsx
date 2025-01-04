@@ -2,6 +2,7 @@ import BlinkView from '@/components/BlinkView';
 import Card from '@/components/Card';
 import LastUpdatedInfo from '@/components/LastUpdatedInfo';
 import TextInput from '@/components/TextInput';
+import Typography from '@/components/Typography';
 import { COLORS } from '@/constants/colors';
 import images from '@/constants/images';
 import Ionicons from '@react-native-vector-icons/ionicons';
@@ -12,7 +13,7 @@ import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 const Content = () => {
 	return (
 		<View className="bg-background-paper flex-1">
-			<ScrollView contentContainerStyle={{ flexGrow: 1 }} contentContainerClassName="p-4 gap-4">
+			<ScrollView contentContainerStyle={{ flexGrow: 1 }} contentContainerClassName="px-4 pb-4 gap-4">
 				<View className="flex-row justify-between gap-x-4">
 					<Card
 						title="12.0 GW"
@@ -77,6 +78,14 @@ const Content = () => {
 											/>
 										</BlinkView>
 									)}
+								</View>
+								<View className="absolute w-full bottom-0 rounded-b-md">
+									<View className="bg-black opacity-55 z-10 absolute w-full h-full" />
+									<View className="px-2 py-1 z-20">
+										<Typography className="text-white text-center font-oxanium-medium" variant="caption">
+											Tanjung Awar-Awar 1
+										</Typography>
+									</View>
 								</View>
 							</View>
 						</TouchableOpacity>
