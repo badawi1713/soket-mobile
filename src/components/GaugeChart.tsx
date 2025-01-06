@@ -1,51 +1,62 @@
 import { COLORS } from '@/constants/colors';
-import React from 'react';
-import {WebView} from 'react-native-webview';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { WebView } from 'react-native-webview';
+import Skeleton from './Skeleton';
 
 type Props = {
-    title?: string;
-}
+  title?: string;
+};
 
-const GaugeChart: React.FC<Props> = ({title = '' }) => {
+const GaugeChart: React.FC<Props> = ({ title = '' }) => {
+  const [isLoading, setIsLoading] = useState(true);
 
-    const chartConfig = {
-        type: 'angulargauge',
-        renderAt: 'chart-container',
-        width: '100%',
-        height: '100%',
-        dataFormat: 'json',
-        dataSource: {
-          chart: {
-            caption: title || '',
-            captionFontSize: "16", 
-            captionPadding: "10",
-            chartTopMargin: "20",
-            lowerLimit: "0",
-            upperLimit: "5",
-            theme: "fusion",
-            baseFont: "Oxanium", 
-            baseFontSize: "14",
-            baseFontColor: COLORS.common.black,
-            gaugeFillRatio: "25,50,25",
-            showvalue: "1",
-            numbersuffix: "%",
-            valueFont: "Oxanium",
-            valueFontSize: "18", 
-          },
-          colorRange: {
-            color: [
-              { minValue: "0", maxValue: "49", code: COLORS.common.red },
-              { minValue: "50", maxValue: "75", code: COLORS.common.yellow},
-              { minValue: "76", maxValue: "100", code: COLORS.common.green },
-            ],
-          },
-          dials: {
-            dial: [{ value: "80" }],
-          },
-        },
-      }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
 
-    const chartHTML = `
+    return () => clearTimeout(timer);
+  }, []);
+
+  const chartConfig = {
+    type: 'angulargauge',
+    renderAt: 'chart-container',
+    width: '100%',
+    height: '100%',
+    dataFormat: 'json',
+    dataSource: {
+      chart: {
+        caption: title || '',
+        captionFontSize: '16',
+        captionPadding: '10',
+        chartTopMargin: '20',
+        lowerLimit: '0',
+        upperLimit: '5',
+        theme: 'fusion',
+        baseFont: 'Oxanium',
+        baseFontSize: '14',
+        baseFontColor: COLORS.common.black,
+        gaugeFillRatio: '25,50,25',
+        showvalue: '1',
+        numbersuffix: '%',
+        valueFont: 'Oxanium',
+        valueFontSize: '18',
+      },
+      colorRange: {
+        color: [
+          { minValue: '0', maxValue: '49', code: COLORS.common.red },
+          { minValue: '50', maxValue: '75', code: COLORS.common.yellow },
+          { minValue: '76', maxValue: '100', code: COLORS.common.green },
+        ],
+      },
+      dials: {
+        dial: [{ value: '80' }],
+      },
+    },
+  };
+
+  const chartHTML = `
     <!DOCTYPE html>
     <html>
       <head>
@@ -87,7 +98,11 @@ const GaugeChart: React.FC<Props> = ({title = '' }) => {
     </html>
   `;
 
-  return (
+  return isLoading ? (
+    <View style={styles.loaderContainer}>
+      <Skeleton width="100%" height="100%" borderRadius={5} />
+    </View>
+  ) : (
     <WebView
       originWhitelist={['*']}
       source={{ html: chartHTML }}
@@ -96,5 +111,14 @@ const GaugeChart: React.FC<Props> = ({title = '' }) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.common.white,
+  },
+});
 
 export default GaugeChart;

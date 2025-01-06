@@ -1,7 +1,21 @@
+import Skeleton from '@/components/Skeleton';
+import { COLORS } from '@/constants/colors';
 import type React from 'react';
+import { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 const EfficiencyChart: React.FC = () => {
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setIsLoading(false);
+		}, 2000);
+
+		return () => clearTimeout(timer);
+	}, []);
+
 	const chartHTML = `
     <!DOCTYPE html>
     <html>
@@ -164,7 +178,11 @@ legend: {
     </html>
   `;
 
-	return (
+	return isLoading ? (
+		<View style={styles.loaderContainer}>
+			<Skeleton width="100%" height="100%" borderRadius={5} />
+		</View>
+	) : (
 		<WebView
 			originWhitelist={['*']}
 			source={{ html: chartHTML }}
@@ -176,3 +194,13 @@ legend: {
 };
 
 export default EfficiencyChart;
+
+const styles = StyleSheet.create({
+	loaderContainer: {
+		flex: 1,
+    height: 420,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: COLORS.common.white,
+	},
+});
