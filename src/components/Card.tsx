@@ -1,7 +1,7 @@
 import { COLORS } from '@/constants/colors';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import React, { FC, ReactNode } from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native';
 import Typography from './Typography';
 
 interface CardProps {
@@ -12,6 +12,7 @@ interface CardProps {
   children?: ReactNode; // Content inside the card
   style?: StyleProp<ViewStyle>; // Custom styles
   shadow?: boolean; // Whether to apply shadow
+  onPress?: () => void; 
 }
 
 const Card: FC<CardProps> = ({
@@ -22,6 +23,7 @@ const Card: FC<CardProps> = ({
   children,
   style,
   shadow = false,
+  onPress,
 }) => {
   // Variant-specific colors
   const variantColors = {
@@ -60,7 +62,8 @@ const Card: FC<CardProps> = ({
   const colors = variantColors[variant];
 
   return (
-    <View
+    <TouchableOpacity
+      onPress={onPress}
       style={[
         {
           backgroundColor: colors.background,
@@ -106,7 +109,7 @@ const Card: FC<CardProps> = ({
 
       {/* Children (Card Content) */}
       {children}
-    </View>
+    </TouchableOpacity>
   );
 };
 
