@@ -36,13 +36,13 @@ const routes = [
 ];
 
 const Screen = (props: ScreenProps) => {
-	const { title = 'open' } = props.route.params;
+	const { type = 'open' } = props.route.params;
 
 	const layout = useWindowDimensions();
 
 	const [index, setIndex] = useState(0);
 
-	const initialIndex = useMemo(() => titleToIndex[title] || 0, [title]);
+	const initialIndex = useMemo(() => titleToIndex[type] || 0, [type]);
 
 	useEffect(() => {
 		const renderTab = setTimeout(() => {
@@ -78,6 +78,9 @@ const Screen = (props: ScreenProps) => {
 					inactiveColor={COLORS.secondary.main}
 				/>
 			)}
+			style={{
+				backgroundColor: COLORS.background.main
+			}}
 		/>
 	);
 };

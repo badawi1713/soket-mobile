@@ -150,7 +150,7 @@ const Content = () => {
 					<Typography weight="semibold">Case Status</Typography>
 					<View className="flex-row justify-between gap-x-4">
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'open' })}
+							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
 							title="20"
 							variant="error"
 							subtitle="OPEN"
@@ -162,7 +162,7 @@ const Content = () => {
 							}}
 						/>
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'closed' })}
+							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
 							title="120"
 							variant="default"
 							subtitle="CLOSED"
@@ -176,7 +176,7 @@ const Content = () => {
 					</View>
 					<View className="flex-row justify-between flex-wrap gap-x-0">
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'awaiting' })}
+							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
 							title="30"
 							variant="default"
 							subtitle="AWAITING"
@@ -186,7 +186,7 @@ const Content = () => {
 							}}
 						/>
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'in-progress' })}
+							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
 							title="50"
 							variant="default"
 							subtitle="IN PROGRESS"
@@ -196,7 +196,7 @@ const Content = () => {
 							}}
 						/>
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'completed' })}
+							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
 							title="80"
 							variant="default"
 							subtitle="COMPLETED"

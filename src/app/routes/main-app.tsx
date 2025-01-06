@@ -13,7 +13,7 @@ import type React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { scale } from 'react-native-size-matters';
 
-type MainAppParamList = {
+export type MainAppParamList = {
 	dashboard: undefined;
 	reliability: undefined;
 	efficiency: undefined;

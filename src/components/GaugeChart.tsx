@@ -112,6 +112,8 @@ const GaugeChart: React.FC<Props> = ({ title = '' }) => {
   );
 };
 
+export default GaugeChart;
+
 const styles = StyleSheet.create({
   loaderContainer: {
     flex: 1,
@@ -120,5 +122,3 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.common.white,
   },
 });
-
-export default GaugeChart;

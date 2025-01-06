@@ -8,7 +8,7 @@ import { COLORS } from '@/constants/colors';
 import { useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const Content = () => {
 	const navigation = useNavigation<AuthNavigationProp>();
@@ -23,18 +23,42 @@ const Content = () => {
 			<ScrollView contentContainerStyle={{ flexGrow: 1, gap: 16, paddingHorizontal: 16, paddingBottom: 16 }}>
 				<LastUpdatedInfo value={format(new Date(), 'MMM dd, yyyy  HH:mm')} />
 				<View className="flex-col gap-4 rounded-lg">
-					<View style={[styles.chartContainer]}>
+					<TouchableOpacity
+						onPress={() =>
+							navigation.navigate('reliability-details', {
+								id: '1',
+								title: 'Asset Health',
+								subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+							})
+						}
+						style={[styles.chartContainer]}
+					>
 						<GaugeChart title="Asset Health Indicator" />
-					</View>
-					<View style={[styles.chartContainer]}>
+					</TouchableOpacity>
+					<TouchableOpacity
+						onPress={() =>
+							navigation.navigate('reliability-details', {
+								id: '1',
+								title: 'Reliability Analysis',
+								subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+							})
+						}
+						style={[styles.chartContainer]}
+					>
 						<GaugeChart title="Reliability Indicator" />
-					</View>
+					</TouchableOpacity>
 				</View>
 				<View className="flex-col gap-4 bg-background-paper p-4 rounded-lg">
 					<Typography weight="semibold">Anomaly Detection</Typography>
 					<View className="flex-row justify-between gap-x-4">
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'open' })}
+							onPress={() =>
+								navigation.navigate('case-details', {
+									title: 'Anomaly Detection',
+									subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+									type: 'open',
+								})
+							}
 							title="0"
 							variant="error"
 							subtitle="NEW"
@@ -46,7 +70,13 @@ const Content = () => {
 							}}
 						/>
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'open' })}
+							onPress={() =>
+								navigation.navigate('case-details', {
+									title: 'Anomaly Detection',
+									subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+									type: 'open',
+								})
+							}
 							title="20"
 							variant="info"
 							subtitle="OPEN"
@@ -60,7 +90,13 @@ const Content = () => {
 					</View>
 					<View className="flex-row justify-between flex-wrap gap-x-0">
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'awaiting' })}
+							onPress={() =>
+								navigation.navigate('case-details', {
+									title: 'Anomaly Detection',
+									subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+									type: 'awaiting',
+								})
+							}
 							title="30"
 							variant="default"
 							subtitle="AWAITING"
@@ -70,7 +106,13 @@ const Content = () => {
 							}}
 						/>
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'in-progress' })}
+							onPress={() =>
+								navigation.navigate('case-details', {
+									title: 'Anomaly Detection',
+									subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+									type: 'in-progress',
+								})
+							}
 							title="50"
 							variant="default"
 							subtitle="IN PROGRESS"
@@ -80,7 +122,13 @@ const Content = () => {
 							}}
 						/>
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'completed' })}
+							onPress={() =>
+								navigation.navigate('case-details', {
+									title: 'Anomaly Detection',
+									subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+									type: 'completed',
+								})
+							}
 							title="80"
 							variant="default"
 							subtitle="COMPLETED"
@@ -90,7 +138,13 @@ const Content = () => {
 							}}
 						/>
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'closed' })}
+							onPress={() =>
+								navigation.navigate('case-details', {
+									title: 'Anomaly Detection',
+									subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+									type: 'closed',
+								})
+							}
 							title="120"
 							variant="default"
 							subtitle="CLOSED"
@@ -102,10 +156,16 @@ const Content = () => {
 					</View>
 				</View>
 				<View className="flex-col gap-4 bg-background-paper p-4 rounded-lg">
-					<Typography weight="semibold">Failure Detection</Typography>
+					<Typography weight="semibold">Failure Prediction</Typography>
 					<View className="flex-row justify-between gap-x-4">
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'open' })}
+							onPress={() =>
+								navigation.navigate('case-details', {
+									title: 'Failure Prediction',
+									subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+									type: 'open',
+								})
+							}
 							title="0"
 							variant="error"
 							subtitle="NEW"
@@ -117,7 +177,13 @@ const Content = () => {
 							}}
 						/>
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'open' })}
+							onPress={() =>
+								navigation.navigate('case-details', {
+									title: 'Failure Prediction',
+									subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+									type: 'open',
+								})
+							}
 							title="20"
 							variant="info"
 							subtitle="OPEN"
@@ -131,7 +197,13 @@ const Content = () => {
 					</View>
 					<View className="flex-row justify-between flex-wrap gap-x-0">
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'awaiting' })}
+							onPress={() =>
+								navigation.navigate('case-details', {
+									title: 'Failure Prediction',
+									subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+									type: 'awaiting',
+								})
+							}
 							title="30"
 							variant="default"
 							subtitle="AWAITING"
@@ -141,7 +213,13 @@ const Content = () => {
 							}}
 						/>
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'in-progress' })}
+							onPress={() =>
+								navigation.navigate('case-details', {
+									title: 'Failure Prediction',
+									subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+									type: 'in-progress',
+								})
+							}
 							title="50"
 							variant="default"
 							subtitle="IN PROGRESS"
@@ -151,7 +229,13 @@ const Content = () => {
 							}}
 						/>
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'completed' })}
+							onPress={() =>
+								navigation.navigate('case-details', {
+									title: 'Failure Prediction',
+									subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+									type: 'completed',
+								})
+							}
 							title="80"
 							variant="default"
 							subtitle="COMPLETED"
@@ -161,7 +245,13 @@ const Content = () => {
 							}}
 						/>
 						<Card
-							onPress={() => navigation.navigate('case-details', { title: 'closed' })}
+							onPress={() =>
+								navigation.navigate('case-details', {
+									title: 'Failure Prediction',
+									subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+									type: 'closed',
+								})
+							}
 							title="120"
 							variant="default"
 							subtitle="CLOSED"

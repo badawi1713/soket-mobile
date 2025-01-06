@@ -1,4 +1,5 @@
 import CaseDetailsScreen from '@/app/screens/case-details';
+import AssetHealthDetailsScreen from '@/app/screens/reliability-details';
 import LoginScreen from '@/app/screens/sign-in';
 import UnitDetailsScreen from '@/app/screens/unit-details';
 import SplashScreen from '@/components/SplashScreen';
@@ -19,19 +20,28 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
 import { Toaster, toast } from 'sonner-native';
-import MainApp from './main-app';
+import MainApp, { type MainAppParamList } from './main-app';
 
 export type RootParamList = {
 	'splash-screen': undefined;
 	login: undefined;
 	home: undefined;
-	'main-app': undefined;
+	'main-app': {
+		screen?: keyof MainAppParamList;
+	};
 	'unit-details': {
 		title: string;
 		id: string;
 	};
 	'case-details': {
-		title: 'open' | 'in-progress' | 'closed' | 'awaiting' | 'completed';
+		title: string;
+		subtitle: string;
+		type: 'open' | 'in-progress' | 'closed' | 'awaiting' | 'completed';
+	};
+	'reliability-details': {
+		title: string;
+		subtitle?: string;
+		id: string;
 	};
 };
 
@@ -154,8 +164,32 @@ const RootLayout = () => {
 										headerTitle: () => {
 											return (
 												<View className={isIos ? 'items-center' : 'items-start'}>
-													<Typography weight="semibold">{'Case Management'}</Typography>
-													<Typography variant="caption">PLTU Tanjung Awar-Awar</Typography>
+													<Typography weight="semibold">{route.params.title}</Typography>
+													<Typography variant="caption">{route.params.subtitle}</Typography>
+												</View>
+											);
+										},
+										headerLeft: () => (
+											<TouchableOpacity
+												style={{ marginLeft: moderateScale(16), marginRight: moderateScale(8) }}
+												onPress={() => navigation.goBack()}
+											>
+												<Ionicons name="chevron-back" size={24} />
+											</TouchableOpacity>
+										),
+									})}
+								/>
+								<Stack.Screen
+									name="reliability-details"
+									component={AssetHealthDetailsScreen}
+									options={({ navigation, route }) => ({
+										headerStyle: { height: isIos ? verticalScale(96) : verticalScale(60) },
+										headerShadowVisible: false,
+										headerTitle: () => {
+											return (
+												<View className={isIos ? 'items-center' : 'items-start'}>
+													<Typography weight="semibold">{route.params.title}</Typography>
+													<Typography variant="caption">{route.params.subtitle}</Typography>
 												</View>
 											);
 										},
