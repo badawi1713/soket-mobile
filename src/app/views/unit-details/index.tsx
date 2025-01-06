@@ -7,6 +7,7 @@ import { COLORS } from '@/constants/colors';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { scale } from 'react-native-size-matters';
 
 const STATUS_LIST_DATA = [
@@ -58,9 +59,19 @@ const Content = () => {
 		console.log('Selected:', value);
 	};
 
+	const { bottom } = useSafeAreaInsets();
+
 	return (
 		<View className="bg-background-main flex-1">
-			<ScrollView contentContainerStyle={{ flexGrow: 1, gap: 16, paddingHorizontal: 16, paddingVertical: 16 }}>
+			<ScrollView
+				contentContainerStyle={{
+					flexGrow: 1,
+					gap: 16,
+					paddingHorizontal: 16,
+					paddingTop: 16,
+					paddingBottom: bottom || 16,
+				}}
+			>
 				<View className="flex-col gap-4 bg-background-paper p-4 rounded-lg">
 					<Typography weight="semibold">Status</Typography>
 					<View className="w-full">

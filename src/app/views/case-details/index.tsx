@@ -5,6 +5,7 @@ import { COLORS } from '@/constants/colors';
 import { format } from 'date-fns';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type ScreenProps = {
 	title: 'open' | 'closed' | 'awaiting' | 'in-progress' | 'completed';
@@ -25,9 +26,13 @@ const Content = ({ title = 'open' }: ScreenProps) => {
 		completed: 'success',
 	};
 
+	const { bottom } = useSafeAreaInsets();
+
 	return (
-		<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-			<View className="px-4 pt-4 flex-1 pb-8 gap-y-4">
+		<ScrollView
+			contentContainerStyle={{ flexGrow: 1, paddingBottom: bottom || 16, paddingHorizontal: 16, paddingTop: 16 }}
+		>
+			<View className="flex-1 gap-y-4">
 				<View className="bg-background-paper rounded-md px-5 py-2">
 					<View className="flex-row items-center w-full gap-x-2">
 						<Chip
@@ -60,7 +65,7 @@ const Content = ({ title = 'open' }: ScreenProps) => {
 							size="small"
 							shape="rectangular"
 							style={{ width: 'auto', marginLeft: 'auto' }}
-							text={title.replace('\-', ' ').toUpperCase()}
+							text={title.replace('-', ' ').toUpperCase()}
 						/>
 					</View>
 					<View className="mt-4 mb-3">
