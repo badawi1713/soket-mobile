@@ -9,5 +9,5 @@ export const SETTINGS = {
 	storageTokenKeyName: 'accessToken',
 	onTokenExpiration: 'refreshToken', // logout | refreshToken
 	logoutEndpoint: '/service/identity/user/logout',
-	baseUrl: process.env.API_SOKET_ENDPOINT
+	baseUrl: process.env.API_SOKET_ENDPOINT,
 };

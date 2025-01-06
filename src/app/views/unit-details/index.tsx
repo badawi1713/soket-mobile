@@ -1,8 +1,10 @@
+import type { AuthNavigationProp } from '@/app/routes';
 import Card from '@/components/Card';
 import GaugeChart from '@/components/GaugeChart';
 import SwitchButton from '@/components/SwitchButton';
 import Typography from '@/components/Typography';
 import { COLORS } from '@/constants/colors';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { scale } from 'react-native-size-matters';
@@ -50,6 +52,8 @@ const STATUS_LIST_DATA_2 = [
 ];
 
 const Content = () => {
+	const navigation = useNavigation<AuthNavigationProp>();
+
 	const handleSwitchChange = (value: string) => {
 		console.log('Selected:', value);
 	};
@@ -135,6 +139,7 @@ const Content = () => {
 					<Typography weight="semibold">Case Status</Typography>
 					<View className="flex-row justify-between gap-x-4">
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'open' })}
 							title="20"
 							variant="error"
 							subtitle="OPEN"
@@ -146,6 +151,7 @@ const Content = () => {
 							}}
 						/>
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'closed' })}
 							title="120"
 							variant="default"
 							subtitle="CLOSED"
@@ -159,6 +165,7 @@ const Content = () => {
 					</View>
 					<View className="flex-row justify-between flex-wrap gap-x-0">
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'awaiting' })}
 							title="30"
 							variant="default"
 							subtitle="AWAITING"
@@ -168,6 +175,7 @@ const Content = () => {
 							}}
 						/>
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'in-progress' })}
 							title="50"
 							variant="default"
 							subtitle="IN PROGRESS"
@@ -177,6 +185,7 @@ const Content = () => {
 							}}
 						/>
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'completed' })}
 							title="80"
 							variant="default"
 							subtitle="COMPLETED"

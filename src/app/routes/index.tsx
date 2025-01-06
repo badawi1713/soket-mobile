@@ -1,3 +1,4 @@
+import CaseDetailsScreen from '@/app/screens/case-details';
 import LoginScreen from '@/app/screens/sign-in';
 import UnitDetailsScreen from '@/app/screens/unit-details';
 import SplashScreen from '@/components/SplashScreen';
@@ -27,6 +28,9 @@ export type RootParamList = {
 	'unit-details': {
 		title: string;
 		id: string;
+	};
+	'case-details': {
+		title: 'open' | 'in-progress' | 'closed' | 'awaiting' | 'completed';
 	};
 };
 
@@ -120,6 +124,19 @@ const RootLayout = () => {
 									options={({ route, navigation }) => ({
 										headerShadowVisible: false,
 										headerTitle: () => <Typography weight="semibold">{route?.params?.title || ''}</Typography>,
+										headerLeft: () => (
+											<TouchableOpacity onPress={() => navigation.goBack()}>
+												<Ionicons name="chevron-back" size={24} />
+											</TouchableOpacity>
+										),
+									})}
+								/>
+								<Stack.Screen
+									name="case-details"
+									component={CaseDetailsScreen}
+									options={({ navigation }) => ({
+										headerShadowVisible: false,
+										headerTitle: () => <Typography weight="semibold">Case Management</Typography>,
 										headerLeft: () => (
 											<TouchableOpacity onPress={() => navigation.goBack()}>
 												<Ionicons name="chevron-back" size={24} />
