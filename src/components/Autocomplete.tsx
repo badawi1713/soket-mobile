@@ -4,6 +4,7 @@ import Icon from '@react-native-vector-icons/ionicons';
 import React, { memo, useRef, useState } from 'react';
 import { Dimensions, Platform, View } from 'react-native';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
+import { moderateScale } from 'react-native-size-matters';
 import Typography from './Typography';
 
 const Autocomplete: React.FC = memo(() => {
@@ -32,9 +33,10 @@ const Autocomplete: React.FC = memo(() => {
           }}
           direction={Platform.select({ ios: 'down' })}
           dataSet={[
-            { id: '1', title: 'Alpha' },
-            { id: '2', title: 'Beta' },
-            { id: '3', title: 'Gamma' },
+            { id: '1', title: 'Tanjung Awar-Awar - Unit 1' },
+            { id: '2', title: 'Tanjung Awar-Awar - Unit 2' },
+            { id: '3', title: 'Tenayan - Unit 1' },
+            { id: '4', title: 'Tenayan - Unit 2' },
           ]}
           onSelectItem={item => {
             item && setSelectedItem(item.id)
@@ -51,22 +53,29 @@ const Autocomplete: React.FC = memo(() => {
               borderRadius: 8,
               paddingLeft: 16,
               fontFamily: FONTS.oxanium,
-
+              color: COLORS.common.black,
+              fontSize: moderateScale(14)
             },
           }}
           inputContainerStyle={{
             borderRadius: 8,
-            backgroundColor: COLORS.neutral.main
+            backgroundColor: COLORS.neutral.main,
           }}
           suggestionsListContainerStyle={{
-            backgroundColor: COLORS.background.paper
-
+            backgroundColor: COLORS.background.paper,
+            boxShadow: '0px 10px 25px 1px rgba(0,0,0,0.2)',
           }}
           containerStyle={{ flexGrow: 1, flexShrink: 1, 
            }}
           renderItem={(item) => (
-            <Typography className='p-4'>{item?.title}</Typography>
+            <Typography variant="body2" color={item?.id === selectedItem ? COLORS.primary.main : COLORS.common.black} className='p-2'>{item?.title}</Typography>
           )}
+           flatListProps={{
+            ItemSeparatorComponent: () => <View className='border-b border-border-light' />,
+          style: {
+            borderWidth: 0,
+          },
+        }}
           showChevron={true}
           closeOnBlur={false}
           ChevronIconComponent={<Icon name="chevron-down" size={20} />}
