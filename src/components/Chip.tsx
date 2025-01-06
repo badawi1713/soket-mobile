@@ -14,6 +14,7 @@ interface ChipProps {
   variant?: 'contained' | 'outlined'; // Style of the chip
   color?: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'; // Color variant
   icon?: React.ComponentProps<typeof Ionicons>['name']; // Optional leading icon
+  shape?: 'rounded' | 'rectangular' | 'pill'; // Shape of the chip
   style?: StyleProp<ViewStyle>; // Additional custom styles
 }
 
@@ -25,6 +26,7 @@ const Chip: FC<ChipProps> = ({
   variant = 'contained',
   color = 'primary',
   icon,
+  shape = 'pill', // Default shape is pill (fully rounded)
   style,
 }) => {
   // Tailwind-inspired color classes based on the provided color palette
@@ -50,30 +52,43 @@ const Chip: FC<ChipProps> = ({
       outlined: 'border-info-main text-info-main',
     },
     warning: {
-      base: 'bg-warning-main text-white',
-      outlined: 'border-warning-main text-warning-main',
+      base: 'bg-warning-dark text-white',
+      outlined: 'border-warning-dark text-warning-dark',
     },
   };
 
   // Define size styles
   const sizeStyles = {
     small: {
-      paddingVertical: verticalScale(4),
+      paddingVertical: verticalScale(2),
       paddingHorizontal: scale(8),
       fontSize: moderateScale(12),
       iconSize: moderateScale(14),
     },
     medium: {
-      paddingVertical: verticalScale(6),
+      paddingVertical: verticalScale(4),
       paddingHorizontal: scale(12),
       fontSize: moderateScale(14),
       iconSize: moderateScale(16),
     },
     large: {
-      paddingVertical: verticalScale(8),
+      paddingVertical: verticalScale(6),
       paddingHorizontal: scale(16),
       fontSize: moderateScale(16),
       iconSize: moderateScale(20),
+    },
+  };
+
+  // Define shape styles
+  const shapeStyles = {
+    rounded: {
+      borderRadius: moderateScale(8), // Rounded corners
+    },
+    rectangular: {
+      borderRadius: moderateScale(4), // Slightly rounded
+    },
+    pill: {
+      borderRadius: moderateScale(50), // Fully rounded
     },
   };
 
@@ -85,7 +100,7 @@ const Chip: FC<ChipProps> = ({
       onPress={onPress}
       activeOpacity={0.8}
       className={clsx(
-        'flex-row items-center rounded-full',
+        'flex-row items-center',
         variant === 'contained'
           ? `${colorClasses[color].base}`
           : `border ${colorClasses[color].outlined}`
@@ -94,6 +109,7 @@ const Chip: FC<ChipProps> = ({
         {
           paddingVertical,
           paddingHorizontal,
+          ...shapeStyles[shape], // Apply shape styles dynamically
         },
         style || {}, // Ensure no `undefined` style is spread
       ]}
