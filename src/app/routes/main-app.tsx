@@ -13,7 +13,6 @@ import type React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { scale } from 'react-native-size-matters';
 
-// Define the type for the Tab Navigator
 type MainAppParamList = {
 	dashboard: undefined;
 	reliability: undefined;
@@ -22,15 +21,17 @@ type MainAppParamList = {
 	others: undefined;
 };
 
-// Create the Tab Navigator
 const Tab = createBottomTabNavigator<MainAppParamList>();
-
-// Example Screens
 
 const MainApp: React.FC = () => {
 	return (
-		<SafeAreaView className="flex-1 bg-background-paper">
-			<Tab.Navigator tabBar={(props) => <BottomTabBar {...props} />} screenOptions={{ headerShown: true }}>
+		<SafeAreaView style={{ height: '100%', flex: 1, paddingBottom: 0 }} className="bg-background-paper">
+			<Tab.Navigator
+				tabBar={(props) => <BottomTabBar {...props} />}
+				screenOptions={{
+					headerShown: true,
+				}}
+			>
 				<Tab.Screen
 					name="dashboard"
 					component={Dashboard}

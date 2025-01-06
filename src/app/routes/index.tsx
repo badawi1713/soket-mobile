@@ -13,10 +13,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { type StackNavigationProp, createStackNavigator } from '@react-navigation/stack';
 import axios from 'axios';
 import React, { useCallback } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { Platform, TouchableOpacity, View } from 'react-native';
 import { AutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { moderateScale, verticalScale } from 'react-native-size-matters';
 import { Toaster, toast } from 'sonner-native';
 import MainApp from './main-app';
 
@@ -37,6 +38,8 @@ export type RootParamList = {
 export type AuthNavigationProp = StackNavigationProp<RootParamList>;
 
 const Stack = createStackNavigator<RootParamList>();
+
+const isIos = Platform.OS === 'ios';
 
 const RootLayout = () => {
 	const { setUser } = useAuth();
@@ -122,10 +125,21 @@ const RootLayout = () => {
 									name="unit-details"
 									component={UnitDetailsScreen}
 									options={({ route, navigation }) => ({
+										headerStyle: { height: isIos ? verticalScale(96) : verticalScale(60) },
 										headerShadowVisible: false,
-										headerTitle: () => <Typography weight="semibold">{route?.params?.title || ''}</Typography>,
+										headerTitle: () => {
+											return (
+												<View className={isIos ? 'items-center' : 'items-start'}>
+													<Typography weight="semibold">{route?.params?.title || ''}</Typography>
+													{/* <Typography variant="caption">{route?.params?.title || ''}</Typography> */}
+												</View>
+											);
+										},
 										headerLeft: () => (
-											<TouchableOpacity onPress={() => navigation.goBack()}>
+											<TouchableOpacity
+												style={{ marginLeft: moderateScale(16), marginRight: moderateScale(8) }}
+												onPress={() => navigation.goBack()}
+											>
 												<Ionicons name="chevron-back" size={24} />
 											</TouchableOpacity>
 										),
@@ -134,11 +148,22 @@ const RootLayout = () => {
 								<Stack.Screen
 									name="case-details"
 									component={CaseDetailsScreen}
-									options={({ navigation }) => ({
+									options={({ navigation, route }) => ({
+										headerStyle: { height: isIos ? verticalScale(96) : verticalScale(60) },
 										headerShadowVisible: false,
-										headerTitle: () => <Typography weight="semibold">Case Management</Typography>,
+										headerTitle: () => {
+											return (
+												<View className={isIos ? 'items-center' : 'items-start'}>
+													<Typography weight="semibold">{'Case Management'}</Typography>
+													<Typography variant="caption">PLTU Tanjung Awar-Awar</Typography>
+												</View>
+											);
+										},
 										headerLeft: () => (
-											<TouchableOpacity onPress={() => navigation.goBack()}>
+											<TouchableOpacity
+												style={{ marginLeft: moderateScale(16), marginRight: moderateScale(8) }}
+												onPress={() => navigation.goBack()}
+											>
 												<Ionicons name="chevron-back" size={24} />
 											</TouchableOpacity>
 										),

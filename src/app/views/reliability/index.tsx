@@ -1,14 +1,18 @@
+import type { AuthNavigationProp } from '@/app/routes';
 import Autocomplete from '@/components/Autocomplete';
 import Card from '@/components/Card';
 import GaugeChart from '@/components/GaugeChart';
 import LastUpdatedInfo from '@/components/LastUpdatedInfo';
 import Typography from '@/components/Typography';
 import { COLORS } from '@/constants/colors';
+import { useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 const Content = () => {
+	const navigation = useNavigation<AuthNavigationProp>();
+
 	return (
 		<View className="bg-background-main flex-1">
 			<View className="bg-background-paper h-auto px-4 pb-4">
@@ -30,6 +34,7 @@ const Content = () => {
 					<Typography weight="semibold">Anomaly Detection</Typography>
 					<View className="flex-row justify-between gap-x-4">
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'open' })}
 							title="0"
 							variant="error"
 							subtitle="NEW"
@@ -41,6 +46,7 @@ const Content = () => {
 							}}
 						/>
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'open' })}
 							title="20"
 							variant="info"
 							subtitle="OPEN"
@@ -54,6 +60,7 @@ const Content = () => {
 					</View>
 					<View className="flex-row justify-between flex-wrap gap-x-0">
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'awaiting' })}
 							title="30"
 							variant="default"
 							subtitle="AWAITING"
@@ -63,6 +70,7 @@ const Content = () => {
 							}}
 						/>
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'in-progress' })}
 							title="50"
 							variant="default"
 							subtitle="IN PROGRESS"
@@ -72,6 +80,7 @@ const Content = () => {
 							}}
 						/>
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'completed' })}
 							title="80"
 							variant="default"
 							subtitle="COMPLETED"
@@ -81,6 +90,7 @@ const Content = () => {
 							}}
 						/>
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'closed' })}
 							title="120"
 							variant="default"
 							subtitle="CLOSED"
@@ -95,6 +105,7 @@ const Content = () => {
 					<Typography weight="semibold">Failure Detection</Typography>
 					<View className="flex-row justify-between gap-x-4">
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'open' })}
 							title="0"
 							variant="error"
 							subtitle="NEW"
@@ -106,6 +117,7 @@ const Content = () => {
 							}}
 						/>
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'open' })}
 							title="20"
 							variant="info"
 							subtitle="OPEN"
@@ -119,6 +131,7 @@ const Content = () => {
 					</View>
 					<View className="flex-row justify-between flex-wrap gap-x-0">
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'awaiting' })}
 							title="30"
 							variant="default"
 							subtitle="AWAITING"
@@ -128,6 +141,7 @@ const Content = () => {
 							}}
 						/>
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'in-progress' })}
 							title="50"
 							variant="default"
 							subtitle="IN PROGRESS"
@@ -137,6 +151,7 @@ const Content = () => {
 							}}
 						/>
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'completed' })}
 							title="80"
 							variant="default"
 							subtitle="COMPLETED"
@@ -146,6 +161,7 @@ const Content = () => {
 							}}
 						/>
 						<Card
+							onPress={() => navigation.navigate('case-details', { title: 'closed' })}
 							title="120"
 							variant="default"
 							subtitle="CLOSED"

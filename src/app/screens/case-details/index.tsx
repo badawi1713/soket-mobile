@@ -47,7 +47,7 @@ const Screen = (props: ScreenProps) => {
 	useEffect(() => {
 		const renderTab = setTimeout(() => {
 			return setIndex(initialIndex);
-		}, 100);
+		}, 0);
 
 		return () => {
 			clearTimeout(renderTab);
