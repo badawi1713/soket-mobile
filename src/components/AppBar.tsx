@@ -2,6 +2,7 @@ import { COLORS } from '@/constants/colors';
 import { clsx } from 'clsx';
 import React, { FC, ReactNode } from 'react';
 import { View } from 'react-native';
+import { verticalScale } from 'react-native-size-matters';
 import Typography from './Typography';
 
 interface AppBarProps {
@@ -26,11 +27,11 @@ const AppBar: FC<AppBarProps> = ({
   return (
     <View
       className={clsx(
-        'flex-row items-center justify-between px-4 h-16',
+        'flex-row items-center justify-between px-4',
         shadow && 'shadow-md',
         className
       )}
-      style={{ backgroundColor }}
+      style={{ backgroundColor, height: verticalScale(60) }}
     >
       {/* Left Component */}
       <View className="flex-1">{leftComponent}</View>
