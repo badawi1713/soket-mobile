@@ -1,4 +1,5 @@
 import CaseDetailsScreen from '@/app/screens/case-details';
+import PerformanceEfficiencyDetails from '@/app/screens/performance-efficiency-details';
 import AssetHealthDetailsScreen from '@/app/screens/reliability-details';
 import LoginScreen from '@/app/screens/sign-in';
 import UnitDetailsScreen from '@/app/screens/unit-details';
@@ -40,6 +41,11 @@ export type RootParamList = {
 	};
 	'reliability-details': {
 		title: string;
+		subtitle?: string;
+		id: string;
+	};
+	'performance-efficiency-details': {
+		title?: string;
 		subtitle?: string;
 		id: string;
 	};
@@ -189,6 +195,30 @@ const RootLayout = () => {
 											return (
 												<View className={isIos ? 'items-center' : 'items-start'}>
 													<Typography weight="semibold">{route.params.title}</Typography>
+													<Typography variant="caption">{route.params.subtitle}</Typography>
+												</View>
+											);
+										},
+										headerLeft: () => (
+											<TouchableOpacity
+												style={{ marginLeft: moderateScale(16), marginRight: moderateScale(8) }}
+												onPress={() => navigation.goBack()}
+											>
+												<Ionicons name="chevron-back" size={24} />
+											</TouchableOpacity>
+										),
+									})}
+								/>
+								<Stack.Screen
+									name="performance-efficiency-details"
+									component={PerformanceEfficiencyDetails}
+									options={({ navigation, route }) => ({
+										headerStyle: { height: isIos ? verticalScale(96) : verticalScale(60) },
+										headerShadowVisible: false,
+										headerTitle: () => {
+											return (
+												<View className={isIos ? 'items-center' : 'items-start'}>
+													<Typography weight="semibold">Performance & Efficiency</Typography>
 													<Typography variant="caption">{route.params.subtitle}</Typography>
 												</View>
 											);

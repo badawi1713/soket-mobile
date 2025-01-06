@@ -1,13 +1,15 @@
+import type { AuthNavigationProp } from '@/app/routes';
 import Autocomplete from '@/components/Autocomplete';
 import Card from '@/components/Card';
 import LastUpdatedInfo from '@/components/LastUpdatedInfo';
 import Typography from '@/components/Typography';
-import { default as Icon, default as Ionicons } from '@react-native-vector-icons/ionicons';
+import { COLORS } from '@/constants/colors';
+import { default as Icon } from '@react-native-vector-icons/ionicons';
+import { useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
 import React from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { scale } from 'react-native-size-matters';
-import { COLORS } from '../../../constants/colors';
 
 const MEASURED_KPI = [
 	{
@@ -96,6 +98,8 @@ const HEAT_BALANCE_KPI = [
 ];
 
 const Content = () => {
+	const navigation = useNavigation<AuthNavigationProp>();
+
 	return (
 		<View className="bg-background-main flex-1">
 			<View className="bg-background-paper h-auto px-4 pb-4">
@@ -163,7 +167,15 @@ const Content = () => {
 						))}
 					</View>
 				</View>
-				<TouchableOpacity className="flex-row justify-between items-center bg-white p-4 rounded-lg">
+				<TouchableOpacity
+					onPress={() =>
+						navigation.navigate('performance-efficiency-details', {
+							subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
+							id: '1',
+						})
+					}
+					className="flex-row justify-between items-center bg-white p-4 rounded-lg"
+				>
 					<Typography variant="body2" weight="medium">
 						Performance and Efficiency
 					</Typography>

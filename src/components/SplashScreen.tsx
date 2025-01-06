@@ -8,7 +8,7 @@ const SplashScreen = () => {
   return (
     <View className="flex-1 bg-white justify-center items-center">
         <Logo width="80%" height={verticalScale(180)} />
-        <ActivityIndicator size="large" color={COLORS.primary.main} />
+        <ActivityIndicator size="large" color={COLORS.info.main} />
     </View>
   );
 };

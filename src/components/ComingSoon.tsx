@@ -1,18 +1,10 @@
-import Logo from '@/assets/images/logo-pln-np.svg';
 import React from 'react';
-import {View} from 'react-native';
-import {scale} from 'react-native-size-matters';
-import AppBar from './AppBar';
-import MenuItems from './MenuItems';
+import { View } from 'react-native';
 import Typography from './Typography';
 
-const ComingSoon = () => {
+const CommingSoon = () => {
   return (
     <>
-      <AppBar
-        leftComponent={<Logo width={scale(120)} />}
-        rightComponent={<MenuItems />}
-      />
       <View className="flex-1 justify-center items-center">
         <Typography
           variant="header6"
@@ -24,4 +16,4 @@ const ComingSoon = () => {
   );
 };
 
-export default ComingSoon;
+export default CommingSoon;

@@ -198,7 +198,7 @@ export default EfficiencyChart;
 const styles = StyleSheet.create({
 	loaderContainer: {
 		flex: 1,
-    height: 420,
+		height: 420,
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: COLORS.common.white,

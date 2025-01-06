@@ -5,6 +5,7 @@ import { FONTS } from '@/constants/fonts';
 import type { RouteProp } from '@react-navigation/native';
 import { useEffect, useMemo, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
 
 type ScreenProps = {
@@ -59,8 +60,8 @@ const Screen = (props: ScreenProps) => {
 			lazy
 			commonOptions={{
 				labelStyle: {
-					fontFamily: FONTS.oxanium,
-					fontSize: 14,
+					fontFamily: FONTS['oxanium-medium'],
+					fontSize: moderateScale(14),
 				},
 			}}
 			swipeEnabled
@@ -78,9 +79,7 @@ const Screen = (props: ScreenProps) => {
 					inactiveColor={COLORS.secondary.main}
 				/>
 			)}
-			style={{
-				backgroundColor: COLORS.background.main
-			}}
+			style={{}}
 		/>
 	);
 };
