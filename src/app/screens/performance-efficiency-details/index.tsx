@@ -1,18 +1,10 @@
-import Content from '@/app/views/performance-efficiency-details';
-import CommingSoon from '@/components/ComingSoon';
+import renderScene from '@/app/views/performance-efficiency-details';
 import { COLORS } from '@/constants/colors';
 import { FONTS } from '@/constants/fonts';
 import { useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
-import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
-
-const renderScene = SceneMap({
-	performance: () => <Content />,
-	efficiency: () => <CommingSoon />,
-	'energy-loss': () => <CommingSoon />,
-	'aux-power': () => <CommingSoon />,
-});
+import { TabBar, TabView } from 'react-native-tab-view';
 
 const routes = [
 	{ key: 'performance', title: 'Performance Summary' },

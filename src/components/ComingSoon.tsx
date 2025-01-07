@@ -7,9 +7,9 @@ const CommingSoon = () => {
     <>
       <View className="flex-1 justify-center items-center">
         <Typography
-          variant="header6"
-          className="font-oxanium-semibold text-center">
-          Sorry, Screen is Under Development
+          variant="body2"
+          className="font-oxanium-semibold text-gray-600 text-center">
+          Sorry, content is under development
         </Typography>
       </View>
     </>

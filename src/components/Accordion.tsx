@@ -10,9 +10,9 @@ type AccordionData = {
   subtitle?: string;
   children: JSX.Element;
   expanded: boolean;
-  onHeaderPress: (index: number) => void;
+  onHeaderPress: () => void;
   isLast?: boolean;
-  index: number;
+  index?: number;
 };
 
 function AccordionItem({
@@ -21,7 +21,6 @@ function AccordionItem({
   subtitle,
   expanded,
   onHeaderPress,
-  index,
 }: AccordionData): JSX.Element {
   const body = <>{children}</>;
 
@@ -48,7 +47,7 @@ function AccordionItem({
           'py-3 flex-row items-center px-3 bg-background-paper',
         )}
         onPress={() => {
-          onHeaderPress(index);
+          onHeaderPress();
           startRotation();
         }}>
         <View className='flex-row items-center'>
