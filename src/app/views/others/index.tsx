@@ -12,7 +12,7 @@ const openInAppBrowser = async (url: string) => {
 		if (isAvailable) {
 			await InAppBrowser.open(url, {
 				dismissButtonStyle: 'close',
-				preferredBarTintColor: COLORS.primary.main,
+				preferredBarTintColor: COLORS.common.black,
 				preferredControlTintColor: 'white',
 				readerMode: false,
 				animated: true,

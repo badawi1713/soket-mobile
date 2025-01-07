@@ -173,8 +173,8 @@ const Content: React.FC = () => {
 				</View>
 			</Accordion>
 			<Accordion onHeaderPress={() => setExpanded3(!expanded3)} index={0} expanded={expanded3} title="Pareto">
-				<View style={styles.container}>
-					<View style={{ minHeight: 640 }}>
+				<View className="p-4 flex-1 bg-background-paper">
+					<View style={{ flex: 1, minHeight: 640, overflow: 'hidden', borderRadius: 8 }}>
 						<BarChart />
 					</View>
 				</View>
