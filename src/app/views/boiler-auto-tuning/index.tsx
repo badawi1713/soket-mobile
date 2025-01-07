@@ -2,11 +2,9 @@ import Autocomplete from '@/components/Autocomplete';
 import Card from '@/components/Card';
 import LastUpdatedInfo from '@/components/LastUpdatedInfo';
 import Typography from '@/components/Typography';
-import { default as Ionicons } from '@react-native-vector-icons/ionicons';
 import { format } from 'date-fns';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { scale } from 'react-native-size-matters';
 import { COLORS } from '../../../constants/colors';
 import EfficiencyChart from './components/EfficiencyChart';
 
@@ -27,16 +25,12 @@ const EFF_STATUS = [
 
 const SOOTBLOW_STATUS = [
 	{
-		title: 'Status',
-		value: 'ON',
-	},
-	{
 		title: 'Operation',
-		value: 'Auto',
+		value: 'Enable',
 	},
 	{
-		title: 'Master',
-		value: 'ON',
+		title: 'Watchdog',
+		value: 'Connected',
 	},
 	{
 		title: 'Safeguard',
@@ -46,16 +40,12 @@ const SOOTBLOW_STATUS = [
 
 const COMBUSTION_STATUS = [
 	{
-		title: 'Status',
-		value: 'ON',
-	},
-	{
 		title: 'Operation',
-		value: 'Manual',
+		value: 'Disable',
 	},
 	{
-		title: 'Master',
-		value: 'OFF',
+		title: 'Watchdog',
+		value: 'Disconnected',
 	},
 	{
 		title: 'Safeguard',
@@ -118,7 +108,7 @@ const Content = () => {
 				</View>
 				<View className="flex-col gap-4 bg-background-paper p-4 rounded-lg">
 					<Typography weight="semibold">Sootblow Optimization</Typography>
-					<View className="flex-row justify-between gap-y-4 flex-wrap w-full">
+					<View className="flex-row justify-between gap-2 flex-wrap w-full">
 						{SOOTBLOW_STATUS?.map((item) => (
 							<Card
 								key={item?.title}
@@ -129,16 +119,16 @@ const Content = () => {
 									justifyContent: 'space-between',
 									gap: 12,
 									backgroundColor: item?.value
-										? `${item?.value}`.includes('ON') ||
-											(`${item?.value}`.toLowerCase().includes('auto') &&
-												!`${item?.value}`.toLowerCase().includes('not ready'))
+										? `${item?.value}`.toLowerCase() === 'enable' ||
+											`${item?.value}`.toLowerCase() === 'connected' ||
+											`${item?.value}`.toLowerCase() === 'ready'
 											? COLORS.success.main
 											: COLORS.error.main
 										: COLORS.error.main,
-									width: scale(70),
+									flex: 1,
 								}}
 							>
-								<Typography className="text-center text-white" variant="smallText" weight="medium">
+								<Typography className="text-center text-white" variant="caption" weight="medium">
 									{item?.title}
 								</Typography>
 								<Typography className="text-center text-white" variant="caption" weight="bold">
@@ -150,7 +140,7 @@ const Content = () => {
 				</View>
 				<View className="flex-col gap-4 bg-background-paper p-4 rounded-lg">
 					<Typography weight="semibold">Combustion Optimization</Typography>
-					<View className="flex-row justify-between gap-y-4 flex-wrap w-full">
+					<View className="flex-row justify-between gap-2 flex-wrap w-full">
 						{COMBUSTION_STATUS?.map((item) => (
 							<Card
 								key={item?.title}
@@ -161,16 +151,16 @@ const Content = () => {
 									justifyContent: 'space-between',
 									gap: 12,
 									backgroundColor: item?.value
-										? `${item?.value}`.includes('ON') ||
-											(`${item?.value}`.toLowerCase().includes('auto') &&
-												!`${item?.value}`.toLowerCase().includes('not ready'))
+										? `${item?.value}`.toLowerCase() === 'enable' ||
+											`${item?.value}`.toLowerCase() === 'connected' ||
+											`${item?.value}`.toLowerCase() === 'ready'
 											? COLORS.success.main
 											: COLORS.error.main
 										: COLORS.error.main,
-									width: scale(70),
+									flex: 1,
 								}}
 							>
-								<Typography className="text-center text-white" variant="smallText" weight="medium">
+								<Typography className="text-center text-white" variant="caption" weight="medium">
 									{item?.title}
 								</Typography>
 								<Typography className="text-center text-white" variant="caption" weight="bold">
