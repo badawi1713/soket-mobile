@@ -9,11 +9,48 @@ import images from '@/constants/images';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 
+type Unit = {
+	id: string;
+	title: string;
+	status: 1 | 0 | true | false;
+};
+
+type UnitList = Unit[];
+
+const data: UnitList = [
+	{
+		id: '1',
+		title: 'Tanjung Awar-Awar - Unit 1',
+		status: true,
+	},
+	{
+		id: '2',
+		title: 'Tanjung Awar-Awar - Unit 2',
+		status: false,
+	},
+	{
+		id: '3',
+		title: 'Tenayan - Unit 1',
+		status: true,
+	},
+	{
+		id: '4',
+		title: 'Tenayan - Unit 2',
+		status: false,
+	},
+];
+
 const Content = () => {
+	const [keyword, setKeyword] = useState<string>('');
+
 	const navigation = useNavigation<AuthNavigationProp>();
+
+	const filteredData = useMemo(() => {
+		return data.filter((item) => item.title.toLowerCase().includes(keyword.toLowerCase()));
+	}, [keyword]);
 
 	return (
 		<View className="bg-background-paper flex-1">
@@ -45,21 +82,27 @@ const Content = () => {
 					/>
 				</View>
 				<View>
-					<TextInput size="small" placeholder="Search unit..." icon="search-outline" iconPosition="right" />
+					<TextInput
+						size="small"
+						placeholder="Search unit..."
+						icon="search-outline"
+						value={keyword}
+						onChangeText={(e) => setKeyword(e)}
+						iconPosition="right"
+					/>
 				</View>
 				<LastUpdatedInfo value={format(new Date(), 'MMM dd, yyyy  HH:mm')} />
-				<View className="flex-row gap-0 gap-y-4 flex-wrap justify-between">
-					{[
-						1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-						30,
-					].map((item) => (
+				{filteredData?.length < 1 ? <View className='items-center justify-center mt-4'>
+					<Typography className='text-center' variant='body2'>No data found. Please try searching with a different keyword.</Typography>
+				</View> : <View className="flex-row gap-0 gap-y-4 flex-wrap justify-between">
+					{filteredData.map((item) => (
 						<TouchableOpacity
 							activeOpacity={0.3}
-							key={item}
+							key={item.id}
 							onPress={() =>
 								navigation.navigate('unit-details', {
-									id: `${item}`,
-									title: 'Tanjung Awar-Awar 1',
+									id: `${item.id}`,
+									title: item.title,
 								})
 							}
 							style={{ width: '48%' }}
@@ -72,17 +115,13 @@ const Content = () => {
 									resizeMode="stretch"
 								/>
 								<View className="absolute top-2 left-2">
-									{item % 3 !== 0 ? (
-										<Ionicons
-											name="ellipse"
-											color={item % 3 !== 0 ? COLORS.success.main : COLORS.error.main}
-											size={24}
-										/>
+									{item.status ? (
+										<Ionicons name="ellipse" color={item.status ? COLORS.success.main : COLORS.error.main} size={24} />
 									) : (
 										<BlinkView>
 											<Ionicons
 												name="ellipse"
-												color={item % 3 !== 0 ? COLORS.success.main : COLORS.error.main}
+												color={item.status ? COLORS.success.main : COLORS.error.main}
 												size={24}
 											/>
 										</BlinkView>
@@ -92,14 +131,14 @@ const Content = () => {
 									<View className="bg-black opacity-55 z-10 rounded-b-md absolute w-full h-full" />
 									<View className="px-2 py-1 z-20">
 										<Typography className="text-white text-center font-oxanium-medium" variant="caption">
-											Tanjung Awar-Awar 1
+											{item.title || 'Unknown imgPlantExample'}
 										</Typography>
 									</View>
 								</View>
 							</View>
 						</TouchableOpacity>
 					))}
-				</View>
+				</View>}
 			</ScrollView>
 		</View>
 	);
