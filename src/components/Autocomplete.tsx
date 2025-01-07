@@ -9,7 +9,7 @@ import Typography from './Typography';
 
 const Autocomplete: React.FC = memo(() => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = useState<String>('');
+  const [selectedItem, setSelectedItem] = useState<String>('1');
 
   const dropdownController = useRef<any>(null);
   const searchRef = useRef<any>(null);
@@ -28,6 +28,7 @@ const Autocomplete: React.FC = memo(() => {
       >
         <AutocompleteDropdown
           ref={searchRef}
+          initialValue="1"
           controller={(controller: any) => {
             dropdownController.current = controller;
           }}
@@ -78,6 +79,7 @@ const Autocomplete: React.FC = memo(() => {
         }}
           showChevron={true}
           closeOnBlur={false}
+          showClear={false}
           ChevronIconComponent={<Icon name="chevron-down" size={20} />}
           ClearIconComponent={<Icon name="close-circle-outline" size={20} color={COLORS.error.main} />}
         />
