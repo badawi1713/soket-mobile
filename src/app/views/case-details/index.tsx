@@ -4,8 +4,9 @@ import Typography from '@/components/Typography';
 import { COLORS } from '@/constants/colors';
 import { format } from 'date-fns';
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, Share, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { toast } from 'sonner-native';
 
 type ScreenProps = {
 	title: 'open' | 'closed' | 'awaiting' | 'in-progress' | 'completed';
@@ -27,6 +28,16 @@ const Content = ({ title = 'open' }: ScreenProps) => {
 	};
 
 	const { bottom } = useSafeAreaInsets();
+
+	const onShare = async () => {
+		try {
+			await Share.share({
+				message: 'Share this link: http://10.7.1.116',
+			});
+		} catch (_) {
+			toast.error('Error sharing');
+		}
+	};
 
 	return (
 		<ScrollView
@@ -81,7 +92,7 @@ const Content = ({ title = 'open' }: ScreenProps) => {
 
 						<IconButton
 							buttonStyle="normal"
-							onPress={() => console.log('hello')}
+							onPress={() => onShare()}
 							iconColor={COLORS.common.black}
 							icon="share-social"
 							size="small"
