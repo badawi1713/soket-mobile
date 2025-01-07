@@ -74,12 +74,12 @@ const Content = () => {
 								navigation.navigate('case-details', {
 									title: 'Anomaly Detection',
 									subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
-									type: 'open',
+									type: 'completed',
 								})
 							}
 							title="20"
-							variant="info"
-							subtitle="OPEN"
+							variant="success"
+							subtitle="COMPLETED"
 							style={{
 								flex: 1,
 								borderWidth: 1,
@@ -116,22 +116,6 @@ const Content = () => {
 							title="50"
 							variant="default"
 							subtitle="IN PROGRESS"
-							style={{
-								alignItems: 'center',
-								padding: 0,
-							}}
-						/>
-						<Card
-							onPress={() =>
-								navigation.navigate('case-details', {
-									title: 'Anomaly Detection',
-									subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
-									type: 'completed',
-								})
-							}
-							title="80"
-							variant="default"
-							subtitle="COMPLETED"
 							style={{
 								alignItems: 'center',
 								padding: 0,

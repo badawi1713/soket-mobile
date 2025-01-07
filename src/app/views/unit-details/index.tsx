@@ -152,8 +152,34 @@ const Content = () => {
 						<Card
 							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
 							title="20"
-							variant="error"
-							subtitle="OPEN"
+							variant="warning"
+							subtitle="AWAITING"
+							style={{
+								flex: 1,
+								borderWidth: 1,
+								borderColor: COLORS.border.light,
+								alignItems: 'center',
+							}}
+						/>
+						<Card
+							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
+							title="120"
+							variant="info"
+							subtitle="IN PROGRESS"
+							style={{
+								flex: 1,
+								borderWidth: 1,
+								borderColor: COLORS.border.light,
+								alignItems: 'center',
+							}}
+						/>
+					</View>
+					<View className="flex-row justify-between gap-x-4">
+						<Card
+							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
+							title="20"
+							variant="success"
+							subtitle="COMPLETED"
 							style={{
 								flex: 1,
 								borderWidth: 1,
@@ -171,38 +197,6 @@ const Content = () => {
 								borderWidth: 1,
 								borderColor: COLORS.border.light,
 								alignItems: 'center',
-							}}
-						/>
-					</View>
-					<View className="flex-row justify-between flex-wrap gap-x-0">
-						<Card
-							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
-							title="30"
-							variant="default"
-							subtitle="AWAITING"
-							style={{
-								alignItems: 'center',
-								padding: 0,
-							}}
-						/>
-						<Card
-							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
-							title="50"
-							variant="default"
-							subtitle="IN PROGRESS"
-							style={{
-								alignItems: 'center',
-								padding: 0,
-							}}
-						/>
-						<Card
-							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
-							title="80"
-							variant="default"
-							subtitle="COMPLETED"
-							style={{
-								alignItems: 'center',
-								padding: 0,
 							}}
 						/>
 					</View>
