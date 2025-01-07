@@ -130,7 +130,7 @@ const Content = () => {
 								<View className="absolute w-full bottom-0 rounded-b-md">
 									<View className="bg-black opacity-55 z-10 rounded-b-md absolute w-full h-full" />
 									<View className="px-2 py-1 z-20">
-										<Typography className="text-white text-center font-oxanium-medium" variant="caption">
+										<Typography className="text-white text-center font-oxanium-medium" variant="smallText">
 											{item.title || 'Unknown imgPlantExample'}
 										</Typography>
 									</View>
