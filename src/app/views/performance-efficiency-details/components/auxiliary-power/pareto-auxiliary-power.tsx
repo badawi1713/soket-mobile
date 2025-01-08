@@ -8,7 +8,7 @@ const ParetoAuxiliaryPower = () => {
 
 	return (
 		<View className={clsx(isIos ? 'p-4' : 'p-0', 'flex-1 bg-background-paper')}>
-			<View style={{ flex: 1, minHeight: 640, overflow: 'hidden', borderRadius: 8 }}>
+			<View style={{ flex: 1, minHeight: 640, overflow: 'hidden', borderRadius: isIos ? 8 : 0 }}>
 				<BarChart />
 			</View>
 		</View>

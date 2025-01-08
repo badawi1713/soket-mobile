@@ -103,7 +103,7 @@ const EfficiencyChart: React.FC = () => {
             legendNumRows: 2,
         legendNumColumns: 2,
             multiCanvas: false,
-            paletteColors: '#00A152, #ffa000, #2196F3, #ff0000',
+            paletteColors: '#ffa000, #2196F3, #00A152, #ff0000',
                 },
                  extensions: {
             customRangeSelector: {

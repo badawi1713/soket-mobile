@@ -52,7 +52,11 @@ const STATUS_LIST_DATA_2 = [
 	},
 ];
 
-const Content = () => {
+type ContentProps = {
+	plantName: string;
+};
+
+const Content = ({ plantName }: ContentProps) => {
 	const navigation = useNavigation<AuthNavigationProp>();
 
 	const handleSwitchChange = (value: string) => {
@@ -150,7 +154,9 @@ const Content = () => {
 					<Typography weight="semibold">Case Status</Typography>
 					<View className="flex-row justify-between gap-x-4">
 						<Card
-							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
+							onPress={() =>
+								navigation.navigate('case-details', { title: 'Case Management', subtitle: plantName, type: 'awaiting' })
+							}
 							title="20"
 							variant="warning"
 							subtitle="AWAITING"
@@ -162,7 +168,13 @@ const Content = () => {
 							}}
 						/>
 						<Card
-							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
+							onPress={() =>
+								navigation.navigate('case-details', {
+									title: 'Case Management',
+									subtitle: plantName,
+									type: 'in-progress',
+								})
+							}
 							title="120"
 							variant="info"
 							subtitle="IN PROGRESS"
@@ -176,7 +188,13 @@ const Content = () => {
 					</View>
 					<View className="flex-row justify-between gap-x-4">
 						<Card
-							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
+							onPress={() =>
+								navigation.navigate('case-details', {
+									title: 'Case Management',
+									subtitle: plantName,
+									type: 'completed',
+								})
+							}
 							title="20"
 							variant="success"
 							subtitle="COMPLETED"
@@ -188,7 +206,9 @@ const Content = () => {
 							}}
 						/>
 						<Card
-							onPress={() => navigation.navigate('main-app', { screen: 'reliability' })}
+							onPress={() =>
+								navigation.navigate('case-details', { title: 'Case Management', subtitle: plantName, type: 'closed' })
+							}
 							title="120"
 							variant="default"
 							subtitle="CLOSED"
