@@ -55,17 +55,17 @@ const COMBUSTION_STATUS = [
 
 const Content = () => {
 	return (
-		<View className="bg-background-main flex-1">
-			<View className="bg-background-paper h-auto px-4 pb-4">
+		<View className="flex-1 bg-background-main">
+			<View className="px-4 pb-4 bg-background-paper">
 				<View className="h-12">
 					<Autocomplete />
 				</View>
 			</View>
 			<ScrollView contentContainerStyle={{ flexGrow: 1, gap: 16, paddingHorizontal: 16, paddingBottom: 16 }}>
 				<LastUpdatedInfo value={format(new Date(), 'MMM dd, yyyy  HH:mm')} />
-				<View className="flex-col gap-4 bg-background-paper p-4 rounded-lg">
+				<View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
 					<Typography weight="semibold">Efficiency Status</Typography>
-					<View className="flex-row justify-between gap-y-4 flex-wrap w-full">
+					<View className="flex-row flex-wrap justify-between w-full gap-y-4">
 						{EFF_STATUS?.map((item) => (
 							<Card
 								key={item?.title}
@@ -100,15 +100,15 @@ const Content = () => {
 						))}
 					</View>
 				</View>
-				<View className="flex-col gap-4 bg-background-paper p-4 rounded-lg">
+				<View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
 					<Typography weight="semibold">Efficiency Chart</Typography>
-					<View className="bg-slate-200 w-full">
+					<View className="w-full bg-slate-200">
 						<EfficiencyChart />
 					</View>
 				</View>
-				<View className="flex-col gap-4 bg-background-paper p-4 rounded-lg">
+				<View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
 					<Typography weight="semibold">Sootblow Optimization</Typography>
-					<View className="flex-row justify-between gap-2 flex-wrap w-full">
+					<View className="flex-row flex-wrap justify-between w-full gap-2">
 						{SOOTBLOW_STATUS?.map((item) => (
 							<Card
 								key={item?.title}
@@ -138,9 +138,9 @@ const Content = () => {
 						))}
 					</View>
 				</View>
-				<View className="flex-col gap-4 bg-background-paper p-4 rounded-lg">
+				<View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
 					<Typography weight="semibold">Combustion Optimization</Typography>
-					<View className="flex-row justify-between gap-2 flex-wrap w-full">
+					<View className="flex-row flex-wrap justify-between w-full gap-2">
 						{COMBUSTION_STATUS?.map((item) => (
 							<Card
 								key={item?.title}

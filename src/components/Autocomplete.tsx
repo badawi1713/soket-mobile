@@ -1,92 +1,100 @@
-import { COLORS } from '@/constants/colors';
-import { FONTS } from '@/constants/fonts';
-import Icon from '@react-native-vector-icons/ionicons';
-import React, { memo, useRef, useState } from 'react';
-import { Dimensions, Platform, View } from 'react-native';
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
-import { moderateScale } from 'react-native-size-matters';
-import Typography from './Typography';
+import {COLORS} from '@/constants/colors';
+import {FONTS} from '@/constants/fonts';
+import {useAppSelector} from '@/hooks/useAppSelector';
+import React, {memo, useCallback, useEffect, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {Dropdown} from 'react-native-element-dropdown';
+import {moderateScale} from 'react-native-size-matters';
 
 const Autocomplete: React.FC = memo(() => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = useState<String>('1');
+  const {loading, data = []} = useAppSelector(state => state.unitListReducer);
+  const [selectedItem, setSelectedItem] = useState<string>('');
 
-  const dropdownController = useRef<any>(null);
-  const searchRef = useRef<any>(null);
+  const fetchInitialData = useCallback(async () => {
+    if (data?.length > 0) {
+      setSelectedItem(data[0].id);
+    }
+  }, []);
 
-  console.log(selectedItem)
+  useEffect(() => {
+    fetchInitialData();
+  }, []);
+
+  const transformedData = data.map(item => ({
+    label: item.title || item.unitName || 'No Name',
+    value: item.id,
+  }));
 
   return (
-    <>
-      <View
-        style={[
-          { flex: 1, flexDirection: 'row', alignItems: 'center', 
-
-           },
-          Platform.select({ ios: { zIndex: 1 } }),
-        ]}
-      >
-        <AutocompleteDropdown
-          ref={searchRef}
-          initialValue="1"
-          controller={(controller: any) => {
-            dropdownController.current = controller;
-          }}
-          direction={Platform.select({ ios: 'down' })}
-          dataSet={[
-            { id: '1', title: 'Tanjung Awar-Awar - Unit 1' },
-            { id: '2', title: 'Tanjung Awar-Awar - Unit 2' },
-            { id: '3', title: 'Tenayan - Unit 1' },
-            { id: '4', title: 'Tenayan - Unit 2' },
-          ]}
-          onSelectItem={item => {
-            item && setSelectedItem(item.id)
-          }}
-          emptyResultText="No data found"
-          suggestionsListMaxHeight={Dimensions.get('window').height * 0.4}
-          loading={loading}
-          useFilter={true}
-          textInputProps={{
-            placeholder: 'Select a unit',
-            autoCorrect: false,
-            autoCapitalize: 'none',
-            style: {
-              borderRadius: 8,
-              paddingLeft: 16,
-              fontFamily: FONTS.oxanium,
-              color: COLORS.common.black,
-              fontSize: moderateScale(14)
-            },
-          }}
-          inputContainerStyle={{
-            borderRadius: 8,
-            backgroundColor: COLORS.neutral.main,
-          }}
-          suggestionsListContainerStyle={{
-            backgroundColor: COLORS.background.paper,
-            boxShadow: '0px 10px 25px 1px rgba(0,0,0,0.2)',
-          }}
-          containerStyle={{ flexGrow: 1, flexShrink: 1, 
-           }}
-          renderItem={(item) => (
-            <Typography variant="body2" color={item?.id === selectedItem ? COLORS.primary.main : COLORS.common.black} className='p-2'>{item?.title}</Typography>
-          )}
-           flatListProps={{
-            ItemSeparatorComponent: () => <View className='border-b border-border-light' />,
-          style: {
-            borderWidth: 0,
-          },
+    <View style={styles.wrapper}>
+      <Dropdown
+        data={transformedData}
+        labelField="label"
+        valueField="value"
+        placeholder="Select a unit"
+        value={selectedItem}
+        onChange={item => {
+          setSelectedItem(item.value);
         }}
-          showChevron={true}
-          closeOnBlur={false}
-          showClear={false}
-          ChevronIconComponent={<Icon name="chevron-down" size={20} />}
-          ClearIconComponent={<Icon name="close-circle-outline" size={20} color={COLORS.error.main} />}
-        />
-      </View>
-     
-    </>
+        maxHeight={300}
+        style={styles.dropdown}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.searchInput}
+        containerStyle={styles.dropdownContainer}
+        activeColor={COLORS.neutral.light}
+        itemTextStyle={{color: COLORS.common.black}}
+        disable={loading}
+        search
+        searchPlaceholder="Search unit..."
+      />
+    </View>
   );
+});
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    zIndex: 1000,
+  },
+  dropdown: {
+    flex: 1,
+    height: moderateScale(45),
+    borderRadius: 8,
+    paddingHorizontal: moderateScale(12),
+    backgroundColor: COLORS.neutral.light,
+    borderWidth: 1,
+    borderColor: COLORS.neutral.light,
+  },
+  placeholderStyle: {
+    fontFamily: FONTS.oxanium,
+    fontSize: moderateScale(14),
+    color: COLORS.common.black,
+  },
+  selectedTextStyle: {
+    fontFamily: FONTS.oxanium,
+    fontSize: moderateScale(14),
+    color: COLORS.common.black,
+  },
+  searchInput: {
+    height: 40,
+    fontSize: moderateScale(14),
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    backgroundColor: COLORS.neutral.light,
+    color: COLORS.common.black,
+    fontFamily: FONTS.oxanium,
+  },
+  dropdownContainer: {
+    backgroundColor: COLORS.background.paper,
+    borderRadius: 8,
+    elevation: 5,
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
 });
 
 export default Autocomplete;

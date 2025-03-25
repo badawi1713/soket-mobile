@@ -1,7 +1,9 @@
-import exampleSlices from "./example-slices";
+import commonSlices from './common-slices';
+import dashboardSlices from './dashboard-slices';
 
 const slices = {
-	...exampleSlices,
+  ...commonSlices,
+  ...dashboardSlices,
 };
 
 export default slices;

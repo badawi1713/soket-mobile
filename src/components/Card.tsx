@@ -1,8 +1,10 @@
-import { COLORS } from '@/constants/colors';
+import {COLORS} from '@/constants/colors';
 import Ionicons from '@react-native-vector-icons/ionicons';
-import React, { FC, ReactNode } from 'react';
-import { StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native';
+import React, {FC, ReactNode} from 'react';
+import {StyleProp, TouchableOpacity, View, ViewStyle} from 'react-native';
 import Typography from './Typography';
+import Skeleton from './Skeleton';
+import {scale} from 'react-native-size-matters';
 
 interface CardProps {
   title?: string; // Card title
@@ -12,7 +14,8 @@ interface CardProps {
   children?: ReactNode; // Content inside the card
   style?: StyleProp<ViewStyle>; // Custom styles
   shadow?: boolean; // Whether to apply shadow
-  onPress?: () => void; 
+  onPress?: () => void;
+  loading?: boolean; // Whether the card is in loading state
 }
 
 const Card: FC<CardProps> = ({
@@ -24,6 +27,7 @@ const Card: FC<CardProps> = ({
   style,
   shadow = false,
   onPress,
+  loading = false,
 }) => {
   // Variant-specific colors
   const variantColors = {
@@ -72,28 +76,33 @@ const Card: FC<CardProps> = ({
         },
         shadow && {
           shadowColor: '#000',
-          shadowOffset: { width: 0, height: 4 },
+          shadowOffset: {width: 0, height: 4},
           shadowOpacity: 0.2,
           shadowRadius: 6,
           elevation: 5, // For Android
         },
         style,
-      ]}
-    >
+      ]}>
       {/* Header Section */}
-     {title && <View className="flex-row items-center mb-4">
-        {icon && (
-          <Ionicons
-            name={icon}
-            size={24}
-            color={colors.title}
-            style={{ marginRight: 8 }}
-          />
-        )}
-        <Typography variant="header5" weight="bold" color={colors.title}>
-          {title}
-        </Typography>
-      </View>}
+      {title && (
+        <View className="flex-row items-center mb-4">
+          {icon && (
+            <Ionicons
+              name={icon}
+              size={24}
+              color={colors.title}
+              style={{marginRight: 8}}
+            />
+          )}
+          {loading ? (
+            <Skeleton width={'36%'} height={scale(24)} />
+          ) : (
+            <Typography variant="header5" weight="bold" color={colors.title}>
+              {title}
+            </Typography>
+          )}
+        </View>
+      )}
 
       {/* Subtitle Section */}
       {subtitle && (
@@ -101,8 +110,7 @@ const Card: FC<CardProps> = ({
           variant="caption"
           weight="semibold"
           color={colors.subtitle}
-          className='text-center'
-        >
+          className="text-center">
           {subtitle}
         </Typography>
       )}

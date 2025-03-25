@@ -77,10 +77,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
       const response = await axios.post(SETTINGS?.loginEndpoint, {
         username: params.id,
         password: params.password,
-        via: 'WEB',
+        via: 'MOBILE',
         force: params.force,
       });
-
+      console.log(response?.data?.token)
       if (params.rememberMe) {
         await storage.set(SETTINGS?.storageTokenKeyName, response.data.token);
         await storage.set('userData', JSON.stringify(response.data.user));
@@ -101,7 +101,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   const handleLogout = async (navigation: AuthNavigationProp) => {
     try {
       await axios.post(SETTINGS.logoutEndpoint, {
-        via: 'WEB',
+        via: 'MOBILE',
         userId: user?.id || '',
       });
 
