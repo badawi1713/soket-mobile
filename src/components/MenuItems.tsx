@@ -1,16 +1,17 @@
-import type { AuthNavigationProp } from '@/app/routes';
-import { COLORS } from '@/constants/colors';
-import { SETTINGS } from '@/constants/settings';
-import { useAuth } from '@/hooks/useAuth';
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { SafeAreaView } from 'react-native';
+import type {AuthNavigationProp} from '@/app/routes';
+import {COLORS} from '@/constants/colors';
+import {SETTINGS} from '@/constants/settings';
+import {useAuth} from '@/hooks/useAuth';
+import {useNavigation} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {SafeAreaView} from 'react-native';
 import ConfirmationDialog from './ConfirmationDialog';
-import Menu, { MenuItem } from './Menu';
+import Menu, {MenuItem} from './Menu';
 
 const MenuItems = () => {
   const {logout} = useAuth();
   const navigation = useNavigation<AuthNavigationProp>();
+  const {user} = useAuth();
 
   const [isDialogVisible, setIsDialogVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -35,9 +36,15 @@ const MenuItems = () => {
   return (
     <SafeAreaView>
       {/* Menu Component */}
-
       <Menu
-        items={menuItems}
+        items={[
+          {
+            label: `${user?.username || 'Unknown User'}`.toUpperCase(),
+            icon: '',
+            onPress: () => false,
+          },
+          ...menuItems,
+        ]}
         triggerIcon="person-circle-outline"
         triggerColor={COLORS.secondary.main}
         triggerSize={30}

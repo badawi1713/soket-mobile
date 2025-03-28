@@ -19,10 +19,15 @@ interface ApiResponse {
   page: number;
 }
 
-export const handleGetUnitListApi = async (): Promise<{
+export const handleGetUnitListApi = async ({
+  module = '',
+}): Promise<{
   content: UnitItem[];
 }> => {
-  const url = '/service/mobile/unit/list';
+  const url =
+    module === 'bat'
+      ? '/service/mobile/bat/units'
+      : '/service/mobile/unit/list';
 
   try {
     const response = await axios.get<ApiResponse>(url, {

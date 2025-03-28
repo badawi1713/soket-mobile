@@ -6,7 +6,6 @@ import UnitDetailsScreen from '@/app/screens/unit-details';
 import SplashScreen from '@/components/SplashScreen';
 import Typography from '@/components/Typography';
 import {SETTINGS} from '@/constants/settings';
-import {AuthProvider} from '@/context/AuthContext';
 import {useAuth} from '@/hooks/useAuth';
 import {storage} from '@/utils/mmkv';
 import {navigationRef, reset} from '@/utils/navigate';
@@ -40,16 +39,17 @@ export type RootParamList = {
     title: string;
     subtitle: string;
     type: 'open' | 'in-progress' | 'closed' | 'awaiting' | 'completed';
+    unitId: string;
   };
   'reliability-details': {
     title: string;
     subtitle?: string;
-    id: string;
+    unitId: string;
   };
   'performance-efficiency-details': {
     title?: string;
     subtitle?: string;
-    id: string;
+    unitId: string;
   };
 };
 
@@ -87,7 +87,7 @@ const RootLayout = () => {
           headers: {Authorization: `Bearer ${storedToken}`},
         });
 
-        setUser(response.data?.object);
+        setUser(response.data?.object?.user);
         axios.defaults.headers.common.Authorization = `Bearer ${storedToken}`;
 
         if (navigationRef.isReady()) {
@@ -132,151 +132,149 @@ const RootLayout = () => {
           onReady={() => {
             initAuth();
           }}>
-          <AuthProvider>
-            <Stack.Navigator initialRouteName="splash-screen">
-              <Stack.Screen
-                name="splash-screen"
-                component={SplashScreen}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="login"
-                component={LoginScreen}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="main-app"
-                component={MainApp}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="unit-details"
-                component={UnitDetailsScreen}
-                options={({route, navigation}) => ({
-                  headerStyle: {
-                    height: isIos ? verticalScale(96) : verticalScale(60),
-                  },
-                  headerShadowVisible: false,
-                  headerTitle: () => {
-                    return (
-                      <View className={isIos ? 'items-center' : 'items-start'}>
-                        <Typography weight="semibold">
-                          {route?.params?.title || ''}
-                        </Typography>
-                        {/* <Typography variant="caption">{route?.params?.title || ''}</Typography> */}
-                      </View>
-                    );
-                  },
-                  headerLeft: () => (
-                    <TouchableOpacity
-                      style={{
-                        marginLeft: moderateScale(16),
-                        marginRight: moderateScale(8),
-                      }}
-                      onPress={() => navigation.goBack()}>
-                      <Ionicons name="chevron-back" size={24} />
-                    </TouchableOpacity>
-                  ),
-                })}
-              />
-              <Stack.Screen
-                name="case-details"
-                component={CaseDetailsScreen}
-                options={({navigation, route}) => ({
-                  headerStyle: {
-                    height: isIos ? verticalScale(96) : verticalScale(60),
-                  },
-                  headerShadowVisible: false,
-                  headerTitle: () => {
-                    return (
-                      <View className={isIos ? 'items-center' : 'items-start'}>
-                        <Typography weight="semibold">
-                          {route.params.title}
-                        </Typography>
-                        <Typography variant="caption">
-                          {route.params.subtitle}
-                        </Typography>
-                      </View>
-                    );
-                  },
-                  headerLeft: () => (
-                    <TouchableOpacity
-                      style={{
-                        marginLeft: moderateScale(16),
-                        marginRight: moderateScale(8),
-                      }}
-                      onPress={() => navigation.goBack()}>
-                      <Ionicons name="chevron-back" size={24} />
-                    </TouchableOpacity>
-                  ),
-                })}
-              />
-              <Stack.Screen
-                name="reliability-details"
-                component={AssetHealthDetailsScreen}
-                options={({navigation, route}) => ({
-                  headerStyle: {
-                    height: isIos ? verticalScale(96) : verticalScale(60),
-                  },
-                  headerShadowVisible: false,
-                  headerTitle: () => {
-                    return (
-                      <View className={isIos ? 'items-center' : 'items-start'}>
-                        <Typography weight="semibold">
-                          {route.params.title}
-                        </Typography>
-                        <Typography variant="caption">
-                          {route.params.subtitle}
-                        </Typography>
-                      </View>
-                    );
-                  },
-                  headerLeft: () => (
-                    <TouchableOpacity
-                      style={{
-                        marginLeft: moderateScale(16),
-                        marginRight: moderateScale(8),
-                      }}
-                      onPress={() => navigation.goBack()}>
-                      <Ionicons name="chevron-back" size={24} />
-                    </TouchableOpacity>
-                  ),
-                })}
-              />
-              <Stack.Screen
-                name="performance-efficiency-details"
-                component={PerformanceEfficiencyDetails}
-                options={({navigation, route}) => ({
-                  headerStyle: {
-                    height: isIos ? verticalScale(96) : verticalScale(60),
-                  },
-                  headerShadowVisible: false,
-                  headerTitle: () => {
-                    return (
-                      <View className={isIos ? 'items-center' : 'items-start'}>
-                        <Typography weight="semibold">
-                          Performance & Efficiency
-                        </Typography>
-                        <Typography variant="caption">
-                          {route.params.subtitle}
-                        </Typography>
-                      </View>
-                    );
-                  },
-                  headerLeft: () => (
-                    <TouchableOpacity
-                      style={{
-                        marginLeft: moderateScale(16),
-                        marginRight: moderateScale(8),
-                      }}
-                      onPress={() => navigation.goBack()}>
-                      <Ionicons name="chevron-back" size={24} />
-                    </TouchableOpacity>
-                  ),
-                })}
-              />
-            </Stack.Navigator>
-          </AuthProvider>
+          <Stack.Navigator initialRouteName="splash-screen">
+            <Stack.Screen
+              name="splash-screen"
+              component={SplashScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="login"
+              component={LoginScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="main-app"
+              component={MainApp}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="unit-details"
+              component={UnitDetailsScreen}
+              options={({route, navigation}) => ({
+                headerStyle: {
+                  height: isIos ? verticalScale(96) : verticalScale(60),
+                },
+                headerShadowVisible: false,
+                headerTitle: () => {
+                  return (
+                    <View className={isIos ? 'items-center' : 'items-start'}>
+                      <Typography weight="semibold">
+                        {route?.params?.title || ''}
+                      </Typography>
+                      {/* <Typography variant="caption">{route?.params?.title || ''}</Typography> */}
+                    </View>
+                  );
+                },
+                headerLeft: () => (
+                  <TouchableOpacity
+                    style={{
+                      marginLeft: moderateScale(16),
+                      marginRight: moderateScale(8),
+                    }}
+                    onPress={() => navigation.goBack()}>
+                    <Ionicons name="chevron-back" size={24} />
+                  </TouchableOpacity>
+                ),
+              })}
+            />
+            <Stack.Screen
+              name="case-details"
+              component={CaseDetailsScreen}
+              options={({navigation, route}) => ({
+                headerStyle: {
+                  height: isIos ? verticalScale(96) : verticalScale(60),
+                },
+                headerShadowVisible: false,
+                headerTitle: () => {
+                  return (
+                    <View className={isIos ? 'items-center' : 'items-start'}>
+                      <Typography weight="semibold">
+                        {route.params.title}
+                      </Typography>
+                      <Typography variant="caption">
+                        {route.params.subtitle}
+                      </Typography>
+                    </View>
+                  );
+                },
+                headerLeft: () => (
+                  <TouchableOpacity
+                    style={{
+                      marginLeft: moderateScale(16),
+                      marginRight: moderateScale(8),
+                    }}
+                    onPress={() => navigation.goBack()}>
+                    <Ionicons name="chevron-back" size={24} />
+                  </TouchableOpacity>
+                ),
+              })}
+            />
+            <Stack.Screen
+              name="reliability-details"
+              component={AssetHealthDetailsScreen}
+              options={({navigation, route}) => ({
+                headerStyle: {
+                  height: isIos ? verticalScale(96) : verticalScale(60),
+                },
+                headerShadowVisible: false,
+                headerTitle: () => {
+                  return (
+                    <View className={isIos ? 'items-center' : 'items-start'}>
+                      <Typography weight="semibold">
+                        {route.params.title}
+                      </Typography>
+                      <Typography variant="caption">
+                        {route.params.subtitle}
+                      </Typography>
+                    </View>
+                  );
+                },
+                headerLeft: () => (
+                  <TouchableOpacity
+                    style={{
+                      marginLeft: moderateScale(16),
+                      marginRight: moderateScale(8),
+                    }}
+                    onPress={() => navigation.goBack()}>
+                    <Ionicons name="chevron-back" size={24} />
+                  </TouchableOpacity>
+                ),
+              })}
+            />
+            <Stack.Screen
+              name="performance-efficiency-details"
+              component={PerformanceEfficiencyDetails}
+              options={({navigation, route}) => ({
+                headerStyle: {
+                  height: isIos ? verticalScale(96) : verticalScale(60),
+                },
+                headerShadowVisible: false,
+                headerTitle: () => {
+                  return (
+                    <View className={isIos ? 'items-center' : 'items-start'}>
+                      <Typography weight="semibold">
+                        Performance & Efficiency
+                      </Typography>
+                      <Typography variant="caption">
+                        {route.params.subtitle}
+                      </Typography>
+                    </View>
+                  );
+                },
+                headerLeft: () => (
+                  <TouchableOpacity
+                    style={{
+                      marginLeft: moderateScale(16),
+                      marginRight: moderateScale(8),
+                    }}
+                    onPress={() => navigation.goBack()}>
+                    <Ionicons name="chevron-back" size={24} />
+                  </TouchableOpacity>
+                ),
+              })}
+            />
+          </Stack.Navigator>
         </NavigationContainer>
         <Toaster theme="light" />
       </GestureHandlerRootView>

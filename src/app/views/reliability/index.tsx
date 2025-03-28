@@ -3,6 +3,7 @@ import Autocomplete from '@/components/Autocomplete';
 import Card from '@/components/Card';
 import GaugeChart from '@/components/GaugeChart';
 import LastUpdatedInfo from '@/components/LastUpdatedInfo';
+import Skeleton from '@/components/Skeleton';
 import Typography from '@/components/Typography';
 import { COLORS } from '@/constants/colors';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
@@ -18,23 +19,25 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { scale } from 'react-native-size-matters';
 import { handleGetAnomalyStatisticData } from '../../../store/slices/reliability-slices/anomaly-statistic-slice/actions';
 
 const Content = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<AuthNavigationProp>();
+
   const {data: unitList} = useAppSelector(state => state.unitListReducer);
   const {loading: loadingAhi, data: assetHealthIndicatorData} = useAppSelector(
     state => state.assetHealthIndicatorReducer,
   );
-  const {data: anomalyData} = useAppSelector(
+  const {data: anomalyData, loading: loadingAnomalyData} = useAppSelector(
     state => state.anomalyStatisticReducer,
   );
 
   const [selectedUnit, setSelectedUnit] = useState('');
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
-  const fetchInitialData = useCallback(() => {
+  const fetchInitialData = useCallback(async () => {
     dispatch(handleGetAnomalyStatisticData({unitId: selectedUnit}));
     dispatch(handleGetAssetHealthIndicatorData());
   }, [selectedUnit, dispatch]);
@@ -81,6 +84,7 @@ const Content = () => {
           <Autocomplete
             setSelectedItem={setSelectedUnit}
             selectedItem={selectedUnit}
+            module=""
           />
         </View>
       </View>
@@ -113,7 +117,7 @@ const Content = () => {
           <TouchableOpacity
             onPress={() =>
               navigation.navigate('reliability-details', {
-                id: '1',
+                unitId: `${selectedUnitData?.unitId}`,
                 title: 'Asset Health',
                 subtitle: selectedUnitData?.title || 'Unknown Unit',
               })
@@ -133,7 +137,7 @@ const Content = () => {
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('reliability-details', {
-                  id: '1',
+                  unitId: `${selectedUnitData?.unitId}`,
                   title: 'Reliability Analysis',
                   subtitle: selectedUnitData?.title || 'Unknown Unit',
                 })
@@ -149,94 +153,105 @@ const Content = () => {
         </View>
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
           <Typography weight="semibold">Anomaly Detection</Typography>
-          <View className="flex-row justify-between gap-x-4">
-            <Card
-              onPress={() =>
-                navigation.navigate('case-details', {
-                  title: 'Anomaly Detection',
-                  subtitle: selectedUnitData?.title || 'Unknown Unit',
-                  type: 'open',
-                })
-              }
-              title={`${anomalyData?.new || 0}`}
-              variant="error"
-              subtitle="NEW"
-              style={{
-                flex: 1,
-                borderWidth: 1,
-                borderColor: COLORS.border.light,
-                alignItems: 'center',
-              }}
-            />
-            <Card
-              onPress={() =>
-                navigation.navigate('case-details', {
-                  title: 'Anomaly Detection',
-                  subtitle: selectedUnitData?.title || 'Unknown Unit',
-                  type: 'completed',
-                })
-              }
-              title={`${anomalyData?.completed || 0}`}
-              variant="success"
-              subtitle="COMPLETED"
-              style={{
-                flex: 1,
-                borderWidth: 1,
-                borderColor: COLORS.border.light,
-                alignItems: 'center',
-              }}
-            />
-          </View>
-          <View className="flex-row flex-wrap justify-between gap-x-0">
-            <Card
-              onPress={() =>
-                navigation.navigate('case-details', {
-                  title: 'Anomaly Detection',
-                  subtitle: selectedUnitData?.title || 'Unknown Unit',
-                  type: 'awaiting',
-                })
-              }
-              title={`${anomalyData?.awaiting || 0}`}
-              variant="default"
-              subtitle="AWAITING"
-              style={{
-                alignItems: 'center',
-                padding: 0,
-              }}
-            />
-            <Card
-              onPress={() =>
-                navigation.navigate('case-details', {
-                  title: 'Anomaly Detection',
-                  subtitle: selectedUnitData?.title || 'Unknown Unit',
-                  type: 'in-progress',
-                })
-              }
-              title={`${anomalyData?.inprogress || 0}`}
-              variant="default"
-              subtitle="IN PROGRESS"
-              style={{
-                alignItems: 'center',
-                padding: 0,
-              }}
-            />
-            <Card
-              onPress={() =>
-                navigation.navigate('case-details', {
-                  title: 'Anomaly Detection',
-                  subtitle: selectedUnitData?.title || 'Unknown Unit',
-                  type: 'closed',
-                })
-              }
-              title={`${anomalyData?.closed || 0}`}
-              variant="default"
-              subtitle="CLOSED"
-              style={{
-                alignItems: 'center',
-                padding: 0,
-              }}
-            />
-          </View>
+          {loadingAnomalyData || !selectedUnit ? (
+            <Skeleton height={scale(146)} width="100%" />
+          ) : (
+            <>
+              <View className="flex-row justify-between gap-x-4">
+                <Card
+                  onPress={() =>
+                    navigation.navigate('case-details', {
+                      title: 'Anomaly Detection',
+                      unitId: `${selectedUnitData?.unitId}`,
+                      subtitle: selectedUnitData?.title || 'Unknown Unit',
+                      type: 'open',
+                    })
+                  }
+                  title={`${anomalyData?.new || 0}`}
+                  variant="error"
+                  subtitle="NEW"
+                  style={{
+                    flex: 1,
+                    borderWidth: 1,
+                    borderColor: COLORS.border.light,
+                    alignItems: 'center',
+                  }}
+                />
+                <Card
+                  onPress={() =>
+                    navigation.navigate('case-details', {
+                      title: 'Anomaly Detection',
+                      unitId: `${selectedUnitData?.unitId}`,
+                      subtitle: selectedUnitData?.title || 'Unknown Unit',
+                      type: 'completed',
+                    })
+                  }
+                  title={`${anomalyData?.completed || 0}`}
+                  variant="success"
+                  subtitle="COMPLETED"
+                  style={{
+                    flex: 1,
+                    borderWidth: 1,
+                    borderColor: COLORS.border.light,
+                    alignItems: 'center',
+                  }}
+                />
+              </View>
+              <View className="flex-row flex-wrap justify-between gap-x-0">
+                <Card
+                  onPress={() =>
+                    navigation.navigate('case-details', {
+                      title: 'Anomaly Detection',
+                      unitId: `${selectedUnitData?.unitId}`,
+                      subtitle: selectedUnitData?.title || 'Unknown Unit',
+                      type: 'awaiting',
+                    })
+                  }
+                  title={`${anomalyData?.awaiting || 0}`}
+                  variant="default"
+                  subtitle="AWAITING"
+                  style={{
+                    alignItems: 'center',
+                    padding: 0,
+                  }}
+                />
+                <Card
+                  onPress={() =>
+                    navigation.navigate('case-details', {
+                      title: 'Anomaly Detection',
+                      unitId: `${selectedUnitData?.unitId}`,
+                      subtitle: selectedUnitData?.title || 'Unknown Unit',
+                      type: 'in-progress',
+                    })
+                  }
+                  title={`${anomalyData?.inprogress || 0}`}
+                  variant="default"
+                  subtitle="IN PROGRESS"
+                  style={{
+                    alignItems: 'center',
+                    padding: 0,
+                  }}
+                />
+                <Card
+                  onPress={() =>
+                    navigation.navigate('case-details', {
+                      title: 'Anomaly Detection',
+                      unitId: `${selectedUnitData?.unitId}`,
+                      subtitle: selectedUnitData?.title || 'Unknown Unit',
+                      type: 'closed',
+                    })
+                  }
+                  title={`${anomalyData?.closed || 0}`}
+                  variant="default"
+                  subtitle="CLOSED"
+                  style={{
+                    alignItems: 'center',
+                    padding: 0,
+                  }}
+                />
+              </View>
+            </>
+          )}
         </View>
         {false && (
           <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
@@ -246,6 +261,7 @@ const Content = () => {
                 onPress={() =>
                   navigation.navigate('case-details', {
                     title: 'Failure Prediction',
+                    unitId: `${selectedUnitData?.unitId}`,
                     subtitle: selectedUnitData?.title || 'Unknown Unit',
                     type: 'open',
                   })
@@ -264,6 +280,7 @@ const Content = () => {
                 onPress={() =>
                   navigation.navigate('case-details', {
                     title: 'Failure Prediction',
+                    unitId: `${selectedUnitData?.unitId}`,
                     subtitle: selectedUnitData?.title || 'Unknown Unit',
                     type: 'open',
                   })
@@ -284,6 +301,7 @@ const Content = () => {
                 onPress={() =>
                   navigation.navigate('case-details', {
                     title: 'Failure Prediction',
+                    unitId: `${selectedUnitData?.unitId}`,
                     subtitle: selectedUnitData?.title || 'Unknown Unit',
                     type: 'awaiting',
                   })
@@ -300,6 +318,7 @@ const Content = () => {
                 onPress={() =>
                   navigation.navigate('case-details', {
                     title: 'Failure Prediction',
+                    unitId: `${selectedUnitData?.unitId}`,
                     subtitle: selectedUnitData?.title || 'Unknown Unit',
                     type: 'in-progress',
                   })
@@ -316,6 +335,7 @@ const Content = () => {
                 onPress={() =>
                   navigation.navigate('case-details', {
                     title: 'Failure Prediction',
+                    unitId: `${selectedUnitData?.unitId}`,
                     subtitle: selectedUnitData?.title || 'Unknown Unit',
                     type: 'completed',
                   })
@@ -332,6 +352,7 @@ const Content = () => {
                 onPress={() =>
                   navigation.navigate('case-details', {
                     title: 'Failure Prediction',
+                    unitId: `${selectedUnitData?.unitId}`,
                     subtitle: selectedUnitData?.title || 'Unknown Unit',
                     type: 'closed',
                   })

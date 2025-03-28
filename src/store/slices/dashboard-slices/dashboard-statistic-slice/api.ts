@@ -33,7 +33,7 @@ export const handleGetDashboardStatisticApi = async (): Promise<{
       error?.response?.data?.message ||
       error?.response?.error ||
       error?.message;
-    toast.error(`Unit list: ${errMsg}`);
+    toast.error(`Error: ${errMsg}`);
     throw new Error(errMsg);
   }
 };

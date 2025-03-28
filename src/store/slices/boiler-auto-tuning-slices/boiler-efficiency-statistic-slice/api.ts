@@ -1,13 +1,31 @@
 import axios from 'axios';
-import {toast} from 'sonner-native';
+import { toast } from 'sonner-native';
 
 export interface Item {
-  new: number | string;
-  awaiting: number | string;
-  inprogress: number | string;
-  closed: number | string;
-  completed: number | string;
-  open: number | string;
+  copt: {
+    operation: number;
+    safeguard: number;
+    unitId: number;
+    unitName: string;
+    updatedAt: string;
+    watchdog: number;
+  };
+  efficiency: {
+    baseLine: number;
+    current: number;
+    improvement: number;
+    unitId: number;
+    unitName: string;
+    updatedAt: string;
+  };
+  sopt: {
+    operation: number;
+    safeguard: number;
+    unitId: number;
+    unitName: string;
+    updatedAt: string;
+    watchdog: number;
+  };
 }
 
 interface ApiResponse {
@@ -18,12 +36,12 @@ interface ApiResponse {
   page: number;
 }
 
-export const handleGetAnomalyStatisticApi = async ({
+export const handleGetBoilerEfficiencyApi = async ({
   unitId = '',
 }): Promise<{
   content: Item;
 }> => {
-  const url = '/service/mobile/rb/anomaly/status';
+  const url = '/service/mobile/bat/units/detail';
 
   try {
     const response = await axios.get<ApiResponse>(url, {

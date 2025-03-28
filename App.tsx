@@ -1,5 +1,6 @@
 import Root from '@/app/routes';
 import {SETTINGS} from '@/constants/settings';
+import {AuthProvider} from '@/context/AuthContext';
 import store from '@/store';
 import axios from 'axios';
 import React from 'react';
@@ -11,9 +12,11 @@ const App = () => {
   axios.defaults.baseURL = SETTINGS.baseUrl;
 
   return (
-    <Provider store={store}>
-      <Root />
-    </Provider>
+    <AuthProvider>
+      <Provider store={store}>
+        <Root />
+      </Provider>
+    </AuthProvider>
   );
 };
 

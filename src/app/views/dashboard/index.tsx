@@ -38,7 +38,7 @@ const Content = () => {
 
   const fetchInitialData = useCallback(() => {
     dispatch(handleGetDashboardStatisticData());
-    dispatch(handleGetUnitListData());
+    dispatch(handleGetUnitListData({module: ''}));
   }, [dispatch]);
 
   useEffect(() => {

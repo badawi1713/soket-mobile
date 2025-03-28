@@ -1,31 +1,46 @@
-import { COLORS } from '@/constants/colors';
-import { FONTS } from '@/constants/fonts';
-import { useAppSelector } from '@/hooks/useAppSelector';
-import React, { FC, memo, useCallback, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
-import { moderateScale } from 'react-native-size-matters';
+import {COLORS} from '@/constants/colors';
+import {FONTS} from '@/constants/fonts';
+import {useAppDispatch} from '@/hooks/useAppDispatch';
+import {useAppSelector} from '@/hooks/useAppSelector';
+import {handleGetUnitListData} from '@/store/slices/common-slices/unit-list-slice/actions';
+import {useFocusEffect} from '@react-navigation/native';
+import React, {FC, memo, useCallback} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {Dropdown} from 'react-native-element-dropdown';
+import {moderateScale} from 'react-native-size-matters';
 
 type Props = {
   setSelectedItem: (value: string) => void;
   selectedItem: string;
+  module: 'sok' | 'soe' | 'bat' | '';
 };
 
 const Autocomplete: FC<Props> = ({
   setSelectedItem = (val: string) => val,
   selectedItem = '',
+  module,
 }) => {
+  const dispatch = useAppDispatch();
   const {loading, data = []} = useAppSelector(state => state.unitListReducer);
 
-  const fetchInitialData = useCallback(async () => {
-    if (data?.length > 0) {
-      setSelectedItem(data[0].id);
-    }
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const fetchInitialData = async () => {
+        try {
+          const response = await dispatch(
+            handleGetUnitListData({module}),
+          ).unwrap();
+          if (!selectedItem && response?.content?.length > 0) {
+            setSelectedItem(`${response?.content[0].unitId}`);
+          }
+        } catch (err) {
+          console.error('Failed to fetch:', err);
+        }
+      };
 
-  useEffect(() => {
-    fetchInitialData();
-  }, []);
+      fetchInitialData();
+    }, [dispatch, module, selectedItem]),
+  );
 
   const transformedData = data.map(item => ({
     label: item.title || item.unitName || 'No Name',

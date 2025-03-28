@@ -1,29 +1,31 @@
-import type {AuthNavigationProp} from '@/app/routes';
+import type { AuthNavigationProp } from '@/app/routes';
 import Autocomplete from '@/components/Autocomplete';
 import Card from '@/components/Card';
 import LastUpdatedInfo from '@/components/LastUpdatedInfo';
 import Skeleton from '@/components/Skeleton';
 import Typography from '@/components/Typography';
-import {COLORS} from '@/constants/colors';
-import {useAppDispatch} from '@/hooks/useAppDispatch';
-import {useAppSelector} from '@/hooks/useAppSelector';
-import {handleGetEfficiencyKpiData} from '@/store/slices/efficiency-slices/efficiency-kpi-slice/actions';
-import {default as Icon} from '@react-native-vector-icons/ionicons';
-import {useNavigation} from '@react-navigation/native';
-import {format} from 'date-fns';
-import React, {useCallback, useEffect, useState} from 'react';
-import {RefreshControl, ScrollView, TouchableOpacity, View} from 'react-native';
-import {scale} from 'react-native-size-matters';
+import { COLORS } from '@/constants/colors';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppSelector } from '@/hooks/useAppSelector';
+import { handleGetEfficiencyKpiData } from '@/store/slices/efficiency-slices/efficiency-kpi-slice/actions';
+import { default as Icon } from '@react-native-vector-icons/ionicons';
+import { useNavigation } from '@react-navigation/native';
+import { format } from 'date-fns';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native';
+import { scale } from 'react-native-size-matters';
 
 const Content = () => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<AuthNavigationProp>();
+
+  const {data: unitList} = useAppSelector(state => state.unitListReducer);
   const {data, loading} = useAppSelector(state => state.efficiencyKpiReducer);
 
-  const navigation = useNavigation<AuthNavigationProp>();
   const [selectedUnit, setSelectedUnit] = useState('');
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
-  const fetchInitialData = useCallback(() => {
+  const fetchInitialData = useCallback(async () => {
     dispatch(handleGetEfficiencyKpiData({unitId: selectedUnit}));
   }, [selectedUnit, dispatch]);
 
@@ -40,6 +42,14 @@ const Content = () => {
     }, 1500);
   }, [fetchInitialData]);
 
+  const selectedUnitData = useMemo(() => {
+    const unit =
+      unitList?.length > 0
+        ? unitList?.find(item => item?.id === selectedUnit)
+        : null;
+    return unit;
+  }, [selectedUnit, unitList]);
+
   return (
     <View className="flex-1 bg-background-main">
       <View className="px-4 pb-4 bg-background-paper">
@@ -47,6 +57,7 @@ const Content = () => {
           <Autocomplete
             setSelectedItem={setSelectedUnit}
             selectedItem={selectedUnit}
+            module=""
           />
         </View>
       </View>
@@ -65,7 +76,9 @@ const Content = () => {
           paddingHorizontal: 16,
           paddingBottom: 16,
         }}>
-        <LastUpdatedInfo value={format(new Date(), 'MMM dd, yyyy  HH:mm')} />
+        {false && (
+          <LastUpdatedInfo value={format(new Date(), 'MMM dd, yyyy  HH:mm')} />
+        )}
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
           <Typography weight="semibold">Measured KPI</Typography>
           <View className="flex-row flex-wrap justify-between w-full gap-y-4">
@@ -223,10 +236,11 @@ const Content = () => {
           </View>
         </View>
         <TouchableOpacity
+          disabled={!selectedUnit}
           onPress={() =>
             navigation.navigate('performance-efficiency-details', {
-              subtitle: 'PLTU Tanjung Awar-Awar - Unit 1',
-              id: '1',
+              subtitle: selectedUnitData?.title,
+              unitId: `${selectedUnitData?.unitId}`,
             })
           }
           className="flex-row items-center justify-between p-4 bg-white rounded-lg">

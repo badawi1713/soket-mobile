@@ -1,10 +1,10 @@
-import { SETTINGS } from '@/constants/settings';
-import { storage } from '@/utils/mmkv';
-import { ParamListBase } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import axios, { AxiosError } from 'axios';
-import React, { createContext, ReactNode, useState } from 'react';
-import { toast } from 'sonner-native';
+import {SETTINGS} from '@/constants/settings';
+import {storage} from '@/utils/mmkv';
+import {ParamListBase} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import axios, {AxiosError} from 'axios';
+import React, {createContext, ReactNode, useState} from 'react';
+import {toast} from 'sonner-native';
 
 export interface ErrorResponse {
   message: string;
@@ -80,11 +80,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         via: 'MOBILE',
         force: params.force,
       });
-      console.log(response?.data?.token)
-      if (params.rememberMe) {
-        await storage.set(SETTINGS?.storageTokenKeyName, response.data.token);
-        await storage.set('userData', JSON.stringify(response.data.user));
-      }
+      await storage.set(SETTINGS?.storageTokenKeyName, response.data.token);
 
       setUser(response.data.user);
       axios.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
@@ -136,5 +132,4 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 
-export { AuthContext, AuthProvider };
-
+export {AuthContext, AuthProvider};

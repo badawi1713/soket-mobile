@@ -1,22 +1,29 @@
 import Skeleton from '@/components/Skeleton';
-import { COLORS } from '@/constants/colors';
+import Typography from '@/components/Typography';
+import {COLORS} from '@/constants/colors';
+import type {Item} from '@/store/slices/boiler-auto-tuning-slices/boiler-efficiency-chart-slice/api';
 import type React from 'react';
-import { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { WebView } from 'react-native-webview';
+import {useEffect, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {WebView} from 'react-native-webview';
 
-const EfficiencyChart: React.FC = () => {
-	const [isLoading, setIsLoading] = useState(true);
+type Props = {
+  loading?: boolean;
+  data?: Item[];
+};
 
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setIsLoading(false);
-		}, 2000);
+const EfficiencyChart: React.FC<Props> = ({loading = true, data = []}) => {
+  const [isLoading, setIsLoading] = useState(true);
 
-		return () => clearTimeout(timer);
-	}, []);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
 
-	const chartHTML = `
+    return () => clearTimeout(timer);
+  }, []);
+
+  const chartHTML = `
     <!DOCTYPE html>
     <html>
       <head>
@@ -178,29 +185,39 @@ legend: {
     </html>
   `;
 
-	return isLoading ? (
-		<View style={styles.loaderContainer}>
-			<Skeleton width="100%" height="100%" borderRadius={5} />
-		</View>
-	) : (
-		<WebView
-			originWhitelist={['*']}
-			source={{ html: chartHTML }}
-			style={{ flex: 1, minHeight: 420 }}
-			scalesPageToFit={true}
-			javaScriptEnabled={true}
-		/>
-	);
+  return isLoading || loading ? (
+    <View style={styles.loaderContainer}>
+      <Skeleton width="100%" height="100%" borderRadius={5} />
+    </View>
+  ) : data?.length < 1 ? (
+    <View style={styles.loaderContainer}>
+      <Typography
+        color={COLORS.secondary.main}
+        className="text-center"
+        variant="label"
+        weight="medium">
+        No data available
+      </Typography>
+    </View>
+  ) : (
+    <WebView
+      originWhitelist={['*']}
+      source={{html: chartHTML}}
+      style={{flex: 1, minHeight: 420}}
+      scalesPageToFit={true}
+      javaScriptEnabled={true}
+    />
+  );
 };
 
 export default EfficiencyChart;
 
 const styles = StyleSheet.create({
-	loaderContainer: {
-		flex: 1,
-		height: 420,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: COLORS.common.white,
-	},
+  loaderContainer: {
+    flex: 1,
+    height: 420,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.common.white,
+  },
 });

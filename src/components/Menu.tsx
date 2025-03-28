@@ -10,7 +10,7 @@ import Divider from './Divider';
 // Define a menu item type
 export interface MenuItem {
   label: string; // Label for the menu item
-  icon?: React.ComponentProps<typeof Ionicons>['name']; // Icon name for Ionicons
+  icon?: '' | React.ComponentProps<typeof Ionicons>['name']; // Icon name for Ionicons
   onPress: () => void; // Action to execute when the item is clicked
 }
 
@@ -30,7 +30,6 @@ const Menu: FC<MenuProps> = ({
   triggerSize = 24, // Default trigger icon size
   isAnotherPopupShow = false,
 }) => {
-
   const [showPopup, setShowPopup] = useState(false); // Visibility of the menu
 
   return isAnotherPopupShow ? (
@@ -56,14 +55,14 @@ const Menu: FC<MenuProps> = ({
         borderRadius: 8,
       }}>
       {/* Popover Content */}
-      <View className="p-4 gap-4">
+      <View className="gap-4 p-4">
         {items.map((item, index) => {
           return (
             <Fragment key={index}>
               <TouchableOpacity
                 onPress={() => {
                   setShowPopup(false); // Close the menu on item click
-                  setTimeout(() => item.onPress(), 500)
+                  setTimeout(() => item.onPress(), 500);
                 }}
                 className={clsx(
                   'flex-row items-center rounded-lg',
@@ -81,6 +80,8 @@ const Menu: FC<MenuProps> = ({
                 )}
                 {/* Label */}
                 <Typography
+                  lineBreakMode="tail"
+                  numberOfLines={1}
                   variant="body2"
                   weight="regular"
                   color={

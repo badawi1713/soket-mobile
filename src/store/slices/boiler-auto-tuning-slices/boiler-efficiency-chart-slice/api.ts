@@ -1,17 +1,31 @@
 import axios from 'axios';
-import { toast } from 'sonner-native';
+import {toast} from 'sonner-native';
 
 export interface Item {
-  assetName: string;
-  corrected: number;
-  degradation: number;
-  heatBalance: number;
-  id: string;
-  kpi: string;
-  measured: number;
-  no: number;
-  rated: number;
-  unit: string;
+  copt: {
+    operation: number;
+    safeguard: number;
+    unitId: number;
+    unitName: string;
+    updatedAt: string;
+    watchdog: number;
+  };
+  efficiency: {
+    baseLine: number;
+    current: number;
+    improvement: number;
+    unitId: number;
+    unitName: string;
+    updatedAt: string;
+  };
+  sopt: {
+    operation: number;
+    safeguard: number;
+    unitId: number;
+    unitName: string;
+    updatedAt: string;
+    watchdog: number;
+  };
 }
 
 interface ApiResponse {
@@ -22,19 +36,16 @@ interface ApiResponse {
   page: number;
 }
 
-export const handleGetEfficiencyKpiApi = async ({
+export const handleGetBoilerEfficiencyChartApi = async ({
   unitId = '',
 }): Promise<{
   content: Item[];
 }> => {
-  const url = '/service/efficiency/dashboard/list-mobile';
+  const url = '/service/mobile/bat/units/eff-trend';
 
   try {
     const response = await axios.get<ApiResponse>(url, {
       params: {
-        plantId: '',
-        sortBy: 'measured',
-        sort: 'asc',
         unitId: unitId,
       },
     });
