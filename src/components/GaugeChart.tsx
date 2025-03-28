@@ -1,24 +1,20 @@
 import { COLORS } from '@/constants/colors';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import Skeleton from './Skeleton';
 
 type Props = {
   title?: string;
+  value: number;
+  loading?: boolean;
 };
 
-const GaugeChart: React.FC<Props> = ({ title = '' }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
+const GaugeChart: React.FC<Props> = ({
+  title = '',
+  value = 0,
+  loading = false,
+}) => {
   const chartConfig = {
     type: 'angulargauge',
     renderAt: 'chart-container',
@@ -32,7 +28,7 @@ const GaugeChart: React.FC<Props> = ({ title = '' }) => {
         captionPadding: '10',
         chartTopMargin: '20',
         lowerLimit: '0',
-        upperLimit: '5',
+        upperLimit: '100',
         theme: 'fusion',
         baseFont: 'Oxanium',
         baseFontSize: '14',
@@ -45,13 +41,13 @@ const GaugeChart: React.FC<Props> = ({ title = '' }) => {
       },
       colorRange: {
         color: [
-          { minValue: '0', maxValue: '49', code: COLORS.common.red },
-          { minValue: '50', maxValue: '75', code: COLORS.common.yellow },
-          { minValue: '76', maxValue: '100', code: COLORS.common.green },
+          {minValue: '0', maxValue: '49', code: COLORS.common.red},
+          {minValue: '50', maxValue: '75', code: COLORS.common.yellow},
+          {minValue: '76', maxValue: '100', code: COLORS.common.green},
         ],
       },
       dials: {
-        dial: [{ value: '80' }],
+        dial: [{value: value > 100 ? 100 : value < 0 ? 0 : value || 0}],
       },
     },
   };
@@ -98,15 +94,15 @@ const GaugeChart: React.FC<Props> = ({ title = '' }) => {
     </html>
   `;
 
-  return isLoading ? (
+  return loading ? (
     <View style={styles.loaderContainer}>
       <Skeleton width="100%" height="100%" borderRadius={5} />
     </View>
   ) : (
     <WebView
       originWhitelist={['*']}
-      source={{ html: chartHTML }}
-      style={{ flex: 1 }}
+      source={{html: chartHTML}}
+      style={{flex: 1}}
       scalesPageToFit={true}
     />
   );

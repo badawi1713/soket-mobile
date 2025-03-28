@@ -1,14 +1,21 @@
-import {COLORS} from '@/constants/colors';
-import {FONTS} from '@/constants/fonts';
-import {useAppSelector} from '@/hooks/useAppSelector';
-import React, {memo, useCallback, useEffect, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Dropdown} from 'react-native-element-dropdown';
-import {moderateScale} from 'react-native-size-matters';
+import { COLORS } from '@/constants/colors';
+import { FONTS } from '@/constants/fonts';
+import { useAppSelector } from '@/hooks/useAppSelector';
+import React, { FC, memo, useCallback, useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
+import { moderateScale } from 'react-native-size-matters';
 
-const Autocomplete: React.FC = memo(() => {
+type Props = {
+  setSelectedItem: (value: string) => void;
+  selectedItem: string;
+};
+
+const Autocomplete: FC<Props> = ({
+  setSelectedItem = (val: string) => val,
+  selectedItem = '',
+}) => {
   const {loading, data = []} = useAppSelector(state => state.unitListReducer);
-  const [selectedItem, setSelectedItem] = useState<string>('');
 
   const fetchInitialData = useCallback(async () => {
     if (data?.length > 0) {
@@ -50,7 +57,7 @@ const Autocomplete: React.FC = memo(() => {
       />
     </View>
   );
-});
+};
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -97,4 +104,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Autocomplete;
+export default memo(Autocomplete);
