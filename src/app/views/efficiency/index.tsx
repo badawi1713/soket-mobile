@@ -1,105 +1,44 @@
-import type { AuthNavigationProp } from '@/app/routes';
+import type {AuthNavigationProp} from '@/app/routes';
 import Autocomplete from '@/components/Autocomplete';
 import Card from '@/components/Card';
 import LastUpdatedInfo from '@/components/LastUpdatedInfo';
+import Skeleton from '@/components/Skeleton';
 import Typography from '@/components/Typography';
-import { COLORS } from '@/constants/colors';
-import { default as Icon } from '@react-native-vector-icons/ionicons';
-import { useNavigation } from '@react-navigation/native';
-import { format } from 'date-fns';
-import React from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
-import { scale } from 'react-native-size-matters';
-
-const MEASURED_KPI = [
-  {
-    title: 'NPHR-LHV',
-    value: 3444,
-    unit: 'kcal/kWh',
-  },
-  {
-    title: 'NPHR-HHV',
-    value: 4550,
-    unit: 'kcal/kWh',
-  },
-  {
-    title: 'Net Power',
-    value: 4452,
-    unit: 'MW',
-  },
-  {
-    title: 'Gross Power',
-    value: 288,
-    unit: 'MW',
-  },
-  {
-    title: 'Gross Eff',
-    value: '60%',
-    unit: '',
-  },
-  {
-    title: 'GPHR',
-    value: 450,
-    unit: 'kcal/kWh',
-  },
-  {
-    title: 'Fuel Flow',
-    value: 200,
-    unit: 't/h',
-  },
-  {
-    title: 'Aux Power',
-    value: 15000,
-    unit: 'MW',
-  },
-];
-
-const HEAT_BALANCE_KPI = [
-  {
-    title: 'NPHR-LHV',
-    value: 3450,
-    unit: 'kcal/kWh',
-  },
-  {
-    title: 'NPHR-HHV',
-    value: 4550,
-    unit: 'kcal/kWh',
-  },
-  {
-    title: 'Net Power',
-    value: 4452,
-    unit: 'MW',
-  },
-  {
-    title: 'Gross Power',
-    value: 288,
-    unit: 'MW',
-  },
-  {
-    title: 'Gross Eff',
-    value: '60%',
-    unit: '',
-  },
-  {
-    title: 'GPHR',
-    value: 450,
-    unit: 'kcal/kWh',
-  },
-  {
-    title: 'Fuel Flow',
-    value: 200,
-    unit: 't/h',
-  },
-  {
-    title: 'Aux Power',
-    value: 15000,
-    unit: 'MW',
-  },
-];
+import {COLORS} from '@/constants/colors';
+import {useAppDispatch} from '@/hooks/useAppDispatch';
+import {useAppSelector} from '@/hooks/useAppSelector';
+import {handleGetEfficiencyKpiData} from '@/store/slices/efficiency-slices/efficiency-kpi-slice/actions';
+import {default as Icon} from '@react-native-vector-icons/ionicons';
+import {useNavigation} from '@react-navigation/native';
+import {format} from 'date-fns';
+import React, {useCallback, useEffect, useState} from 'react';
+import {RefreshControl, ScrollView, TouchableOpacity, View} from 'react-native';
+import {scale} from 'react-native-size-matters';
 
 const Content = () => {
+  const dispatch = useAppDispatch();
+  const {data, loading} = useAppSelector(state => state.efficiencyKpiReducer);
+
   const navigation = useNavigation<AuthNavigationProp>();
-  const [selectedUnit, setSelectedUnit] = React.useState('');
+  const [selectedUnit, setSelectedUnit] = useState('');
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+
+  const fetchInitialData = useCallback(() => {
+    dispatch(handleGetEfficiencyKpiData({unitId: selectedUnit}));
+  }, [selectedUnit, dispatch]);
+
+  useEffect(() => {
+    fetchInitialData();
+  }, [fetchInitialData]);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+
+    setTimeout(() => {
+      fetchInitialData();
+      setRefreshing(false);
+    }, 1500);
+  }, [fetchInitialData]);
 
   return (
     <View className="flex-1 bg-background-main">
@@ -112,6 +51,14 @@ const Content = () => {
         </View>
       </View>
       <ScrollView
+        refreshControl={
+          <RefreshControl
+            colors={[COLORS.primary.main]}
+            tintColor={COLORS.secondary.main}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
         contentContainerStyle={{
           flexGrow: 1,
           gap: 16,
@@ -122,71 +69,157 @@ const Content = () => {
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
           <Typography weight="semibold">Measured KPI</Typography>
           <View className="flex-row flex-wrap justify-between w-full gap-y-4">
-            {MEASURED_KPI?.map((item, index) => (
+            {loading ? (
+              [1, 2, 3, 4, 5, 6, 7, 8].map(item => (
+                <Skeleton key={item} width={scale(68)} height={scale(74)} />
+              ))
+            ) : data?.length < 1 ? (
               <Card
-                key={item.title}
                 style={{
                   alignItems: 'center',
                   paddingVertical: 4,
                   paddingHorizontal: 8,
                   justifyContent: 'space-between',
                   gap: 12,
-                  backgroundColor:
-                    index === 0 ? COLORS.secondary.light : 'transparent',
-                  width: scale(68),
+                  width: '100%',
                 }}>
-                <Typography className="text-center" variant="smallText">
-                  {item?.title}
+                <Typography
+                  numberOfLines={1}
+                  lineBreakMode="middle"
+                  lineBreakStrategyIOS="push-out"
+                  className="text-center"
+                  variant="smallText">
+                  {''}
                 </Typography>
                 <Typography
+                  color={COLORS.secondary.main}
                   className="text-center"
-                  variant="header6"
+                  variant="label"
                   weight="medium">
-                  {item?.value || 0}
+                  No data available
                 </Typography>
                 <Typography
                   className="text-center"
                   color={COLORS.secondary.main}
                   variant="smallText">
-                  {item?.unit}
+                  {''}
                 </Typography>
               </Card>
-            ))}
+            ) : (
+              data?.map((item, index) => (
+                <Card
+                  key={`${index + item?.kpi}`}
+                  style={{
+                    alignItems: 'center',
+                    paddingVertical: 4,
+                    paddingHorizontal: 8,
+                    justifyContent: 'space-between',
+                    gap: 12,
+                    backgroundColor:
+                      index === 0 ? COLORS.secondary.light : 'transparent',
+                    width: scale(68),
+                  }}>
+                  <Typography
+                    numberOfLines={1}
+                    lineBreakMode="middle"
+                    lineBreakStrategyIOS="push-out"
+                    className="text-center"
+                    variant="smallText">
+                    {item?.kpi}
+                  </Typography>
+                  <Typography
+                    className="text-center"
+                    variant="header6"
+                    weight="medium">
+                    {Number(item?.measured || 0).toFixed(1)}
+                  </Typography>
+                  <Typography
+                    className="text-center"
+                    color={COLORS.secondary.main}
+                    variant="smallText">
+                    {item?.unit || ''}
+                  </Typography>
+                </Card>
+              ))
+            )}
           </View>
         </View>
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
           <Typography weight="semibold">Heat Balance KPI</Typography>
           <View className="flex-row flex-wrap justify-between w-full gap-y-4">
-            {HEAT_BALANCE_KPI?.map((item, index) => (
+            {loading ? (
+              [1, 2, 3, 4, 5, 6, 7, 8].map(item => (
+                <Skeleton key={item} width={scale(68)} height={scale(74)} />
+              ))
+            ) : data?.length < 1 ? (
               <Card
-                key={item.title}
                 style={{
                   alignItems: 'center',
                   paddingVertical: 4,
                   paddingHorizontal: 8,
                   justifyContent: 'space-between',
                   gap: 12,
-                  backgroundColor:
-                    index === 0 ? COLORS.secondary.light : 'transparent',
-                  width: scale(68),
+                  width: '100%',
                 }}>
-                <Typography className="text-center" variant="smallText">
-                  {item?.title}
+                <Typography
+                  numberOfLines={1}
+                  lineBreakMode="middle"
+                  lineBreakStrategyIOS="push-out"
+                  className="text-center"
+                  variant="smallText">
+                  {''}
                 </Typography>
                 <Typography
+                  color={COLORS.secondary.main}
                   className="text-center"
-                  variant="header6"
+                  variant="label"
                   weight="medium">
-                  {item?.value || 0}
+                  No data available
                 </Typography>
                 <Typography
                   className="text-center"
                   color={COLORS.secondary.main}
                   variant="smallText">
-                  {item?.unit}
+                  {''}
                 </Typography>
               </Card>
-            ))}
+            ) : (
+              data?.map((item, index) => (
+                <Card
+                  key={`${index + item?.kpi}`}
+                  style={{
+                    alignItems: 'center',
+                    paddingVertical: 4,
+                    paddingHorizontal: 8,
+                    justifyContent: 'space-between',
+                    gap: 12,
+                    backgroundColor:
+                      index === 0 ? COLORS.secondary.light : 'transparent',
+                    width: scale(68),
+                  }}>
+                  <Typography
+                    numberOfLines={1}
+                    lineBreakMode="middle"
+                    lineBreakStrategyIOS="push-out"
+                    className="text-center"
+                    variant="smallText">
+                    {item?.kpi}
+                  </Typography>
+                  <Typography
+                    className="text-center"
+                    variant="header6"
+                    weight="medium">
+                    {Number(item?.heatBalance || 0).toFixed(1)}
+                  </Typography>
+                  <Typography
+                    className="text-center"
+                    color={COLORS.secondary.main}
+                    variant="smallText">
+                    {item?.unit || ''}
+                  </Typography>
+                </Card>
+              ))
+            )}
           </View>
         </View>
         <TouchableOpacity
