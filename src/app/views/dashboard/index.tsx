@@ -105,13 +105,13 @@ const Content = () => {
           />
         </View>
         <LastUpdatedInfo
-          loading={loadingStatisticData}
+          loading={refreshing || loadingStatisticData}
           value={`${
             statisticData?.lastUpdate ||
             format(new Date(), 'MMM dd, yyyy  HH:mm')
           }`}
         />
-        {loadingUnitList ? (
+        {refreshing || loadingUnitList ? (
           <View className="flex-row flex-wrap justify-between gap-0 gap-y-4">
             {[1, 2, 3, 4, 5, 6, 7, 8].map(item => (
               <View className="h-32 w-[48%]" key={item}>
@@ -133,8 +133,9 @@ const Content = () => {
                 key={item?.id}
                 onPress={() =>
                   navigation.navigate('unit-details', {
-                    id: `${item?.id}`,
+                    id: `${item?.unitId}`,
                     title: item?.title,
+                    objectId: item?.objectId,
                   })
                 }
                 style={{width: '48%'}}>

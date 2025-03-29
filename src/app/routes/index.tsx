@@ -34,6 +34,7 @@ export type RootParamList = {
   'unit-details': {
     title: string;
     id: string;
+    objectId: string;
   };
   'case-details': {
     title: string;

@@ -1,12 +1,17 @@
 import type {AuthNavigationProp} from '@/app/routes';
 import Card from '@/components/Card';
 import GaugeChart from '@/components/GaugeChart';
+import Skeleton from '@/components/Skeleton';
 import SwitchButton from '@/components/SwitchButton';
 import Typography from '@/components/Typography';
 import {COLORS} from '@/constants/colors';
+import {useAppDispatch} from '@/hooks/useAppDispatch';
+import {useAppSelector} from '@/hooks/useAppSelector';
+import {handleGetAnomalyStatisticData} from '@/store/slices/reliability-slices/anomaly-statistic-slice/actions';
+import {handleGetAssetHealthIndicatorData} from '@/store/slices/reliability-slices/asset-health-indicator-slice/actions';
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import {RefreshControl, ScrollView, StyleSheet, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {scale} from 'react-native-size-matters';
 
@@ -54,18 +59,70 @@ const STATUS_LIST_DATA_2 = [
 
 type ContentProps = {
   plantName: string;
+  id: string;
+  objectId: string;
 };
 
-const Content = ({plantName}: ContentProps) => {
+const Content = ({plantName, id, objectId}: ContentProps) => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation<AuthNavigationProp>();
+
+  const {loading: loadingAhi, data: assetHealthIndicatorData} = useAppSelector(
+    state => state.assetHealthIndicatorReducer,
+  );
+  const {data: anomalyData, loading: loadingAnomalyData} = useAppSelector(
+    state => state.anomalyStatisticReducer,
+  );
 
   const handleSwitchChange = (value: string) => {};
 
   const {bottom} = useSafeAreaInsets();
 
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+
+  const fetchInitialData = useCallback(async () => {
+    if (id) {
+      dispatch(handleGetAnomalyStatisticData({unitId: id}));
+      dispatch(handleGetAssetHealthIndicatorData());
+    }
+  }, [id, dispatch]);
+
+  useEffect(() => {
+    fetchInitialData();
+  }, [fetchInitialData]);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+
+    setTimeout(() => {
+      fetchInitialData();
+      setRefreshing(false);
+    }, 1500);
+  }, [fetchInitialData]);
+
+  const assetHealthIndicatorValue = useMemo(() => {
+    const filterData = assetHealthIndicatorData?.chart
+      ? assetHealthIndicatorData?.chart?.filter(
+          item => item?.id === objectId?.substring(0, 2),
+        )[0]
+      : null;
+    const result = filterData
+      ? filterData?.children?.find(item => item?.id === objectId)?.value || 0
+      : 0;
+    return +result;
+  }, [assetHealthIndicatorData, objectId]);
+
   return (
     <View className="flex-1 bg-background-main">
       <ScrollView
+        refreshControl={
+          <RefreshControl
+            colors={[COLORS.primary.main]}
+            tintColor={COLORS.secondary.main}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
         contentContainerStyle={{
           flexGrow: 1,
           gap: 16,
@@ -157,88 +214,106 @@ const Content = ({plantName}: ContentProps) => {
 
         <View className="flex-col gap-4 rounded-lg">
           <View style={[styles.chartContainer]}>
-            <GaugeChart title="Asset Health Indicator" />
+            <GaugeChart
+              title="Asset Health Indicator"
+              loading={loadingAhi || refreshing}
+              value={
+                typeof assetHealthIndicatorValue === 'string'
+                  ? +assetHealthIndicatorValue || 0
+                  : assetHealthIndicatorValue || 0
+              }
+            />
           </View>
         </View>
 
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
           <Typography weight="semibold">Case Status</Typography>
-          <View className="flex-row justify-between gap-x-4">
-            <Card
-              onPress={() =>
-                navigation.navigate('case-details', {
-                  title: 'Case Management',
-                  subtitle: plantName,
-                  type: 'awaiting',
-                })
-              }
-              title="20"
-              variant="warning"
-              subtitle="AWAITING"
-              style={{
-                flex: 1,
-                borderWidth: 1,
-                borderColor: COLORS.border.light,
-                alignItems: 'center',
-              }}
-            />
-            <Card
-              onPress={() =>
-                navigation.navigate('case-details', {
-                  title: 'Case Management',
-                  subtitle: plantName,
-                  type: 'in-progress',
-                })
-              }
-              title="120"
-              variant="info"
-              subtitle="IN PROGRESS"
-              style={{
-                flex: 1,
-                borderWidth: 1,
-                borderColor: COLORS.border.light,
-                alignItems: 'center',
-              }}
-            />
-          </View>
-          <View className="flex-row justify-between gap-x-4">
-            <Card
-              onPress={() =>
-                navigation.navigate('case-details', {
-                  title: 'Case Management',
-                  subtitle: plantName,
-                  type: 'completed',
-                })
-              }
-              title="20"
-              variant="success"
-              subtitle="COMPLETED"
-              style={{
-                flex: 1,
-                borderWidth: 1,
-                borderColor: COLORS.border.light,
-                alignItems: 'center',
-              }}
-            />
-            <Card
-              onPress={() =>
-                navigation.navigate('case-details', {
-                  title: 'Case Management',
-                  subtitle: plantName,
-                  type: 'closed',
-                })
-              }
-              title="120"
-              variant="default"
-              subtitle="CLOSED"
-              style={{
-                flex: 1,
-                borderWidth: 1,
-                borderColor: COLORS.border.light,
-                alignItems: 'center',
-              }}
-            />
-          </View>
+          {refreshing || loadingAnomalyData || !id ? (
+            <Skeleton height={scale(146)} width="100%" />
+          ) : (
+            <>
+              <View className="flex-row justify-between gap-x-4">
+                <Card
+                  onPress={() =>
+                    navigation.navigate('case-details', {
+                      title: 'Case Management',
+                      unitId: id,
+                      subtitle: plantName,
+                      type: 'awaiting',
+                    })
+                  }
+                  title={`${anomalyData?.awaiting || 0}`}
+                  variant="warning"
+                  subtitle="AWAITING"
+                  style={{
+                    flex: 1,
+                    borderWidth: 1,
+                    borderColor: COLORS.border.light,
+                    alignItems: 'center',
+                  }}
+                />
+                <Card
+                  onPress={() =>
+                    navigation.navigate('case-details', {
+                      title: 'Case Management',
+                      unitId: id,
+                      subtitle: plantName,
+                      type: 'in-progress',
+                    })
+                  }
+                  title={`${anomalyData?.inprogress || 0}`}
+                  variant="info"
+                  subtitle="IN PROGRESS"
+                  style={{
+                    flex: 1,
+                    borderWidth: 1,
+                    borderColor: COLORS.border.light,
+                    alignItems: 'center',
+                  }}
+                />
+              </View>
+              <View className="flex-row justify-between gap-x-4">
+                <Card
+                  onPress={() =>
+                    navigation.navigate('case-details', {
+                      title: 'Case Management',
+                      unitId: id,
+                      subtitle: plantName,
+                      type: 'completed',
+                    })
+                  }
+                  title={`${anomalyData?.completed || 0}`}
+                  variant="success"
+                  subtitle="COMPLETED"
+                  style={{
+                    flex: 1,
+                    borderWidth: 1,
+                    borderColor: COLORS.border.light,
+                    alignItems: 'center',
+                  }}
+                />
+                <Card
+                  onPress={() =>
+                    navigation.navigate('case-details', {
+                      title: 'Case Management',
+                      unitId: id,
+                      subtitle: plantName,
+                      type: 'closed',
+                    })
+                  }
+                  title={`${anomalyData?.closed || 0}`}
+                  variant="default"
+                  subtitle="CLOSED"
+                  style={{
+                    flex: 1,
+                    borderWidth: 1,
+                    borderColor: COLORS.border.light,
+                    alignItems: 'center',
+                  }}
+                />
+              </View>
+            </>
+          )}
         </View>
       </ScrollView>
     </View>

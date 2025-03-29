@@ -78,11 +78,14 @@ const Content = () => {
           paddingHorizontal: 16,
           paddingBottom: 16,
         }}>
-        <LastUpdatedInfo value={format(new Date(), 'MMM dd, yyyy  HH:mm')} />
+        <LastUpdatedInfo
+          loading={refreshing || loading}
+          value={format(new Date(), 'MMM dd, yyyy  HH:mm')}
+        />
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
           <Typography weight="semibold">Measured KPI</Typography>
           <View className="flex-row flex-wrap justify-between w-full gap-y-4">
-            {loading ? (
+            {refreshing || loading ? (
               [1, 2, 3, 4, 5, 6, 7, 8].map(item => (
                 <Skeleton key={item} width={scale(68)} height={scale(74)} />
               ))
@@ -160,7 +163,7 @@ const Content = () => {
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
           <Typography weight="semibold">Heat Balance KPI</Typography>
           <View className="flex-row flex-wrap justify-between w-full gap-y-4">
-            {loading ? (
+            {refreshing || loading ? (
               [1, 2, 3, 4, 5, 6, 7, 8].map(item => (
                 <Skeleton key={item} width={scale(68)} height={scale(74)} />
               ))
@@ -236,7 +239,7 @@ const Content = () => {
           </View>
         </View>
         <TouchableOpacity
-          disabled={!selectedUnit}
+          disabled={!selectedUnit || refreshing}
           onPress={() =>
             navigation.navigate('performance-efficiency-details', {
               subtitle: selectedUnitData?.title,

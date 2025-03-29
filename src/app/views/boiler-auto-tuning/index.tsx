@@ -131,6 +131,7 @@ const Content = () => {
           paddingBottom: 16,
         }}>
         <LastUpdatedInfo
+          loading={refreshing || loadingBoilerEfficiency || !selectedUnit}
           value={
             boilerEfficiencyData?.efficiency?.updatedAt
               ? format(
@@ -143,7 +144,7 @@ const Content = () => {
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
           <Typography weight="semibold">Efficiency Status</Typography>
           <View className="flex-row flex-wrap justify-between w-full gap-y-4">
-            {loadingBoilerEfficiency || !selectedUnit ? (
+            {refreshing || loadingBoilerEfficiency || !selectedUnit ? (
               <>
                 <Skeleton width="32%" height={scale(54)} />
                 <Skeleton width="32%" height={scale(54)} />
@@ -194,7 +195,9 @@ const Content = () => {
           <Typography weight="semibold">Efficiency Chart</Typography>
           <View className="w-full bg-slate-200">
             <EfficiencyChart
-              loading={loadingBoilerEfficiencyChart || !selectedUnit}
+              loading={
+                refreshing || loadingBoilerEfficiencyChart || !selectedUnit
+              }
               data={boilerEfficiencyChartData || []}
             />
           </View>
@@ -202,7 +205,7 @@ const Content = () => {
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
           <Typography weight="semibold">Sootblow Optimization</Typography>
           <View className="flex-row flex-wrap justify-between w-full gap-2">
-            {loadingBoilerEfficiency || !selectedUnit ? (
+            {refreshing || loadingBoilerEfficiency || !selectedUnit ? (
               <>
                 <Skeleton width="32%" height={scale(54)} />
                 <Skeleton width="32%" height={scale(54)} />
@@ -247,7 +250,7 @@ const Content = () => {
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
           <Typography weight="semibold">Combustion Optimization</Typography>
           <View className="flex-row flex-wrap justify-between w-full gap-2">
-            {loadingBoilerEfficiency || !selectedUnit ? (
+            {refreshing || loadingBoilerEfficiency || !selectedUnit ? (
               <>
                 <Skeleton width="32%" height={scale(54)} />
                 <Skeleton width="32%" height={scale(54)} />

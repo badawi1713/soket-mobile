@@ -106,6 +106,7 @@ const Content = () => {
           paddingBottom: 16,
         }}>
         <LastUpdatedInfo
+          loading={loadingAhi || refreshing}
           value={
             assetHealthIndicatorData?.lastupdate
               ? format(
@@ -127,7 +128,7 @@ const Content = () => {
             style={[styles.chartContainer]}>
             <GaugeChart
               title="Asset Health Indicator"
-              loading={loadingAhi}
+              loading={loadingAhi || refreshing}
               value={
                 typeof assetHealthIndicatorValue === 'string'
                   ? +assetHealthIndicatorValue || 0
@@ -155,7 +156,7 @@ const Content = () => {
         </View>
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
           <Typography weight="semibold">Anomaly Detection</Typography>
-          {loadingAnomalyData || !selectedUnit ? (
+          {refreshing || loadingAnomalyData || !selectedUnit ? (
             <Skeleton height={scale(146)} width="100%" />
           ) : (
             <>
