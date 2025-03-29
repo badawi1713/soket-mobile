@@ -39,7 +39,7 @@ export type RootParamList = {
   'case-details': {
     title: string;
     subtitle: string;
-    type: 'open' | 'in-progress' | 'closed' | 'awaiting' | 'completed';
+    type: 'open' | 'in progress' | 'closed' | 'awaiting' | 'completed';
     unitId: string;
   };
   'reliability-details': {

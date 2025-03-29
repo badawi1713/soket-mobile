@@ -279,7 +279,7 @@ const Content = ({plantName, id}: ContentProps) => {
                       title: 'Case Management',
                       unitId: id,
                       subtitle: plantName,
-                      type: 'in-progress',
+                      type: 'in progress',
                     })
                   }
                   title={`${anomalyDetailData?.caseStatus?.inProgress || 0}`}

@@ -225,7 +225,7 @@ const Content = () => {
                       title: 'Anomaly Detection',
                       unitId: `${selectedUnitData?.unitId}`,
                       subtitle: selectedUnitData?.title || 'Unknown Unit',
-                      type: 'in-progress',
+                      type: 'in progress',
                     })
                   }
                   title={`${anomalyData?.inprogress || 0}`}
@@ -324,7 +324,7 @@ const Content = () => {
                     title: 'Failure Prediction',
                     unitId: `${selectedUnitData?.unitId}`,
                     subtitle: selectedUnitData?.title || 'Unknown Unit',
-                    type: 'in-progress',
+                    type: 'in progress',
                   })
                 }
                 title="50"

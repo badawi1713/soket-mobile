@@ -27,7 +27,7 @@ const Card: FC<CardProps> = ({
   style,
   shadow = false,
   onPress,
-  loading = false,
+  loading,
 }) => {
   // Variant-specific colors
   const variantColors = {

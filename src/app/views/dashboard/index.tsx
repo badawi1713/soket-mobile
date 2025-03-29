@@ -1,22 +1,22 @@
-import type { AuthNavigationProp } from '@/app/routes';
+import type {AuthNavigationProp} from '@/app/routes';
 import BlinkView from '@/components/BlinkView';
 import Card from '@/components/Card';
 import LastUpdatedInfo from '@/components/LastUpdatedInfo';
 import Skeleton from '@/components/Skeleton';
 import TextInput from '@/components/TextInput';
 import Typography from '@/components/Typography';
-import { COLORS } from '@/constants/colors';
+import {COLORS} from '@/constants/colors';
 import images from '@/constants/images';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
-import { useAppSelector } from '@/hooks/useAppSelector';
-import { handleGetUnitListData } from '@/store/slices/common-slices/unit-list-slice/actions';
-import { handleGetDashboardStatisticData } from '@/store/slices/dashboard-slices/dashboard-statistic-slice/actions';
+import {useAppDispatch} from '@/hooks/useAppDispatch';
+import {useAppSelector} from '@/hooks/useAppSelector';
+import {handleGetUnitListData} from '@/store/slices/common-slices/unit-list-slice/actions';
+import {handleGetDashboardStatisticData} from '@/store/slices/dashboard-slices/dashboard-statistic-slice/actions';
 import Ionicons from '@react-native-vector-icons/ionicons';
-import { useNavigation } from '@react-navigation/native';
-import { format } from 'date-fns';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
-import { RefreshControl } from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
+import {format} from 'date-fns';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import {Image, ScrollView, TouchableOpacity, View} from 'react-native';
+import {RefreshControl} from 'react-native-gesture-handler';
 
 const Content = () => {
   const dispatch = useAppDispatch();
@@ -69,6 +69,7 @@ const Content = () => {
         contentContainerClassName="px-4 pb-4 gap-4">
         <View className="flex-row justify-between gap-x-4">
           <Card
+            loading={refreshing || loadingStatisticData}
             title={statisticData?.capacity || '0 GW'}
             variant="primary"
             subtitle="Total Capacity"
@@ -81,6 +82,7 @@ const Content = () => {
             icon="flash"
           />
           <Card
+            loading={refreshing || loadingStatisticData}
             title={statisticData?.gross || '0 GW'}
             variant="error"
             subtitle="Total Gross Load"
