@@ -24,8 +24,10 @@ export interface ApiResponse {
 export const handleGetCaseDetailsDataApi = async ({
   unitId = '',
   status = '',
+  page = 0,
 }): Promise<{
   content: Item[];
+  total: number;
 }> => {
   const url = '/service/mobile/cm/detail';
 
@@ -33,15 +35,15 @@ export const handleGetCaseDetailsDataApi = async ({
     const response = await axios.get<ApiResponse>(url, {
       params: {
         unitId: unitId,
-        page: 0,
-        limit: 25,
+        page: page,
+        limit: 10,
         status: status,
       },
     });
 
     const data = response?.data?.object || [];
 
-    return {content: data};
+    return {content: data, total: response?.data?.total || 0};
   } catch (error: unknown) {
     let errMsg = 'Unknown error';
 

@@ -1,12 +1,18 @@
-import type { RootParamList } from '@/app/routes';
-import Content from '@/app/views/case-details';
-import { COLORS } from '@/constants/colors';
-import { FONTS } from '@/constants/fonts';
-import type { RouteProp } from '@react-navigation/native';
-import { useEffect, useMemo, useState } from 'react';
-import { useWindowDimensions } from 'react-native';
-import { moderateScale } from 'react-native-size-matters';
-import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
+import type {RootParamList} from '@/app/routes';
+import {
+  AwaitingCase,
+  ClosedCase,
+  CompletedCase,
+  InProgressCase,
+  OpenCase,
+} from '@/app/views/case-details';
+import {COLORS} from '@/constants/colors';
+import {FONTS} from '@/constants/fonts';
+import type {RouteProp} from '@react-navigation/native';
+import {useEffect, useMemo, useState} from 'react';
+import {useWindowDimensions} from 'react-native';
+import {moderateScale} from 'react-native-size-matters';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 
 type ScreenProps = {
   route: RouteProp<RootParamList, 'case-details'>;
@@ -48,11 +54,11 @@ const Screen = (props: ScreenProps) => {
   }, [initialIndex]);
 
   const renderScene = SceneMap({
-    open: () => <Content unitId={unitId} title="open" />,
-    awaiting: () => <Content unitId={unitId} title="awaiting" />,
-    'in-progress': () => <Content unitId={unitId} title="in progress" />,
-    completed: () => <Content unitId={unitId} title="completed" />,
-    closed: () => <Content unitId={unitId} title="closed" />,
+    open: () => <OpenCase unitId={unitId} title="open" />,
+    awaiting: () => <AwaitingCase unitId={unitId} title="awaiting" />,
+    'in-progress': () => <InProgressCase unitId={unitId} title="in progress" />,
+    completed: () => <CompletedCase unitId={unitId} title="completed" />,
+    closed: () => <ClosedCase unitId={unitId} title="closed" />,
   });
 
   return (
