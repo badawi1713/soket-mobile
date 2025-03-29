@@ -226,7 +226,7 @@ const Content = ({plantName, id}: ContentProps) => {
 
         <View className="flex-col gap-4 rounded-lg">
           <TouchableOpacity
-            disabled={!id}
+            disabled
             onPress={() =>
               navigation.navigate('reliability-details', {
                 unitId: `${id}`,

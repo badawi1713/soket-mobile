@@ -1,28 +1,29 @@
 import CaseDetailsScreen from '@/app/screens/case-details';
 import PerformanceEfficiencyDetails from '@/app/screens/performance-efficiency-details';
 import AssetHealthDetailsScreen from '@/app/screens/reliability-details';
+import AnomalyDetailsScreen from '@/app/screens/reliability/anomaly-details';
 import LoginScreen from '@/app/screens/sign-in';
 import UnitDetailsScreen from '@/app/screens/unit-details';
 import SplashScreen from '@/components/SplashScreen';
 import Typography from '@/components/Typography';
-import {SETTINGS} from '@/constants/settings';
-import {useAuth} from '@/hooks/useAuth';
-import {storage} from '@/utils/mmkv';
-import {navigationRef, reset} from '@/utils/navigate';
+import { SETTINGS } from '@/constants/settings';
+import { useAuth } from '@/hooks/useAuth';
+import { storage } from '@/utils/mmkv';
+import { navigationRef, reset } from '@/utils/navigate';
 import Ionicons from '@react-native-vector-icons/ionicons';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   type StackNavigationProp,
   createStackNavigator,
 } from '@react-navigation/stack';
 import axios from 'axios';
-import React, {useCallback} from 'react';
-import {Platform, TouchableOpacity, View} from 'react-native';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {moderateScale, verticalScale} from 'react-native-size-matters';
-import {Toaster, toast} from 'sonner-native';
-import MainApp, {type MainAppParamList} from './main-app';
+import React, { useCallback } from 'react';
+import { Platform, TouchableOpacity, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { moderateScale, verticalScale } from 'react-native-size-matters';
+import { Toaster, toast } from 'sonner-native';
+import MainApp, { type MainAppParamList } from './main-app';
 
 export type RootParamList = {
   'splash-screen': undefined;
@@ -40,6 +41,12 @@ export type RootParamList = {
     title: string;
     subtitle: string;
     type: 'open' | 'in progress' | 'closed' | 'awaiting' | 'completed';
+    unitId: string;
+  };
+  'anomaly-details': {
+    title: string;
+    subtitle: string;
+    type: 'new' | 'open' | 'in progress' | 'closed' | 'awaiting' | 'completed';
     unitId: string;
   };
   'reliability-details': {
@@ -182,6 +189,38 @@ const RootLayout = () => {
             <Stack.Screen
               name="case-details"
               component={CaseDetailsScreen}
+              options={({navigation, route}) => ({
+                headerStyle: {
+                  height: isIos ? verticalScale(96) : verticalScale(60),
+                },
+                headerShadowVisible: false,
+                headerTitle: () => {
+                  return (
+                    <View className={isIos ? 'items-center' : 'items-start'}>
+                      <Typography weight="semibold">
+                        {route.params.title}
+                      </Typography>
+                      <Typography variant="caption">
+                        {route.params.subtitle}
+                      </Typography>
+                    </View>
+                  );
+                },
+                headerLeft: () => (
+                  <TouchableOpacity
+                    style={{
+                      marginLeft: moderateScale(16),
+                      marginRight: moderateScale(8),
+                    }}
+                    onPress={() => navigation.goBack()}>
+                    <Ionicons name="chevron-back" size={24} />
+                  </TouchableOpacity>
+                ),
+              })}
+            />
+            <Stack.Screen
+              name="anomaly-details"
+              component={AnomalyDetailsScreen}
               options={({navigation, route}) => ({
                 headerStyle: {
                   height: isIos ? verticalScale(96) : verticalScale(60),

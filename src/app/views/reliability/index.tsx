@@ -164,11 +164,11 @@ const Content = () => {
               <View className="flex-row justify-between gap-x-4">
                 <Card
                   onPress={() =>
-                    navigation.navigate('case-details', {
+                    navigation.navigate('anomaly-details', {
                       title: 'Anomaly Detection',
                       unitId: `${selectedUnitData?.unitId}`,
                       subtitle: selectedUnitData?.title || 'Unknown Unit',
-                      type: 'open',
+                      type: 'new',
                     })
                   }
                   title={`${anomalyData?.new || 0}`}
@@ -183,7 +183,7 @@ const Content = () => {
                 />
                 <Card
                   onPress={() =>
-                    navigation.navigate('case-details', {
+                    navigation.navigate('anomaly-details', {
                       title: 'Anomaly Detection',
                       unitId: `${selectedUnitData?.unitId}`,
                       subtitle: selectedUnitData?.title || 'Unknown Unit',
@@ -204,7 +204,24 @@ const Content = () => {
               <View className="flex-row flex-wrap justify-between gap-x-0">
                 <Card
                   onPress={() =>
-                    navigation.navigate('case-details', {
+                    navigation.navigate('anomaly-details', {
+                      title: 'Anomaly Detection',
+                      unitId: `${selectedUnitData?.unitId}`,
+                      subtitle: selectedUnitData?.title || 'Unknown Unit',
+                      type: 'open',
+                    })
+                  }
+                  title={`${anomalyData?.open || 0}`}
+                  variant="default"
+                  subtitle="OPEN"
+                  style={{
+                    alignItems: 'center',
+                    padding: 0,
+                  }}
+                />
+                <Card
+                  onPress={() =>
+                    navigation.navigate('anomaly-details', {
                       title: 'Anomaly Detection',
                       unitId: `${selectedUnitData?.unitId}`,
                       subtitle: selectedUnitData?.title || 'Unknown Unit',
@@ -221,7 +238,7 @@ const Content = () => {
                 />
                 <Card
                   onPress={() =>
-                    navigation.navigate('case-details', {
+                    navigation.navigate('anomaly-details', {
                       title: 'Anomaly Detection',
                       unitId: `${selectedUnitData?.unitId}`,
                       subtitle: selectedUnitData?.title || 'Unknown Unit',
@@ -238,7 +255,7 @@ const Content = () => {
                 />
                 <Card
                   onPress={() =>
-                    navigation.navigate('case-details', {
+                    navigation.navigate('anomaly-details', {
                       title: 'Anomaly Detection',
                       unitId: `${selectedUnitData?.unitId}`,
                       subtitle: selectedUnitData?.title || 'Unknown Unit',
@@ -263,7 +280,7 @@ const Content = () => {
             <View className="flex-row justify-between gap-x-4">
               <Card
                 onPress={() =>
-                  navigation.navigate('case-details', {
+                  navigation.navigate('anomaly-details', {
                     title: 'Failure Prediction',
                     unitId: `${selectedUnitData?.unitId}`,
                     subtitle: selectedUnitData?.title || 'Unknown Unit',
@@ -282,7 +299,7 @@ const Content = () => {
               />
               <Card
                 onPress={() =>
-                  navigation.navigate('case-details', {
+                  navigation.navigate('anomaly-details', {
                     title: 'Failure Prediction',
                     unitId: `${selectedUnitData?.unitId}`,
                     subtitle: selectedUnitData?.title || 'Unknown Unit',
@@ -303,7 +320,7 @@ const Content = () => {
             <View className="flex-row flex-wrap justify-between gap-x-0">
               <Card
                 onPress={() =>
-                  navigation.navigate('case-details', {
+                  navigation.navigate('anomaly-details', {
                     title: 'Failure Prediction',
                     unitId: `${selectedUnitData?.unitId}`,
                     subtitle: selectedUnitData?.title || 'Unknown Unit',
@@ -320,7 +337,7 @@ const Content = () => {
               />
               <Card
                 onPress={() =>
-                  navigation.navigate('case-details', {
+                  navigation.navigate('anomaly-details', {
                     title: 'Failure Prediction',
                     unitId: `${selectedUnitData?.unitId}`,
                     subtitle: selectedUnitData?.title || 'Unknown Unit',
@@ -337,7 +354,7 @@ const Content = () => {
               />
               <Card
                 onPress={() =>
-                  navigation.navigate('case-details', {
+                  navigation.navigate('anomaly-details', {
                     title: 'Failure Prediction',
                     unitId: `${selectedUnitData?.unitId}`,
                     subtitle: selectedUnitData?.title || 'Unknown Unit',
@@ -354,7 +371,7 @@ const Content = () => {
               />
               <Card
                 onPress={() =>
-                  navigation.navigate('case-details', {
+                  navigation.navigate('anomaly-details', {
                     title: 'Failure Prediction',
                     unitId: `${selectedUnitData?.unitId}`,
                     subtitle: selectedUnitData?.title || 'Unknown Unit',

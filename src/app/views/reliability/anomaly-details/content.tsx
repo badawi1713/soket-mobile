@@ -2,9 +2,12 @@ import Chip from '@/components/Chip';
 import IconButton from '@/components/IconButton';
 import Skeleton from '@/components/Skeleton';
 import Typography from '@/components/Typography';
-import { COLORS } from '@/constants/colors';
-import { type Item, handleGetCaseDetailsDataApi } from '@/utils/api/case-details';
-import React, { useEffect, useState } from 'react';
+import {COLORS} from '@/constants/colors';
+import {
+  type Item,
+  handleGetAnomalyDetailsDataApi,
+} from '@/utils/api/anomaly-details';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -12,12 +15,12 @@ import {
   Share,
   View,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { scale } from 'react-native-size-matters';
-import { toast } from 'sonner-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {scale} from 'react-native-size-matters';
+import {toast} from 'sonner-native';
 
 type ScreenProps = {
-  title: 'open' | 'closed' | 'awaiting' | 'in progress' | 'completed';
+  title: 'new' | 'open' | 'closed' | 'awaiting' | 'in progress' | 'completed';
   unitId: string;
 };
 
@@ -28,17 +31,19 @@ const CaseItem = React.memo(
     onShare,
   }: {
     item: Item;
-    title: 'open' | 'closed' | 'awaiting' | 'in progress' | 'completed';
+    title: 'new' | 'open' | 'closed' | 'awaiting' | 'in progress' | 'completed';
     onShare: () => void;
   }) => {
     const variantStatus: {
-      open: 'error';
+      new: 'error';
+      open: 'accent';
       closed: 'secondary';
       awaiting: 'warning';
       'in progress': 'info';
       completed: 'success';
     } = {
-      open: 'error',
+      new: 'error',
+      open: 'accent',
       closed: 'secondary',
       awaiting: 'warning',
       'in progress': 'info',
@@ -47,7 +52,23 @@ const CaseItem = React.memo(
 
     return (
       <View className="px-5 py-2 rounded-md bg-background-paper">
-        <View className="flex-row items-center w-full gap-x-2">
+        <View className="flex-row flex-wrap items-center w-full gap-2">
+          <Chip
+            color={+item?.level < 4 ? 'error' : 'warning'}
+            variant="contained"
+            size="small"
+            shape="rectangular"
+            style={{width: 'auto'}}
+            text={`${item?.level}`}
+          />
+          <Chip
+            color={item?.type === 'A' ? 'error' : 'warning'}
+            variant="contained"
+            size="small"
+            shape="rectangular"
+            style={{width: 'auto'}}
+            text={`${item?.type}`}
+          />
           <Chip
             color="primary"
             variant="contained"
@@ -62,7 +83,7 @@ const CaseItem = React.memo(
             size="small"
             shape="rectangular"
             style={{width: 'auto'}}
-            text={`${item?.casePlant}`}
+            text={`${item?.anomalyCount || 0}`}
           />
           <Chip
             color="primary"
@@ -70,8 +91,26 @@ const CaseItem = React.memo(
             size="small"
             shape="rectangular"
             style={{width: 'auto'}}
-            text={item?.caseType || '-'}
+            text={`${item?.anomalyEvent || 0}`}
           />
+        </View>
+        <View className="mt-4 mb-3">
+          <Typography variant="body2">{item?.description || '-'}</Typography>
+        </View>
+        <View className="flex-row items-end justify-between gap-x-2">
+          <View className="flex-1">
+            <Typography variant="caption">{item?.equipment}</Typography>
+            <Typography variant="caption">{item?.time}</Typography>
+          </View>
+          {false && (
+            <IconButton
+              buttonStyle="normal"
+              onPress={onShare}
+              iconColor={COLORS.common.black}
+              icon="share-social"
+              size="small"
+            />
+          )}
           <Chip
             color={variantStatus[title]}
             variant="contained"
@@ -79,22 +118,6 @@ const CaseItem = React.memo(
             shape="rectangular"
             style={{width: 'auto', marginLeft: 'auto'}}
             text={title.replace('-', ' ').toUpperCase()}
-          />
-        </View>
-        <View className="mt-4 mb-3">
-          <Typography>{item?.descr?.join('')}</Typography>
-        </View>
-        <View className="flex-row items-end justify-between gap-x-2">
-          <View className="flex-1">
-            <Typography variant="caption">{item?.caseUnit}</Typography>
-            <Typography variant="caption">{item?.caseName}</Typography>
-          </View>
-          <IconButton
-            buttonStyle="normal"
-            onPress={onShare}
-            iconColor={COLORS.common.black}
-            icon="share-social"
-            size="small"
           />
         </View>
       </View>
@@ -117,7 +140,7 @@ const Content = ({title = 'open', unitId = ''}: ScreenProps) => {
     setData([]);
     setTotal(0);
     setLoading(true);
-    handleGetCaseDetailsDataApi({unitId, status: title, page: 0})
+    handleGetAnomalyDetailsDataApi({unitId, status: title, page: 0})
       .then(res => {
         setData(res.content);
         setTotal(res.total || 0);
@@ -129,7 +152,7 @@ const Content = ({title = 'open', unitId = ''}: ScreenProps) => {
   useEffect(() => {
     if (page === 0) return;
     setIsFetchingMore(true);
-    handleGetCaseDetailsDataApi({unitId, status: title, page})
+    handleGetAnomalyDetailsDataApi({unitId, status: title, page})
       .then(res => {
         setData(prev => [...prev, ...res.content]);
         setTotal(res.total || 0);
@@ -141,7 +164,7 @@ const Content = ({title = 'open', unitId = ''}: ScreenProps) => {
   const onRefresh = () => {
     setRefreshing(true);
     setPage(0);
-    handleGetCaseDetailsDataApi({unitId, status: title, page: 0})
+    handleGetAnomalyDetailsDataApi({unitId, status: title, page: 0})
       .then(res => {
         setData(res.content);
         setTotal(res.total || 0);

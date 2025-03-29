@@ -1,9 +1,9 @@
 import Ionicons from '@react-native-vector-icons/ionicons';
-import { clsx } from 'clsx';
+import {clsx} from 'clsx';
 import type React from 'react';
-import type { FC } from 'react';
-import { type StyleProp, TouchableOpacity, type ViewStyle } from 'react-native';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import type {FC} from 'react';
+import {type StyleProp, TouchableOpacity, type ViewStyle} from 'react-native';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import Typography from './Typography';
 
 interface ChipProps {
@@ -12,7 +12,14 @@ interface ChipProps {
   onClose?: () => void; // Action when close icon is pressed
   size?: 'small' | 'medium' | 'large'; // Size of the chip
   variant?: 'contained' | 'outlined'; // Style of the chip
-  color?: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'; // Color variant
+  color?:
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'error'
+    | 'info'
+    | 'warning'
+    | 'accent'; // Color variant
   icon?: React.ComponentProps<typeof Ionicons>['name']; // Optional leading icon
   shape?: 'rounded' | 'rectangular' | 'pill'; // Shape of the chip
   style?: StyleProp<ViewStyle>; // Additional custom styles
@@ -55,6 +62,10 @@ const Chip: FC<ChipProps> = ({
       base: 'bg-warning-dark text-white',
       outlined: 'border-warning-dark text-warning-dark',
     },
+    accent: {
+      base: 'bg-purple-600 text-white',
+      outlined: 'border-purple-600 text-purple-600',
+    },
   };
 
   // Define size styles
@@ -92,7 +103,7 @@ const Chip: FC<ChipProps> = ({
     },
   };
 
-  const { paddingVertical, paddingHorizontal, fontSize, iconSize } =
+  const {paddingVertical, paddingHorizontal, fontSize, iconSize} =
     sizeStyles[size];
 
   return (
@@ -103,7 +114,7 @@ const Chip: FC<ChipProps> = ({
         'flex-row items-center',
         variant === 'contained'
           ? `${colorClasses[color].base}`
-          : `border ${colorClasses[color].outlined}`
+          : `border ${colorClasses[color].outlined}`,
       )}
       style={[
         {
@@ -112,8 +123,7 @@ const Chip: FC<ChipProps> = ({
           ...shapeStyles[shape], // Apply shape styles dynamically
         },
         style || {}, // Ensure no `undefined` style is spread
-      ]}
-    >
+      ]}>
       {/* Leading Icon */}
       {icon && (
         <Ionicons
@@ -124,7 +134,7 @@ const Chip: FC<ChipProps> = ({
               ? 'white'
               : colorClasses[color].outlined.split(' ')[1]
           }
-          style={{ marginRight: scale(8) }}
+          style={{marginRight: scale(8)}}
         />
       )}
 
@@ -132,12 +142,11 @@ const Chip: FC<ChipProps> = ({
       <Typography
         className={clsx(
           'font-medium',
-          variant === 'contained' ? 'text-white' : colorClasses[color].outlined
+          variant === 'contained' ? 'text-white' : colorClasses[color].outlined,
         )}
         style={{
           fontSize,
-        }}
-      >
+        }}>
         {text}
       </Typography>
 
@@ -146,8 +155,7 @@ const Chip: FC<ChipProps> = ({
         <TouchableOpacity
           onPress={onClose}
           activeOpacity={0.8}
-          style={{ marginLeft: scale(8) }}
-        >
+          style={{marginLeft: scale(8)}}>
           <Ionicons
             name="close"
             size={iconSize}
