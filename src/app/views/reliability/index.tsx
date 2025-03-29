@@ -1,17 +1,17 @@
-import type { AuthNavigationProp } from '@/app/routes';
+import type {AuthNavigationProp} from '@/app/routes';
 import Autocomplete from '@/components/Autocomplete';
 import Card from '@/components/Card';
 import GaugeChart from '@/components/GaugeChart';
 import LastUpdatedInfo from '@/components/LastUpdatedInfo';
 import Skeleton from '@/components/Skeleton';
 import Typography from '@/components/Typography';
-import { COLORS } from '@/constants/colors';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
-import { useAppSelector } from '@/hooks/useAppSelector';
-import { handleGetAssetHealthIndicatorData } from '@/store/slices/reliability-slices/asset-health-indicator-slice/actions';
-import { useNavigation } from '@react-navigation/native';
-import { format } from 'date-fns';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import {COLORS} from '@/constants/colors';
+import {useAppDispatch} from '@/hooks/useAppDispatch';
+import {useAppSelector} from '@/hooks/useAppSelector';
+import {handleGetAssetHealthIndicatorData} from '@/store/slices/reliability-slices/asset-health-indicator-slice/actions';
+import {useNavigation} from '@react-navigation/native';
+import {format} from 'date-fns';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   RefreshControl,
   ScrollView,
@@ -19,8 +19,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { scale } from 'react-native-size-matters';
-import { handleGetAnomalyStatisticData } from '../../../store/slices/reliability-slices/anomaly-statistic-slice/actions';
+import {scale} from 'react-native-size-matters';
+import {handleGetAnomalyStatisticData} from '../../../store/slices/reliability-slices/anomaly-statistic-slice/actions';
 
 const Content = () => {
   const dispatch = useAppDispatch();
@@ -38,8 +38,10 @@ const Content = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const fetchInitialData = useCallback(async () => {
-    dispatch(handleGetAnomalyStatisticData({unitId: selectedUnit}));
-    dispatch(handleGetAssetHealthIndicatorData());
+    if (selectedUnit) {
+      dispatch(handleGetAnomalyStatisticData({unitId: selectedUnit}));
+      dispatch(handleGetAssetHealthIndicatorData());
+    }
   }, [selectedUnit, dispatch]);
 
   useEffect(() => {

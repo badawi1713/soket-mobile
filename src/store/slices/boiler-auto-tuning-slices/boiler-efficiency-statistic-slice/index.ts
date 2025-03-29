@@ -10,7 +10,7 @@ interface State {
 
 const initialState: State = {
   data: null,
-  loading: false,
+  loading: true,
   error: null,
 };
 

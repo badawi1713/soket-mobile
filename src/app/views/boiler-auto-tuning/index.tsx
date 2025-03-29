@@ -3,15 +3,15 @@ import Card from '@/components/Card';
 import LastUpdatedInfo from '@/components/LastUpdatedInfo';
 import Skeleton from '@/components/Skeleton';
 import Typography from '@/components/Typography';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
-import { useAppSelector } from '@/hooks/useAppSelector';
-import { handleGetBoilerEfficiencyChartData } from '@/store/slices/boiler-auto-tuning-slices/boiler-efficiency-chart-slice/actions';
-import { handleGetBoilerEfficiencyStatisticData } from '@/store/slices/boiler-auto-tuning-slices/boiler-efficiency-statistic-slice/actions';
-import { format } from 'date-fns';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
-import { scale } from 'react-native-size-matters';
-import { COLORS } from '../../../constants/colors';
+import {useAppDispatch} from '@/hooks/useAppDispatch';
+import {useAppSelector} from '@/hooks/useAppSelector';
+import {handleGetBoilerEfficiencyChartData} from '@/store/slices/boiler-auto-tuning-slices/boiler-efficiency-chart-slice/actions';
+import {handleGetBoilerEfficiencyStatisticData} from '@/store/slices/boiler-auto-tuning-slices/boiler-efficiency-statistic-slice/actions';
+import {format} from 'date-fns';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import {RefreshControl, ScrollView, StyleSheet, View} from 'react-native';
+import {scale} from 'react-native-size-matters';
+import {COLORS} from '../../../constants/colors';
 import EfficiencyChart from './components/EfficiencyChart';
 
 const Content = () => {
@@ -27,8 +27,10 @@ const Content = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const fetchInitialData = useCallback(async () => {
-    dispatch(handleGetBoilerEfficiencyStatisticData({unitId: selectedUnit}));
-    dispatch(handleGetBoilerEfficiencyChartData({unitId: selectedUnit}));
+    if (selectedUnit) {
+      dispatch(handleGetBoilerEfficiencyStatisticData({unitId: selectedUnit}));
+      dispatch(handleGetBoilerEfficiencyChartData({unitId: selectedUnit}));
+    }
   }, [selectedUnit, dispatch]);
 
   useEffect(() => {

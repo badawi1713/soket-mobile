@@ -26,7 +26,9 @@ const Content = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const fetchInitialData = useCallback(async () => {
-    dispatch(handleGetEfficiencyKpiData({unitId: selectedUnit}));
+    if (selectedUnit) {
+      dispatch(handleGetEfficiencyKpiData({unitId: selectedUnit}));
+    }
   }, [selectedUnit, dispatch]);
 
   useEffect(() => {
@@ -76,9 +78,7 @@ const Content = () => {
           paddingHorizontal: 16,
           paddingBottom: 16,
         }}>
-        {false && (
-          <LastUpdatedInfo value={format(new Date(), 'MMM dd, yyyy  HH:mm')} />
-        )}
+        <LastUpdatedInfo value={format(new Date(), 'MMM dd, yyyy  HH:mm')} />
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
           <Typography weight="semibold">Measured KPI</Typography>
           <View className="flex-row flex-wrap justify-between w-full gap-y-4">
