@@ -1,14 +1,21 @@
 import {COLORS} from '@/constants/colors';
-import React, {useEffect, useState} from 'react';
+import {Item} from '@/store/slices/reliability-slices/bad-actor-chart-slice/api';
+import React, {useEffect, useMemo, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {WebView} from 'react-native-webview';
 import Skeleton from './Skeleton';
 
 type Props = {
   title?: string;
+  loading?: boolean;
+  data: Item[];
 };
 
-const BarChart: React.FC<Props> = ({title = ''}) => {
+const BarChart: React.FC<Props> = ({
+  title = '',
+  loading = false,
+  data = [],
+}) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -19,42 +26,37 @@ const BarChart: React.FC<Props> = ({title = ''}) => {
     return () => clearTimeout(timer);
   }, []);
 
-  const dataSource = {
-    chart: {
-      caption: '',
-      yaxisname: '',
-      aligncaptionwithcanvas: '0',
-      plottooltext: '<i>$label</i>: <b>$dataValue</b>',
-      theme: 'fusion',
-      baseFont: 'Oxanium',
-      baseFontSize: '14',
-      baseFontColor: COLORS.common.black,
-      showValues: '1',
-      valueFont: 'Oxanium',
-      valueFontSize: '14',
-      valueFontColor: COLORS.common.white,
-      paletteColors: COLORS.primary.main,
-      showLabels: '1',
-      placeValuesInside: '1',
-      valuePosition: 'inside',
-      numberSuffix: '%',
-      yAxisMinValue: '0',
-      yAxisMaxValue: '100',
-      labelPosition: 'inside',
-    },
-    data: [
-      {label: 'Boiler Feed Water Pump Turbine #1', value: '41'},
-      {label: 'MBFP #1C', value: '100'},
-      {label: 'Boiler Feed Water Pump Turbine #1A', value: '38'},
-      {label: 'Boiler Feed Water Pump Turbine #2A', value: '32'},
-      {label: 'Pulverizer #1C', value: '100'},
-      {label: 'Vacuum Pump #1B', value: '25'},
-      {label: 'Steam Drum #1', value: '25'},
-      {label: 'Seal Air Fan #1B', value: '24'},
-      {label: 'Forced Draft Fan #1B', value: '22'},
-      {label: 'Others', value: '10'},
-    ],
-  };
+  const dataSource = useMemo(
+    () => ({
+      chart: {
+        caption: '',
+        yaxisname: '',
+        aligncaptionwithcanvas: '0',
+        plottooltext: '<i>$label</i>: <b>$dataValue</b>',
+        theme: 'fusion',
+        baseFont: 'Oxanium',
+        baseFontSize: '14',
+        baseFontColor: COLORS.common.black,
+        showValues: '1',
+        valueFont: 'Oxanium',
+        valueFontSize: '14',
+        valueFontColor: COLORS.common.white,
+        paletteColors: COLORS.primary.main,
+        showLabels: '1',
+        placeValuesInside: '1',
+        valuePosition: 'inside',
+        numberSuffix: '%',
+        yAxisMinValue: '0',
+        yAxisMaxValue: '100',
+        labelPosition: 'inside',
+      },
+      data:
+        data?.length > 0
+          ? data?.map(item => ({label: item?.label, value: item?.value}))
+          : [],
+    }),
+    [data],
+  );
 
   const chartConfig = {
     type: 'bar2d',
@@ -107,7 +109,7 @@ const BarChart: React.FC<Props> = ({title = ''}) => {
     </html>
   `;
 
-  return isLoading ? (
+  return isLoading || loading ? (
     <View style={styles.loaderContainer}>
       <Skeleton width="100%" height="100%" borderRadius={5} />
     </View>

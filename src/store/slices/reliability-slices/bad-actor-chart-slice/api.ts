@@ -16,27 +16,28 @@ export interface Item {
 }
 
 export interface ApiResponse {
-  object: {
-    lastupdate: string;
-    chart?: Item[];
-  };
+  object: Item[];
   message: string;
   total: number;
   limit: number;
   page: number;
 }
 
-export const handleGetAssetHealthIndicatorApi = async (): Promise<{
-  content: {lastupdate: string; chart?: Item[]};
+export const handleGetBadActorChartApi = async ({
+  unitId = '',
+}): Promise<{
+  content: Item[];
 }> => {
-  const url = '/service/reliability/ahi-hierarchy/tree?filter=';
+  const url = '/service/reliability/bad-actor/list';
 
   try {
     const response = await axios.get<ApiResponse>(url, {
-      params: {},
+      params: {
+        units: unitId,
+      },
     });
 
-    const data = response?.data?.object || {lastupdate: '', chart: []};
+    const data = response?.data?.object || [];
 
     return {content: data};
   } catch (error: any) {

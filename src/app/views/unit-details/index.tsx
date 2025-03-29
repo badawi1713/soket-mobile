@@ -1,19 +1,25 @@
-import type {AuthNavigationProp} from '@/app/routes';
+import type { AuthNavigationProp } from '@/app/routes';
 import Card from '@/components/Card';
 import GaugeChart from '@/components/GaugeChart';
 import Skeleton from '@/components/Skeleton';
 import SwitchButton from '@/components/SwitchButton';
 import Typography from '@/components/Typography';
-import {COLORS} from '@/constants/colors';
-import {useAppDispatch} from '@/hooks/useAppDispatch';
-import {useAppSelector} from '@/hooks/useAppSelector';
-import {handleGetAnomalyStatisticData} from '@/store/slices/reliability-slices/anomaly-statistic-slice/actions';
-import {handleGetAssetHealthIndicatorData} from '@/store/slices/reliability-slices/asset-health-indicator-slice/actions';
-import {useNavigation} from '@react-navigation/native';
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {RefreshControl, ScrollView, StyleSheet, View} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {scale} from 'react-native-size-matters';
+import { COLORS } from '@/constants/colors';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppSelector } from '@/hooks/useAppSelector';
+import { handleGetAnomalyStatisticData } from '@/store/slices/reliability-slices/anomaly-statistic-slice/actions';
+import { handleGetAssetHealthIndicatorData } from '@/store/slices/reliability-slices/asset-health-indicator-slice/actions';
+import { useNavigation } from '@react-navigation/native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { scale } from 'react-native-size-matters';
 
 const STATUS_LIST_DATA = [
   {
@@ -213,7 +219,16 @@ const Content = ({plantName, id, objectId}: ContentProps) => {
         </View>
 
         <View className="flex-col gap-4 rounded-lg">
-          <View style={[styles.chartContainer]}>
+          <TouchableOpacity
+            disabled={!id}
+            onPress={() =>
+              navigation.navigate('reliability-details', {
+                unitId: `${id}`,
+                title: 'Asset Health',
+                subtitle: plantName || 'Unknown Unit',
+              })
+            }
+            style={[styles.chartContainer]}>
             <GaugeChart
               title="Asset Health Indicator"
               loading={loadingAhi || refreshing}
@@ -223,7 +238,7 @@ const Content = ({plantName, id, objectId}: ContentProps) => {
                   : assetHealthIndicatorValue || 0
               }
             />
-          </View>
+          </TouchableOpacity>
         </View>
 
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
