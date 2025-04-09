@@ -1,6 +1,6 @@
 import Accordion from '@/components/Accordion';
 import { useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AirHeater from './air-heater';
 import Boiler from './boiler';

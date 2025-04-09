@@ -22,8 +22,8 @@ const columns: {key: keyof DataItem; label: string}[] = [
   {key: 'gap', label: 'Gap'},
 ];
 
-const UnitPerformance = ({unitId = ''}) => {
-  const {data, loading, error} = useGetPerformanceEfficiencyData(unitId, 1);
+const Condenser = ({unitId = ''}) => {
+  const {data, loading, error} = useGetPerformanceEfficiencyData(unitId, 4);
 
   const [sortConfig, setSortConfig] = useState<SortConfig>({
     key: null,
@@ -59,13 +59,6 @@ const UnitPerformance = ({unitId = ''}) => {
       key={item.rowNum || index}
       style={[
         styles.row,
-        // {
-        //   backgroundColor:
-        //     index % 2 === 0 ? COLORS.background.paper : COLORS.background.main,
-        //   borderLeftWidth: moderateScale(5),
-        //   borderLeftColor:
-        //     index % 3 === 0 ? COLORS.error.main : COLORS.success.main,
-        // },
         {
           backgroundColor:
             index % 2 === 0 ? COLORS.background.paper : COLORS.background.main,
@@ -134,7 +127,7 @@ const UnitPerformance = ({unitId = ''}) => {
   );
 };
 
-export default UnitPerformance;
+export default Condenser;
 
 const styles = StyleSheet.create({
   container: {
