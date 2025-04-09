@@ -21,8 +21,8 @@ const columns: {key: keyof DataItem; label: string}[] = [
   {key: 'vHeatBalance', label: 'Heat Balance'},
 ];
 
-const UnitSummary = ({unitId = ''}) => {
-  const {data, loading, error} = useGetPerformanceSummaryData(unitId, 1);
+const SteamTurbine = ({unitId = ''}) => {
+  const {data, loading, error} = useGetPerformanceSummaryData(unitId, 3);
 
   const [sortConfig, setSortConfig] = useState<SortConfig>({
     key: null,
@@ -70,7 +70,7 @@ const UnitSummary = ({unitId = ''}) => {
         {item.unit || '-'}
       </Typography>
       <Typography variant="smallText" style={styles.cell}>
-        {item.vMeasure || 'N/A'}
+        {item.vMeasure === -99999 ? 'N/A' : item.vMeasure}
       </Typography>
       <Typography variant="smallText" style={styles.cell}>
         {item.vHeatBalance || 'N/A'}
@@ -123,7 +123,7 @@ const UnitSummary = ({unitId = ''}) => {
   );
 };
 
-export default UnitSummary;
+export default SteamTurbine;
 
 const styles = StyleSheet.create({
   container: {

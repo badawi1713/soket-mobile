@@ -97,7 +97,7 @@ const Card: FC<CardProps> = ({
           {loading ? (
             <Skeleton width={'36%'} height={scale(24)} />
           ) : (
-            <Typography variant="header5" weight="bold" color={colors.title}>
+            <Typography variant="header6" weight="bold" color={colors.title}>
               {title}
             </Typography>
           )}

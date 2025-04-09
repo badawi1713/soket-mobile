@@ -21,8 +21,8 @@ const columns: {key: keyof DataItem; label: string}[] = [
   {key: 'vHeatBalance', label: 'Heat Balance'},
 ];
 
-const UnitSummary = ({unitId = ''}) => {
-  const {data, loading, error} = useGetPerformanceSummaryData(unitId, 1);
+const Boiler = ({unitId = ''}) => {
+  const {data, loading, error} = useGetPerformanceSummaryData(unitId, 2);
 
   const [sortConfig, setSortConfig] = useState<SortConfig>({
     key: null,
@@ -123,7 +123,7 @@ const UnitSummary = ({unitId = ''}) => {
   );
 };
 
-export default UnitSummary;
+export default Boiler;
 
 const styles = StyleSheet.create({
   container: {

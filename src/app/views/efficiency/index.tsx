@@ -84,10 +84,10 @@ const Content = () => {
         />
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
           <Typography weight="semibold">Measured KPI</Typography>
-          <View className="flex-row flex-wrap justify-between w-full gap-y-4">
+          <View className="flex-row flex-wrap w-full justify-stretch gap-y-4 gap-x-1">
             {refreshing || loading ? (
               [1, 2, 3, 4, 5, 6, 7, 8].map(item => (
-                <Skeleton key={item} width={scale(68)} height={scale(74)} />
+                <Skeleton key={item} width={'32%'} height={scale(74)} />
               ))
             ) : data?.length < 1 ? (
               <Card
@@ -133,7 +133,7 @@ const Content = () => {
                     gap: 12,
                     backgroundColor:
                       index === 0 ? COLORS.secondary.light : 'transparent',
-                    width: scale(68),
+                    width: '32%',
                   }}>
                   <Typography
                     numberOfLines={1}
@@ -145,7 +145,7 @@ const Content = () => {
                   </Typography>
                   <Typography
                     className="text-center"
-                    variant="header6"
+                    variant="body1"
                     weight="medium">
                     {Number(item?.measured || 0).toFixed(1)}
                   </Typography>
@@ -162,10 +162,10 @@ const Content = () => {
         </View>
         <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
           <Typography weight="semibold">Heat Balance KPI</Typography>
-          <View className="flex-row flex-wrap justify-between w-full gap-y-4">
+          <View className="flex-row flex-wrap w-full justify-stretch gap-y-4 gap-x-1">
             {refreshing || loading ? (
               [1, 2, 3, 4, 5, 6, 7, 8].map(item => (
-                <Skeleton key={item} width={scale(68)} height={scale(74)} />
+                <Skeleton key={item} width={'32%'} height={scale(74)} />
               ))
             ) : data?.length < 1 ? (
               <Card
@@ -211,7 +211,7 @@ const Content = () => {
                     gap: 12,
                     backgroundColor:
                       index === 0 ? COLORS.secondary.light : 'transparent',
-                    width: scale(68),
+                    width: '32%',
                   }}>
                   <Typography
                     numberOfLines={1}
@@ -223,7 +223,7 @@ const Content = () => {
                   </Typography>
                   <Typography
                     className="text-center"
-                    variant="header6"
+                    variant="body1"
                     weight="medium">
                     {Number(item?.heatBalance || 0).toFixed(1)}
                   </Typography>
