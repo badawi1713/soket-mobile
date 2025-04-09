@@ -8,19 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* SOKETTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SOKETTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-SOKET.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-SOKET.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		25BA6A5078DF458AA8D3CD3E /* Oxanium-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C67D3B52B7045948FDC58E8 /* Oxanium-ExtraBold.ttf */; };
 		65B1C069C9E392D21F231159 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
-		7699B88040F8A987B510C191 /* libPods-SOKET-SOKETTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-SOKET-SOKETTests.a */; };
 		8160CBB24FEA4BB7920AD875 /* Oxanium-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F1AC57891834C8281B356C0 /* Oxanium-SemiBold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		881E5DD0C63C4433978AE2F2 /* Oxanium-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2A161AC5BA7493DADE230BB /* Oxanium-Light.ttf */; };
+		9B50E322C6BC0311C30B3D7C /* libPods-SOKET.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 561E24F5686873AF922A38E0 /* libPods-SOKET.a */; };
 		B258F41DFD484373A819AABD /* Oxanium-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDD23798E1C7447CBE778EF2 /* Oxanium-ExtraLight.ttf */; };
 		BC73D9812BE745638AD7DA0B /* Oxanium-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4443B51AD32742979E353A9E /* Oxanium-Bold.ttf */; };
 		DFF7F43AF0604F5695492167 /* Oxanium-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 419708C4D4DA44849F44A4C7 /* Oxanium-Regular.ttf */; };
+		F45628621FC36335B02CEA07 /* libPods-SOKET-SOKETTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B1651AC10A826BAAA265983 /* libPods-SOKET-SOKETTests.a */; };
 		F7D15E16E9F4410B9815DA86 /* Oxanium-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40F0D0846E00422FA2CD88D3 /* Oxanium-Medium.ttf */; };
 /* End PBXBuildFile section */
 
@@ -45,18 +45,18 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SOKET/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SOKET/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = SOKET/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-SOKET-SOKETTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SOKET-SOKETTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B4392A12AC88292D35C810B /* Pods-SOKET.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SOKET.debug.xcconfig"; path = "Target Support Files/Pods-SOKET/Pods-SOKET.debug.xcconfig"; sourceTree = "<group>"; };
+		2C53457BD521D04EAA12DE35 /* Pods-SOKET.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SOKET.release.xcconfig"; path = "Target Support Files/Pods-SOKET/Pods-SOKET.release.xcconfig"; sourceTree = "<group>"; };
 		3F1AC57891834C8281B356C0 /* Oxanium-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oxanium-SemiBold.ttf"; path = "../src/assets/fonts/Oxanium-SemiBold.ttf"; sourceTree = "<group>"; };
 		40F0D0846E00422FA2CD88D3 /* Oxanium-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oxanium-Medium.ttf"; path = "../src/assets/fonts/Oxanium-Medium.ttf"; sourceTree = "<group>"; };
 		419708C4D4DA44849F44A4C7 /* Oxanium-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oxanium-Regular.ttf"; path = "../src/assets/fonts/Oxanium-Regular.ttf"; sourceTree = "<group>"; };
 		4443B51AD32742979E353A9E /* Oxanium-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oxanium-Bold.ttf"; path = "../src/assets/fonts/Oxanium-Bold.ttf"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-SOKET.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SOKET.release.xcconfig"; path = "Target Support Files/Pods-SOKET/Pods-SOKET.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-SOKET-SOKETTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SOKET-SOKETTests.debug.xcconfig"; path = "Target Support Files/Pods-SOKET-SOKETTests/Pods-SOKET-SOKETTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-SOKET.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SOKET.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B1651AC10A826BAAA265983 /* libPods-SOKET-SOKETTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SOKET-SOKETTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		55F5E2283ED5E7CB45E55437 /* Pods-SOKET-SOKETTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SOKET-SOKETTests.release.xcconfig"; path = "Target Support Files/Pods-SOKET-SOKETTests/Pods-SOKET-SOKETTests.release.xcconfig"; sourceTree = "<group>"; };
+		561E24F5686873AF922A38E0 /* libPods-SOKET.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SOKET.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C67D3B52B7045948FDC58E8 /* Oxanium-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oxanium-ExtraBold.ttf"; path = "../src/assets/fonts/Oxanium-ExtraBold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SOKET/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-SOKET-SOKETTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SOKET-SOKETTests.release.xcconfig"; path = "Target Support Files/Pods-SOKET-SOKETTests/Pods-SOKET-SOKETTests.release.xcconfig"; sourceTree = "<group>"; };
+		82E998BD9B4B1C2484749E6A /* Pods-SOKET-SOKETTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SOKET-SOKETTests.debug.xcconfig"; path = "Target Support Files/Pods-SOKET-SOKETTests/Pods-SOKET-SOKETTests.debug.xcconfig"; sourceTree = "<group>"; };
+		837A3A0B0FFEDC5E2FE729E7 /* Pods-SOKET.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SOKET.debug.xcconfig"; path = "Target Support Files/Pods-SOKET/Pods-SOKET.debug.xcconfig"; sourceTree = "<group>"; };
 		BDD23798E1C7447CBE778EF2 /* Oxanium-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oxanium-ExtraLight.ttf"; path = "../src/assets/fonts/Oxanium-ExtraLight.ttf"; sourceTree = "<group>"; };
 		D2A161AC5BA7493DADE230BB /* Oxanium-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oxanium-Light.ttf"; path = "../src/assets/fonts/Oxanium-Light.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -67,7 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-SOKET-SOKETTests.a in Frameworks */,
+				F45628621FC36335B02CEA07 /* libPods-SOKET-SOKETTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,7 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-SOKET.a in Frameworks */,
+				9B50E322C6BC0311C30B3D7C /* libPods-SOKET.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,8 +117,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-SOKET.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-SOKET-SOKETTests.a */,
+				561E24F5686873AF922A38E0 /* libPods-SOKET.a */,
+				4B1651AC10A826BAAA265983 /* libPods-SOKET-SOKETTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -158,10 +158,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-SOKET.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-SOKET.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-SOKET-SOKETTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-SOKET-SOKETTests.release.xcconfig */,
+				837A3A0B0FFEDC5E2FE729E7 /* Pods-SOKET.debug.xcconfig */,
+				2C53457BD521D04EAA12DE35 /* Pods-SOKET.release.xcconfig */,
+				82E998BD9B4B1C2484749E6A /* Pods-SOKET-SOKETTests.debug.xcconfig */,
+				55F5E2283ED5E7CB45E55437 /* Pods-SOKET-SOKETTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -187,12 +187,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SOKETTests" */;
 			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				2F8959AA4C365B14146B96B8 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+				7B405FA80A49EDC2CF9B2943 /* [CP] Embed Pods Frameworks */,
+				83687C2AA301149C5609A635 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -208,13 +208,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "SOKET" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				72190EE4E053E7EA8E4A2C62 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				A72ADF626BF80A01406EE80F /* [CP] Embed Pods Frameworks */,
+				5FCF2B78C16DBCD0F01DB636 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -305,24 +305,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SOKET/Pods-SOKET-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SOKET/Pods-SOKET-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SOKET/Pods-SOKET-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
+		2F8959AA4C365B14146B96B8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -344,7 +327,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		5FCF2B78C16DBCD0F01DB636 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SOKET/Pods-SOKET-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SOKET/Pods-SOKET-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SOKET/Pods-SOKET-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		72190EE4E053E7EA8E4A2C62 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -366,7 +366,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
+		7B405FA80A49EDC2CF9B2943 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -383,24 +383,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SOKET-SOKETTests/Pods-SOKET-SOKETTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SOKET/Pods-SOKET-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SOKET/Pods-SOKET-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SOKET/Pods-SOKET-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
+		83687C2AA301149C5609A635 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -415,6 +398,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SOKET-SOKETTests/Pods-SOKET-SOKETTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A72ADF626BF80A01406EE80F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SOKET/Pods-SOKET-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SOKET/Pods-SOKET-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SOKET/Pods-SOKET-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -450,7 +450,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-SOKET-SOKETTests.debug.xcconfig */;
+			baseConfigurationReference = 82E998BD9B4B1C2484749E6A /* Pods-SOKET-SOKETTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -477,7 +477,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-SOKET-SOKETTests.release.xcconfig */;
+			baseConfigurationReference = 55F5E2283ED5E7CB45E55437 /* Pods-SOKET-SOKETTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -501,7 +501,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-SOKET.debug.xcconfig */;
+			baseConfigurationReference = 837A3A0B0FFEDC5E2FE729E7 /* Pods-SOKET.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -530,7 +530,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-SOKET.release.xcconfig */;
+			baseConfigurationReference = 2C53457BD521D04EAA12DE35 /* Pods-SOKET.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
