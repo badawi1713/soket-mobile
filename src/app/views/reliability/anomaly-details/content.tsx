@@ -2,12 +2,12 @@ import Chip from '@/components/Chip';
 import IconButton from '@/components/IconButton';
 import Skeleton from '@/components/Skeleton';
 import Typography from '@/components/Typography';
-import {COLORS} from '@/constants/colors';
+import { COLORS } from '@/constants/colors';
 import {
   type Item,
   handleGetAnomalyDetailsDataApi,
 } from '@/utils/api/anomaly-details';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -15,12 +15,12 @@ import {
   Share,
   View,
 } from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {scale} from 'react-native-size-matters';
-import {toast} from 'sonner-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { scale } from 'react-native-size-matters';
+import { toast } from 'sonner-native';
 
 type ScreenProps = {
-  title: 'new' | 'open' | 'closed' | 'awaiting' | 'in progress' | 'completed';
+  title: 'new' | 'closed' | 'awaiting' | 'in progress' | 'completed';
   unitId: string;
 };
 
@@ -31,7 +31,7 @@ const CaseItem = React.memo(
     onShare,
   }: {
     item: Item;
-    title: 'new' | 'open' | 'closed' | 'awaiting' | 'in progress' | 'completed';
+    title: 'new' | 'closed' | 'awaiting' | 'in progress' | 'completed';
     onShare: () => void;
   }) => {
     const variantStatus: {
@@ -125,7 +125,7 @@ const CaseItem = React.memo(
   },
 );
 
-const Content = ({title = 'open', unitId = ''}: ScreenProps) => {
+const Content = ({title = 'awaiting', unitId = ''}: ScreenProps) => {
   const {bottom} = useSafeAreaInsets();
 
   const [data, setData] = useState<Item[]>([]);

@@ -21,16 +21,14 @@ type ScreenProps = {
 
 const titleToIndex = {
   new: 0,
-  open: 1,
-  awaiting: 2,
-  'in progress': 3,
-  completed: 4,
-  closed: 5,
+  awaiting: 1,
+  'in progress': 2,
+  completed: 3,
+  closed: 4,
 };
 
 const routes = [
   {key: 'new', title: 'New'},
-  {key: 'open', title: 'Open'},
   {key: 'awaiting', title: 'Awaiting'},
   {key: 'in-progress', title: 'In Progress'},
   {key: 'completed', title: 'Completed'},
@@ -38,7 +36,7 @@ const routes = [
 ];
 
 const Screen = (props: ScreenProps) => {
-  const {type = 'open', unitId} = props.route.params;
+  const {type = 'new', unitId} = props.route.params;
 
   const layout = useWindowDimensions();
 
@@ -58,7 +56,6 @@ const Screen = (props: ScreenProps) => {
 
   const renderScene = SceneMap({
     new: () => <NewCase unitId={unitId} title="new" />,
-    open: () => <OpenCase unitId={unitId} title="open" />,
     awaiting: () => <AwaitingCase unitId={unitId} title="awaiting" />,
     'in-progress': () => <InProgressCase unitId={unitId} title="in progress" />,
     completed: () => <CompletedCase unitId={unitId} title="completed" />,

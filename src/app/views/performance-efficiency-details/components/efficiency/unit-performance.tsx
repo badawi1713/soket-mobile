@@ -1,11 +1,11 @@
 import Typography from '@/components/Typography';
-import { COLORS } from '@/constants/colors';
+import {COLORS} from '@/constants/colors';
 import useGetPerformanceEfficiencyData from '@/hooks/performance-efficiency-details/useGetPerformanceEfficiencyData';
-import type { DataItem } from '@/utils/api/performance-efficiency-details/performance-efficiency';
-import { compareValues } from '@/utils/helpers';
-import { useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { moderateScale } from 'react-native-size-matters';
+import type {DataItem} from '@/utils/api/performance-efficiency-details/performance-efficiency';
+import {compareValues} from '@/utils/helpers';
+import {useState} from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {moderateScale} from 'react-native-size-matters';
 
 type TableRow = DataItem;
 
@@ -56,7 +56,7 @@ const UnitPerformance = ({unitId = ''}) => {
 
   const renderItem = ({item, index}: {item: TableRow; index: number}) => (
     <View
-      key={item.rowNum || index}
+      key={index}
       style={[
         styles.row,
         // {

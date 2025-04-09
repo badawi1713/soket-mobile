@@ -56,7 +56,7 @@ const SteamTurbine = ({unitId = ''}) => {
 
   const renderItem = ({item, index}: {item: TableRow; index: number}) => (
     <View
-      key={item.rowNum || index}
+      key={index}
       style={[
         styles.row,
         {

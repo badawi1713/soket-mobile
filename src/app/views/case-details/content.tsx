@@ -17,7 +17,7 @@ import { scale } from 'react-native-size-matters';
 import { toast } from 'sonner-native';
 
 type ScreenProps = {
-  title: 'open' | 'closed' | 'awaiting' | 'in progress' | 'completed';
+  title: 'closed' | 'awaiting' | 'in progress' | 'completed';
   unitId: string;
 };
 
@@ -28,7 +28,7 @@ const CaseItem = React.memo(
     onShare,
   }: {
     item: Item;
-    title: 'open' | 'closed' | 'awaiting' | 'in progress' | 'completed';
+    title: 'closed' | 'awaiting' | 'in progress' | 'completed';
     onShare: () => void;
   }) => {
     const variantStatus: {
@@ -102,7 +102,7 @@ const CaseItem = React.memo(
   },
 );
 
-const Content = ({title = 'open', unitId = ''}: ScreenProps) => {
+const Content = ({title = 'awaiting', unitId = ''}: ScreenProps) => {
   const {bottom} = useSafeAreaInsets();
 
   const [data, setData] = useState<Item[]>([]);

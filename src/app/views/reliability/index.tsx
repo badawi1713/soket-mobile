@@ -201,24 +201,7 @@ const Content = () => {
                   }}
                 />
               </View>
-              <View className="flex-row flex-wrap justify-between gap-x-0">
-                <Card
-                  onPress={() =>
-                    navigation.navigate('anomaly-details', {
-                      title: 'Anomaly Detection',
-                      unitId: `${selectedUnitData?.unitId}`,
-                      subtitle: selectedUnitData?.title || 'Unknown Unit',
-                      type: 'open',
-                    })
-                  }
-                  title={`${anomalyData?.open || 0}`}
-                  variant="default"
-                  subtitle="OPEN"
-                  style={{
-                    alignItems: 'center',
-                    padding: 0,
-                  }}
-                />
+              <View className="flex-row flex-wrap justify-evenly gap-x-3">
                 <Card
                   onPress={() =>
                     navigation.navigate('anomaly-details', {
@@ -274,121 +257,6 @@ const Content = () => {
             </>
           )}
         </View>
-        {false && (
-          <View className="flex-col gap-4 p-4 rounded-lg bg-background-paper">
-            <Typography weight="semibold">Failure Prediction</Typography>
-            <View className="flex-row justify-between gap-x-4">
-              <Card
-                onPress={() =>
-                  navigation.navigate('anomaly-details', {
-                    title: 'Failure Prediction',
-                    unitId: `${selectedUnitData?.unitId}`,
-                    subtitle: selectedUnitData?.title || 'Unknown Unit',
-                    type: 'open',
-                  })
-                }
-                title="0"
-                variant="error"
-                subtitle="NEW"
-                style={{
-                  flex: 1,
-                  borderWidth: 1,
-                  borderColor: COLORS.border.light,
-                  alignItems: 'center',
-                }}
-              />
-              <Card
-                onPress={() =>
-                  navigation.navigate('anomaly-details', {
-                    title: 'Failure Prediction',
-                    unitId: `${selectedUnitData?.unitId}`,
-                    subtitle: selectedUnitData?.title || 'Unknown Unit',
-                    type: 'open',
-                  })
-                }
-                title="20"
-                variant="info"
-                subtitle="OPEN"
-                style={{
-                  flex: 1,
-                  borderWidth: 1,
-                  borderColor: COLORS.border.light,
-                  alignItems: 'center',
-                }}
-              />
-            </View>
-            <View className="flex-row flex-wrap justify-between gap-x-0">
-              <Card
-                onPress={() =>
-                  navigation.navigate('anomaly-details', {
-                    title: 'Failure Prediction',
-                    unitId: `${selectedUnitData?.unitId}`,
-                    subtitle: selectedUnitData?.title || 'Unknown Unit',
-                    type: 'awaiting',
-                  })
-                }
-                title="30"
-                variant="default"
-                subtitle="AWAITING"
-                style={{
-                  alignItems: 'center',
-                  padding: 0,
-                }}
-              />
-              <Card
-                onPress={() =>
-                  navigation.navigate('anomaly-details', {
-                    title: 'Failure Prediction',
-                    unitId: `${selectedUnitData?.unitId}`,
-                    subtitle: selectedUnitData?.title || 'Unknown Unit',
-                    type: 'in progress',
-                  })
-                }
-                title="50"
-                variant="default"
-                subtitle="IN PROGRESS"
-                style={{
-                  alignItems: 'center',
-                  padding: 0,
-                }}
-              />
-              <Card
-                onPress={() =>
-                  navigation.navigate('anomaly-details', {
-                    title: 'Failure Prediction',
-                    unitId: `${selectedUnitData?.unitId}`,
-                    subtitle: selectedUnitData?.title || 'Unknown Unit',
-                    type: 'completed',
-                  })
-                }
-                title="80"
-                variant="default"
-                subtitle="COMPLETED"
-                style={{
-                  alignItems: 'center',
-                  padding: 0,
-                }}
-              />
-              <Card
-                onPress={() =>
-                  navigation.navigate('anomaly-details', {
-                    title: 'Failure Prediction',
-                    unitId: `${selectedUnitData?.unitId}`,
-                    subtitle: selectedUnitData?.title || 'Unknown Unit',
-                    type: 'closed',
-                  })
-                }
-                title="120"
-                variant="default"
-                subtitle="CLOSED"
-                style={{
-                  alignItems: 'center',
-                  padding: 0,
-                }}
-              />
-            </View>
-          </View>
-        )}
       </ScrollView>
     </View>
   );

@@ -40,13 +40,13 @@ export type RootParamList = {
   'case-details': {
     title: string;
     subtitle: string;
-    type: 'open' | 'in progress' | 'closed' | 'awaiting' | 'completed';
+    type: 'in progress' | 'closed' | 'awaiting' | 'completed';
     unitId: string;
   };
   'anomaly-details': {
     title: string;
     subtitle: string;
-    type: 'new' | 'open' | 'in progress' | 'closed' | 'awaiting' | 'completed';
+    type: 'new' | 'in progress' | 'closed' | 'awaiting' | 'completed';
     unitId: string;
   };
   'reliability-details': {
