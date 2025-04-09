@@ -2,6 +2,68 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/badawi1713/soket-mobile/compare/v1.2.0...v1.3.0) (2025-04-09)
+
+
+### 💡 Performance Improvements
+
+* **bottom-tab-bar:** improve animation handler ([22f9082](https://github.com/badawi1713/soket-mobile/commit/22f90828b0df430d79bad136acb67b2f59bfc355))
+* **case-management:** improve case management performance with flatlist and infinite scroll handler ([9ad959a](https://github.com/badawi1713/soket-mobile/commit/9ad959a33dc4c077ea7168ebfe2f31a59b66ad7d))
+
+
+### 🐛 Bug Fixes
+
+* **android:** change windowSoftInputMode to adjustPan ([a0df2ff](https://github.com/badawi1713/soket-mobile/commit/a0df2ff34ecd300695cffe2623a10a2bedaae6a3))
+* **app-bar:** change height ([96c050c](https://github.com/badawi1713/soket-mobile/commit/96c050ca7b12e56277a1155b800c0446750ecbc7))
+* **autocomplete:** change separator flashlist style ([60ff19c](https://github.com/badawi1713/soket-mobile/commit/60ff19cfe0132637d90b38c9fa2f7af939bc5fa1))
+* **autocomplete:** set initial value and remove clear icon ([eef5d1d](https://github.com/badawi1713/soket-mobile/commit/eef5d1d23ef9ebf8bfc0f44b031b17c4889feb79))
+* **bar-chart:** show value label, add min-max ([6478bbd](https://github.com/badawi1713/soket-mobile/commit/6478bbd3ff2df5659d7df840256533b584882b0c))
+* **boiler-auto-tuning:** change sopt and copt status ([ffaaab7](https://github.com/badawi1713/soket-mobile/commit/ffaaab7110c75ced874b379fd3d28842c2814824))
+* **card:** add on press and change card to touchableopacity component ([960e711](https://github.com/badawi1713/soket-mobile/commit/960e71122337cbf1a2d80daefb204b975359f027))
+* change card title in dashboard and padding for bar chart in eff detail screen ([7dc96b7](https://github.com/badawi1713/soket-mobile/commit/7dc96b70b561ebfaf9c23d8297e3b0557df5edee))
+* change fusion times chart color schema and add plant name as title in unit details screen ([c7ae21a](https://github.com/badawi1713/soket-mobile/commit/c7ae21a908648dd0d800c5d366e257fdbad89144))
+* change in app browser color scheme and fixing bar chart padding in efficiency detail ([daf699c](https://github.com/badawi1713/soket-mobile/commit/daf699c2a6366240a70d0fbdae5cafc1d04140a7))
+* **chip:** change warning color, padding and rounded size ([5e4b5bb](https://github.com/badawi1713/soket-mobile/commit/5e4b5bb7395219601776f90fa4f684f2e3668a36))
+* fixing app bar height for unit and case details ([ca3b9aa](https://github.com/badawi1713/soket-mobile/commit/ca3b9aaab99f4d9c23798e55abffe67a7ec41c28))
+* fixing padding bottom layout in case and unit detail screens ([05407c4](https://github.com/badawi1713/soket-mobile/commit/05407c417cc04db4ef76b211e355f928dda1779f))
+* improve fetch data after unit was selected ([9559808](https://github.com/badawi1713/soket-mobile/commit/9559808b166cd32903a48f36a07ce8d21f085ad8))
+* **ios:** fixing import font family ([ac6d4d5](https://github.com/badawi1713/soket-mobile/commit/ac6d4d59e1a7646d9f673c2c971b1ee6fe47374f))
+* **others:** change app url and name ([58fd897](https://github.com/badawi1713/soket-mobile/commit/58fd89772af841c4bc5ff904ffaa41e593931ca0))
+* **react-native:** update react native patch version to avoid bug from xcode 16.3 ([45ec5db](https://github.com/badawi1713/soket-mobile/commit/45ec5db91a252ef708e53fdc7f2f96aacef6c865))
+* **reliability:** hide failure prediction case management ([d0ee82b](https://github.com/badawi1713/soket-mobile/commit/d0ee82bf1ac4b949dfe853138331356ab21c60d9))
+* **reliability:** remove open status in unit detail and reliability screen ([f6cc112](https://github.com/badawi1713/soket-mobile/commit/f6cc1123b8ff77369fdb1fbc3cd1069282521690))
+
+
+### 🚚 Chores
+
+* rename performance-efficiency-details and move the files inside of it ([6d030ee](https://github.com/badawi1713/soket-mobile/commit/6d030eedf9a7b553e7fb9be93866ffa4d21ba9d0))
+
+
+### ✨ Features
+
+* add loading indicator when refresh the screen ([0803f21](https://github.com/badawi1713/soket-mobile/commit/0803f21e837e2714fb19e718b51a62533dba46b7))
+* add share functionality to case details item ([a483713](https://github.com/badawi1713/soket-mobile/commit/a483713043c3eae07e08ce487bd665c52dda400d))
+* **anomaly-detection:** add anomaly detection list service ([8a3619b](https://github.com/badawi1713/soket-mobile/commit/8a3619b8422df88fafccab146b2369ccef711217))
+* **bad-actor:** add and integrate reliability bad actor chart service ([1c29cc3](https://github.com/badawi1713/soket-mobile/commit/1c29cc32b119bf630ce613ad4513f712d378c432))
+* **bar-chart:** add bar chart component ([62837f7](https://github.com/badawi1713/soket-mobile/commit/62837f7c158c6cf28b6c8cdd578aad5dfd92306a))
+* **boiler-auto-tuning:** add and integrate boiler status and boiler efficiency chart ([7eeb50d](https://github.com/badawi1713/soket-mobile/commit/7eeb50dcb2fb954d8167647b3825af0c38f6064f))
+* **case-details:** add and setup case details with react native tab view component ([cddee23](https://github.com/badawi1713/soket-mobile/commit/cddee23bb3f6b9976f362745558c2ac610490903))
+* **case-management:** add and integrate with case management service ([21783ed](https://github.com/badawi1713/soket-mobile/commit/21783ed2bfc3faf61976c86e1032277f8d36a1c6))
+* **dashboard:** add and integrate dashboard content services ([514fabc](https://github.com/badawi1713/soket-mobile/commit/514fabc77b71e519fd306a21bd0ffde60f98141a))
+* **dashboard:** add search plant functionality ([4931183](https://github.com/badawi1713/soket-mobile/commit/4931183064618017c24037d2df6498461fa4a20f))
+* **efficiency-details:** add and setup efficiency details screen ([9c86e89](https://github.com/badawi1713/soket-mobile/commit/9c86e895ee28fd82e68371316b672cebfc136057))
+* **efficiency:** add and integrate efficiency kpi service ([6ec86c1](https://github.com/badawi1713/soket-mobile/commit/6ec86c19b52181b05fcd385027b86e300300d6d8))
+* **others:** add and integrate other apps service ([232d674](https://github.com/badawi1713/soket-mobile/commit/232d674df79c9fb162bd83d5893791ea58e1f417))
+* **others:** add in app browser functionality ([ecfc6f1](https://github.com/badawi1713/soket-mobile/commit/ecfc6f125ee9d87a866ef9116eee872a8deab6e2))
+* **performance-efficiency-details:** add and integrate energy loss analysis and aux power services ([8c3e4ee](https://github.com/badawi1713/soket-mobile/commit/8c3e4eece5691efc45ceb2942910327ddbdee745))
+* **performance-efficiency-details:** add and integrate performance efficiency services ([add01b3](https://github.com/badawi1713/soket-mobile/commit/add01b3c1f670883933f422b57f2cfb255d35ae9))
+* **performance-efficiency-details:** add and integrate performance summary services ([590a178](https://github.com/badawi1713/soket-mobile/commit/590a178359827bd6187acef4ae0014b95c812eb6))
+* **performance-efficiency-details:** add some content in performance and efficiency details ([672bca4](https://github.com/badawi1713/soket-mobile/commit/672bca4f598d63f058485294de76a510a5f94ed9))
+* **reliability-details:** add and setup reliability details screen ([4089bb9](https://github.com/badawi1713/soket-mobile/commit/4089bb9af62f7f5457d7cc7330fd7acde7eb602d))
+* **reliability:** add and integrate asset health and anomaly detection services ([e6f204b](https://github.com/badawi1713/soket-mobile/commit/e6f204b214eb3f50f423ed79746e7ba6fcba0e5c))
+* **skeleton:** add skeleton loader ([cab15d7](https://github.com/badawi1713/soket-mobile/commit/cab15d770a4489c59dd33757eb25032d7eeb4738))
+* **unit-details:** integrate unit details service ([8d351f6](https://github.com/badawi1713/soket-mobile/commit/8d351f6e22233e54d047cfeceee0fa4a17e00447))
+
 ## [1.2.0](https://github.com/badawi1713/soket-mobile/compare/v1.1.0...v1.2.0) (2025-01-06)
 
 
