@@ -2,7 +2,7 @@ import {
   DataItem,
   getPerformanceEfficiencyDataApi,
 } from '@/utils/api/performance-efficiency-details/performance-efficiency';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
 const useGetPerformanceEfficiencyData = (
   unitId: string,
@@ -13,7 +13,12 @@ const useGetPerformanceEfficiencyData = (
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!unitId) return;
+    if (!unitId) {
+      setData([]);
+      setError('Unit ID is undefined');
+      setLoading(false);
+      return;
+    }
 
     const fetch = async () => {
       setLoading(true);

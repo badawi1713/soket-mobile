@@ -2,7 +2,7 @@ import {
   DataItem,
   getEnergyLossAnalysisDataApi,
 } from '@/utils/api/performance-efficiency-details/energy-loss-analysis';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
 const useGetEnergyLossAnalysisData = (unitId: string) => {
   const [data, setData] = useState<DataItem[] | null>(null);
@@ -10,7 +10,12 @@ const useGetEnergyLossAnalysisData = (unitId: string) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!unitId) return;
+    if (!unitId) {
+      setData([]);
+      setError('Unit ID is undefined');
+      setLoading(false);
+      return;
+    }
 
     const fetch = async () => {
       setLoading(true);

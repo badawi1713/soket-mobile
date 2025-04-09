@@ -10,7 +10,12 @@ const useGetPerformanceSummaryData = (unitId: string, equipmentId: number) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!unitId) return;
+    if (!unitId) {
+      setData([]);
+      setError('Unit ID is undefined');
+      setLoading(false);
+      return;
+    }
 
     const fetch = async () => {
       setLoading(true);

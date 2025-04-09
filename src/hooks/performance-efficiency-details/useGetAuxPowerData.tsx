@@ -1,4 +1,7 @@
-import { DataItem, getAuxPowerDataApi } from '@/utils/api/performance-efficiency-details/aux-power';
+import {
+  DataItem,
+  getAuxPowerDataApi,
+} from '@/utils/api/performance-efficiency-details/aux-power';
 import { useEffect, useState } from 'react';
 
 const useGetAuxPowerData = (unitId: string) => {
@@ -7,7 +10,12 @@ const useGetAuxPowerData = (unitId: string) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!unitId) return;
+    if (!unitId) {
+      setData([]);
+      setError('Unit ID is undefined');
+      setLoading(false);
+      return;
+    }
 
     const fetch = async () => {
       setLoading(true);
