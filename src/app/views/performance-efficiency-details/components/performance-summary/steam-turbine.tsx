@@ -1,6 +1,6 @@
 import Typography from '@/components/Typography';
 import {COLORS} from '@/constants/colors';
-import useGetPerformanceSummaryData from '@/hooks/perfromance-efficiency-details/performance-summary/useGetPerformanceSummaryData';
+import useGetPerformanceSummaryData from '@/hooks/performance-efficiency-details/useGetPerformanceSummaryData';
 import type {DataItem} from '@/utils/api/performance-efficiency-details/performance-summary';
 import {compareValues} from '@/utils/helpers';
 import {useState} from 'react';
