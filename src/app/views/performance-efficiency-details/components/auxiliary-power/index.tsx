@@ -7,7 +7,7 @@ import ParetoAuxiliaryPower from './pareto-auxiliary-power';
 
 const AuxiliaryPower = ({unitId = ''}) => {
   const {bottom} = useSafeAreaInsets();
-  const [expanded, setExpanded] = useState<string[]>([]);
+  const [expanded, setExpanded] = useState<string[]>(['aux-power-gap-analysis']);
 
   const handleExpanded = (id: string) => {
     setExpanded(prevState =>
@@ -24,7 +24,6 @@ const AuxiliaryPower = ({unitId = ''}) => {
       <Accordion
         onHeaderPress={() => handleExpanded('aux-power-gap-analysis')}
         expanded={isExpanded('aux-power-gap-analysis')}
-        subtitle="kW"
         title="Auxiliary Power Gap Analysis">
         <AuxiliaryPowerGapAnalysis unitId={unitId} />
       </Accordion>

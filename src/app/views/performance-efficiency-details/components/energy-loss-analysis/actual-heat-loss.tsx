@@ -1,7 +1,7 @@
 import Typography from '@/components/Typography';
 import { COLORS } from '@/constants/colors';
-import useGetAuxPowerData from '@/hooks/performance-efficiency-details/useGetAuxPowerData';
-import type { DataItem } from '@/utils/api/performance-efficiency-details/aux-power';
+import useGetEnergyLossAnalysisData from '@/hooks/performance-efficiency-details/useGetEnergyLossData';
+import type { DataItem } from '@/utils/api/performance-efficiency-details/energy-loss-analysis';
 import { compareValues } from '@/utils/helpers';
 import { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -15,14 +15,14 @@ type SortConfig = {
 };
 
 const columns: {key: keyof DataItem; label: string}[] = [
-  {key: 'equipment', label: 'Equipment'},
-  {key: 'reff', label: 'Reference'},
-  {key: 'measure', label: 'Measure'},
-  {key: 'gap', label: 'Gap'},
+  {key: 'indicatorName', label: 'Parameter'},
+  {key: 'heatBalance', label: 'Heat Balance'},
+  {key: 'ref', label: 'Reference'},
+  {key: 'losses', label: 'Losses'},
 ];
 
-const AuxiliaryPowerGapAnalysis = ({unitId = ''}) => {
-  const {data, loading, error} = useGetAuxPowerData(unitId);
+const ActualHeatLoss = ({unitId = ''}) => {
+  const {data, loading, error} = useGetEnergyLossAnalysisData(unitId);
 
   const [sortConfig, setSortConfig] = useState<SortConfig>({
     key: null,
@@ -64,16 +64,16 @@ const AuxiliaryPowerGapAnalysis = ({unitId = ''}) => {
         },
       ]}>
       <Typography variant="smallText" weight="bold" style={styles.cell}>
-        {item.equipment || '-'}
+        {item.indicatorName || '-'}
       </Typography>
       <Typography variant="smallText" style={styles.cell}>
-        {item.reff || 'N/A'}
+        {item.heatBalance || 'N/A'}
       </Typography>
       <Typography variant="smallText" style={styles.cell}>
-        {item.measure || 'N/A'}
+        {item.ref || 'N/A'}
       </Typography>
       <Typography variant="smallText" style={styles.cell}>
-        {item.gap || 'N/A'}
+        {item.losses || 'N/A'}
       </Typography>
     </View>
   );
@@ -123,7 +123,7 @@ const AuxiliaryPowerGapAnalysis = ({unitId = ''}) => {
   );
 };
 
-export default AuxiliaryPowerGapAnalysis;
+export default ActualHeatLoss;
 
 const styles = StyleSheet.create({
   container: {
