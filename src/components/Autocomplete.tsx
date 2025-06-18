@@ -34,7 +34,7 @@ const Autocomplete: FC<Props> = ({
             setSelectedItem(`${response?.content[0].unitId}`);
           }
         } catch (err) {
-          console.error('Failed to fetch:', err);
+          console.log('Failed to fetch:', err);
         }
       };
 

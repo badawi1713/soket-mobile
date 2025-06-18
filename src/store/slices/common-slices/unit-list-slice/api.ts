@@ -26,8 +26,8 @@ export const handleGetUnitListApi = async ({
 }> => {
   const url =
     module === 'bat'
-      ? '/service/mobile/bat/units'
-      : '/service/mobile/unit/list';
+      ? '/service/identity/mobile/bat/units'
+      : '/service/identity/mobile/unit/list';
 
   try {
     const response = await axios.get<ApiResponse>(url, {

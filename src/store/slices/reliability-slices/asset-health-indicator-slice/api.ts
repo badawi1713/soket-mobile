@@ -19,6 +19,7 @@ export interface ApiResponse {
   object: {
     lastupdate: string;
     chart?: Item[];
+    value: number
   };
   message: string;
   total: number;
@@ -27,7 +28,7 @@ export interface ApiResponse {
 }
 
 export const handleGetAssetHealthIndicatorApi = async (): Promise<{
-  content: {lastupdate: string; chart?: Item[]};
+  content: {lastupdate: string; chart?: Item[], value: number};
 }> => {
   const url = '/service/reliability/ahi-hierarchy/tree?filter=';
 
@@ -36,7 +37,7 @@ export const handleGetAssetHealthIndicatorApi = async (): Promise<{
       params: {},
     });
 
-    const data = response?.data?.object || {lastupdate: '', chart: []};
+    const data = response?.data?.object || {lastupdate: '', chart: [], value: 0};
 
     return {content: data};
   } catch (error: any) {

@@ -1,15 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { handleGetAssetHealthIndicatorData } from './actions';
-import { Item } from './api';
+import {createSlice} from '@reduxjs/toolkit';
+import {handleGetAssetHealthIndicatorData} from './actions';
+import {Item} from './api';
 
 interface State {
-  data: {lastupdate: string; chart?: Item[]};
+  data: {lastupdate: string; chart?: Item[]; value: number};
   loading: boolean;
   error: string | null;
 }
 
 const initialState: State = {
-  data: {lastupdate: '', chart: []},
+  data: {lastupdate: '', chart: [], value: 0},
   loading: true,
   error: null,
 };
@@ -19,7 +19,7 @@ const assetHealthIndicatorSlice = createSlice({
   initialState,
   reducers: {
     resetAssetHealthIndicator(state) {
-      state.data = {lastupdate: '', chart: []};
+      state.data = {lastupdate: '', chart: [], value: 0};
     },
   },
   extraReducers: builder => {
@@ -29,7 +29,11 @@ const assetHealthIndicatorSlice = createSlice({
         state.error = null;
       })
       .addCase(handleGetAssetHealthIndicatorData.fulfilled, (state, action) => {
-        state.data = action.payload.content;
+        state.data = action.payload.content || {
+          lastupdate: '',
+          chart: [],
+          value: 0,
+        };
         state.loading = false;
       })
       .addCase(handleGetAssetHealthIndicatorData.rejected, (state, action) => {

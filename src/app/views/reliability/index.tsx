@@ -38,11 +38,11 @@ const Content = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const fetchInitialData = useCallback(async () => {
-    if (selectedUnit) {
+    if (selectedUnit && unitList?.length > 0) {
       dispatch(handleGetAnomalyStatisticData({unitId: selectedUnit}));
-      dispatch(handleGetAssetHealthIndicatorData());
+      dispatch(handleGetAssetHealthIndicatorData({unitId: `${selectedUnit}`}));
     }
-  }, [selectedUnit, dispatch]);
+  }, [selectedUnit, unitList, dispatch]);
 
   useEffect(() => {
     fetchInitialData();
@@ -66,18 +66,8 @@ const Content = () => {
   }, [selectedUnit, unitList]);
 
   const assetHealthIndicatorValue = useMemo(() => {
-    const filterData = assetHealthIndicatorData?.chart
-      ? assetHealthIndicatorData?.chart?.filter(
-          item => item?.id === selectedUnitData?.objectId?.substring(0, 2),
-        )[0]
-      : null;
-    const result = filterData
-      ? filterData?.children?.find(
-          item => item?.id === selectedUnitData?.objectId,
-        )?.value || 0
-      : 0;
-    return +result;
-  }, [assetHealthIndicatorData, selectedUnitData]);
+    return assetHealthIndicatorData?.value || 0;
+  }, [assetHealthIndicatorData]);
 
   return (
     <View className="flex-1 bg-background-main">

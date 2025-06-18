@@ -17,11 +17,11 @@ const MenuItems = () => {
   const [loading, setLoading] = useState(false);
 
   const menuItems: MenuItem[] = [
-    {
-      label: 'Profile',
-      icon: 'person-circle',
-      onPress: () => false,
-    },
+    // {
+    //   label: 'Profile',
+    //   icon: 'person-circle',
+    //   onPress: () => false,
+    // },
     {
       label: 'Sign Out',
       icon: 'log-out-outline',

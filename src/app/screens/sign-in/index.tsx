@@ -65,14 +65,13 @@ const Screen = () => {
 				},
 			);
 		} catch (error) {
-			console.error('Error during login:', error);
-			// Optionally show a toast or alert to the user
+			console.log('Error during login:', error);
 		}
 	};
 
 	return (
 		<KeyboardAvoidingView className="flex-1" behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-			<ScrollView className="flex-1 bg-white relative">
+			<ScrollView className="relative flex-1 bg-white">
 				<Image
 					style={{ height: verticalScale(290) }}
 					source={images.imgLogin}
@@ -83,7 +82,7 @@ const Screen = () => {
 					<Logo width={100} height={80} />
 				</View>
 				{/* Username Field */}
-				<View className="px-4 justify-end flex-1">
+				<View className="justify-end flex-1 px-4">
 					<View className="mb-5">
 						<Typography variant="header5">
 							Welcome to

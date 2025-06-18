@@ -1,15 +1,16 @@
-import type {AuthNavigationProp} from '@/app/routes';
+import type { AuthNavigationProp } from '@/app/routes';
 import Card from '@/components/Card';
 import GaugeChart from '@/components/GaugeChart';
 import Skeleton from '@/components/Skeleton';
 import SwitchButton from '@/components/SwitchButton';
 import Typography from '@/components/Typography';
-import {COLORS} from '@/constants/colors';
-import {useAppDispatch} from '@/hooks/useAppDispatch';
-import {useAppSelector} from '@/hooks/useAppSelector';
-import {handleGetAnomalyDetailData} from '@/store/slices/reliability-slices/anomaly-detail-slice/actions';
-import {useNavigation} from '@react-navigation/native';
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import { COLORS } from '@/constants/colors';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppSelector } from '@/hooks/useAppSelector';
+import { handleGetAnomalyDetailData } from '@/store/slices/reliability-slices/anomaly-detail-slice/actions';
+import { handleGetAssetHealthIndicatorData } from '@/store/slices/reliability-slices/asset-health-indicator-slice/actions';
+import { useNavigation } from '@react-navigation/native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   RefreshControl,
   ScrollView,
@@ -17,8 +18,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {scale} from 'react-native-size-matters';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { scale } from 'react-native-size-matters';
 
 type ContentProps = {
   plantName: string;
@@ -30,11 +31,16 @@ const Content = ({plantName, id}: ContentProps) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<AuthNavigationProp>();
 
+  const {data: unitList} = useAppSelector(state => state.unitListReducer);
+  const {loading: loadingAhi, data: assetHealthIndicatorData} = useAppSelector(
+    state => state.assetHealthIndicatorReducer,
+  );
   const {data: anomalyDetailData, loading: loadingAnomalyDetailData} =
     useAppSelector(state => state.anomalyDetailReducer);
 
   const {bottom} = useSafeAreaInsets();
 
+  const selectedUnit = id;
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [tabValue, setTabValue] = useState<string>('Daily');
 
@@ -51,7 +57,10 @@ const Content = ({plantName, id}: ContentProps) => {
         }),
       );
     }
-  }, [id, dispatch, tabValue]);
+    if (selectedUnit && unitList?.length > 0) {
+      dispatch(handleGetAssetHealthIndicatorData({unitId: `${selectedUnit}`}));
+    }
+  }, [id, dispatch, tabValue, selectedUnit, unitList]);
 
   useEffect(() => {
     fetchInitialData();
@@ -66,7 +75,9 @@ const Content = ({plantName, id}: ContentProps) => {
     }, 1500);
   }, [fetchInitialData]);
 
-  const assetHealthIndicatorValue = 0;
+  const assetHealthIndicatorValue = useMemo(() => {
+    return assetHealthIndicatorData?.value || 0;
+  }, [assetHealthIndicatorData]);
 
   const STATUS_LIST_DATA = useMemo(
     () => [
@@ -237,7 +248,7 @@ const Content = ({plantName, id}: ContentProps) => {
             style={[styles.chartContainer]}>
             <GaugeChart
               title="Asset Health Indicator"
-              loading={loadingAnomalyDetailData || refreshing}
+              loading={loadingAhi || refreshing}
               value={
                 typeof assetHealthIndicatorValue === 'string'
                   ? +assetHealthIndicatorValue || 0

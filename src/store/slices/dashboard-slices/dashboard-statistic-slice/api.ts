@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { toast } from 'sonner-native';
+import {toast} from 'sonner-native';
 
 export interface Item {
   gross: string;
@@ -18,7 +18,7 @@ interface ApiResponse {
 export const handleGetDashboardStatisticApi = async (): Promise<{
   content: Item;
 }> => {
-  const url = '/service/mobile/dashboard/home';
+  const url = '/service/identity/mobile/dashboard/home';
 
   try {
     const response = await axios.get<ApiResponse>(url, {
